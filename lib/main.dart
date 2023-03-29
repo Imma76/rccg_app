@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
         designSize: const Size(401,812),
         builder: (context,widget) {
           return MaterialApp(
+            debugShowCheckedModeBanner: false,
             title: 'Rccg',
             routes: routes,
             initialRoute: Welcome.route,

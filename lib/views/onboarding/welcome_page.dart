@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../themes/app_theme.dart';
+import 'onboarding1.dart';
 
 
 class Welcome extends StatelessWidget {
@@ -30,7 +31,9 @@ class Welcome extends StatelessWidget {
              Center(child: Text('Hi there!  Welcome to your personalized \n RCCG App, it”s created just to make your \n Rccg membership delightful.',textAlign:TextAlign.center,style: GoogleFonts.inter(fontWeight: FontWeight.w400,fontSize: 14.sp,color: AppTheme.white2),)),
              Gap(38.h),
              ElevatedButton(
-               onPressed: (){},
+               onPressed: (){
+                 Navigator.pushNamed(context, Onboarding.route);
+               },
                child:Text('Get Started'),
                style: ElevatedButton.styleFrom(backgroundColor: AppTheme.primaryColor,
                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
