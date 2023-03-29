@@ -6,6 +6,7 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:rccg_app/themes/app_theme.dart';
+import 'package:rccg_app/views/authentication/verify_done.dart';
 
 class VerifyEmail extends ConsumerWidget {
   static const route = 'forgot_password';
@@ -105,7 +106,9 @@ class VerifyEmail extends ConsumerWidget {
             Gap(46.h),
             Center(
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, VerificationComplete.route);
+                },
                 child: Text(
                   'Verify',
                   style: GoogleFonts.inter(
