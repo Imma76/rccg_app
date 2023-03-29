@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:rccg_app/routes.dart';
+import 'package:rccg_app/views/onboarding/welcome_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +19,9 @@ class MyApp extends StatelessWidget {
         designSize: const Size(401,812),
         builder: (context,widget) {
           return MaterialApp(
-            title: 'Flutter Demo',
+            title: 'Rccg',
+            routes: routes,
+            initialRoute: Welcome.route,
             theme: ThemeData(
               // This is the theme of your application.
               //

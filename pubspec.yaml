@@ -54,6 +54,7 @@ dependencies:
   path_provider:
   random_string:
   flutter_svg:
+  flutter_svg_provider:
   rflutter_alert:
   share:
 
