@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rccg_app/views/authentication/auth.dart';
 
 import '../../themes/app_theme.dart';
 
@@ -68,7 +69,7 @@ class _OnboardingState extends State<Onboarding> {
               Column(
                 children: [
                   Gap(49.h),
-                 index == 0? Center(child: Text('Experience all \n RCCG‘s  Programs',textAlign: TextAlign.center,style:GoogleFonts.inter(fontSize: 28.sp,fontWeight: FontWeight.w700,))):index == 1?Center(child: Text('Connect, Learn And Grow',textAlign: TextAlign.center,style:GoogleFonts.inter(fontSize: 28.sp,fontWeight: FontWeight.w700,))): Center(child: Text('Explore more Features',textAlign: TextAlign.center,style:GoogleFonts.inter(fontSize: 28.sp,fontWeight: FontWeight.w700,))),
+                 index == 0? Center(child: Text('Experience all \n RCCG‘s  Programs',textAlign: TextAlign.center,style:GoogleFonts.inter(fontSize: 28.sp,fontWeight: FontWeight.w700,))):index == 1?Center(child: Text('Connect, Learn And Grow',textAlign: TextAlign.center,style:GoogleFonts.inter(fontSize: 28.sp,fontWeight: FontWeight.w700,))): Center(child: Text('Explore more \n Features',textAlign: TextAlign.center,style:GoogleFonts.inter(fontSize: 28.sp,fontWeight: FontWeight.w700,))),
 
 
                   Gap(18.h),
@@ -78,8 +79,11 @@ class _OnboardingState extends State<Onboarding> {
                   ElevatedButton(
                     onPressed: (){
                       controller.nextPage(duration: Duration(milliseconds: 10), curve: Curves.bounceIn);
+                      if(index ==2){
+                        Navigator.pushNamed(context, Authentication.route);
+                      }
                     },
-                    child:Text('Next'),
+                    child:Text('Next',style: GoogleFonts.inter(fontWeight: FontWeight.w600,fontSize: 16.sp),),
                     style: ElevatedButton.styleFrom(backgroundColor: AppTheme.primaryColor,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
                         minimumSize: Size(329.w, 52.h)),),
