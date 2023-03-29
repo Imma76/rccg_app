@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:rccg_app/views/authentication/verify_email.dart';
 
 import '../../themes/app_theme.dart';
+import '../../widgets/text_fields.dart';
 
 class Authentication extends ConsumerStatefulWidget {
   static const route = 'auth';
@@ -163,26 +164,7 @@ class RegisterFields extends ConsumerWidget {
               width: 330.36.w,
               height: 50.h,
               child: Center(
-                child: TextField(
-                  cursorColor: AppTheme.primaryColor,
-                  decoration: InputDecoration(
-                      contentPadding:
-                          EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-                      hintText: 'Email Address',
-                      hintStyle: GoogleFonts.inter(
-                          color: AppTheme.white4,
-                          fontSize: 13.sp,
-                          fontWeight: FontWeight.w400),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: AppTheme.white2),
-                          borderRadius: BorderRadius.circular(28)),
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide(color: AppTheme.white2),
-                          borderRadius: BorderRadius.circular(28)),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: AppTheme.white2),
-                          borderRadius: BorderRadius.circular(28))),
-                ),
+                child: AppTextField(hintText: 'Email address',),
               ),
             ),
           ),
@@ -207,26 +189,7 @@ class RegisterFields extends ConsumerWidget {
               width: 330.36.w,
               height: 50.h,
               child: Center(
-                child: TextField(
-                  cursorColor: AppTheme.primaryColor,
-                  decoration: InputDecoration(
-                      contentPadding:
-                          EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-                      hintText: 'Password',
-                      hintStyle: GoogleFonts.inter(
-                          color: AppTheme.white4,
-                          fontSize: 13.sp,
-                          fontWeight: FontWeight.w400),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: AppTheme.white2),
-                          borderRadius: BorderRadius.circular(28)),
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide(color: AppTheme.white2),
-                          borderRadius: BorderRadius.circular(28)),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: AppTheme.white2),
-                          borderRadius: BorderRadius.circular(28))),
-                ),
+                child:AppTextField(hintText: 'Password',)
               ),
             ),
           ),
@@ -251,26 +214,7 @@ class RegisterFields extends ConsumerWidget {
               width: 330.36.w,
               height: 50.h,
               child: Center(
-                child: TextField(
-                  cursorColor: AppTheme.primaryColor,
-                  decoration: InputDecoration(
-                      contentPadding:
-                          EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-                      hintText: 'Confirm Password',
-                      hintStyle: GoogleFonts.inter(
-                          color: AppTheme.white4,
-                          fontSize: 13.sp,
-                          fontWeight: FontWeight.w400),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: AppTheme.white2),
-                          borderRadius: BorderRadius.circular(28)),
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide(color: AppTheme.white2),
-                          borderRadius: BorderRadius.circular(28)),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: AppTheme.white2),
-                          borderRadius: BorderRadius.circular(28))),
-                ),
+                child: AppTextField(hintText: 'Confirm Password',)
               ),
             ),
           ),
@@ -382,6 +326,7 @@ class RegisterFields extends ConsumerWidget {
   }
 }
 
+
 class LoginFields extends ConsumerWidget {
   const LoginFields({
     Key? key,
@@ -411,26 +356,7 @@ class LoginFields extends ConsumerWidget {
             width: 330.36.w,
             height: 50.h,
             child: Center(
-              child: TextField(
-                cursorColor: AppTheme.primaryColor,
-                decoration: InputDecoration(
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-                    hintText: 'Email Address',
-                    hintStyle: GoogleFonts.inter(
-                        color: AppTheme.white4,
-                        fontSize: 13.sp,
-                        fontWeight: FontWeight.w400),
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: AppTheme.white2),
-                        borderRadius: BorderRadius.circular(28)),
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(color: AppTheme.white2),
-                        borderRadius: BorderRadius.circular(28)),
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: AppTheme.white2),
-                        borderRadius: BorderRadius.circular(28))),
-              ),
+              child: AppTextField(hintText: 'Email Address',)
             ),
           ),
         ),
@@ -455,26 +381,7 @@ class LoginFields extends ConsumerWidget {
             width: 330.36.w,
             height: 50.h,
             child: Center(
-              child: TextField(
-                cursorColor: AppTheme.primaryColor,
-                decoration: InputDecoration(
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-                    hintText: 'Password',
-                    hintStyle: GoogleFonts.inter(
-                        color: AppTheme.white4,
-                        fontSize: 13.sp,
-                        fontWeight: FontWeight.w400),
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: AppTheme.white2),
-                        borderRadius: BorderRadius.circular(28)),
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(color: AppTheme.white2),
-                        borderRadius: BorderRadius.circular(28)),
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: AppTheme.white2),
-                        borderRadius: BorderRadius.circular(28))),
-              ),
+              child: AppTextField(hintText: 'Password',)
             ),
           ),
         ),

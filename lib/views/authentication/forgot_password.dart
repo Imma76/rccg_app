@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../themes/app_theme.dart';
+import '../../widgets/text_fields.dart';
 
 class ForgotPassword extends ConsumerWidget {
   static const route = 'forgot_password';
@@ -37,7 +38,7 @@ class ForgotPassword extends ConsumerWidget {
           Gap(20.h),
           Center(
             child: Text(
-              'Forget Password',
+              'Forgot Password',
               textAlign: TextAlign.left,
               style: GoogleFonts.poppins(
                   fontSize: 20.sp,
@@ -72,27 +73,7 @@ class ForgotPassword extends ConsumerWidget {
               width: 330.36.w,
               height: 50.h,
               child: Center(
-                child: TextField(
-                  cursorColor: AppTheme.primaryColor,
-                  decoration: InputDecoration(
-                      contentPadding:
-                      EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-
-                      hintText: 'Email Address',
-                      hintStyle: GoogleFonts.inter(
-                          color: AppTheme.white4,
-                          fontSize: 13.sp,
-                          fontWeight: FontWeight.w400),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: AppTheme.white2),
-                          borderRadius: BorderRadius.circular(28)),
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide(color: AppTheme.white2),
-                          borderRadius: BorderRadius.circular(28)),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: AppTheme.white2),
-                          borderRadius: BorderRadius.circular(28))),
-                ),
+                child:AppTextField(hintText: 'Email Address',)
               ),
             ),
           ),
