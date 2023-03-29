@@ -9,7 +9,7 @@ import 'package:rccg_app/themes/app_theme.dart';
 import 'package:rccg_app/views/authentication/verify_done.dart';
 
 class VerifyEmail extends ConsumerWidget {
-  static const route = 'forgot_password';
+  static const route = 'verify email';
   const VerifyEmail({
     Key? key,
   }) : super(key: key);

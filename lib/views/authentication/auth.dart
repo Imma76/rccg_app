@@ -164,6 +164,7 @@ class RegisterFields extends ConsumerWidget {
               height: 50.h,
               child: Center(
                 child: TextField(
+                  cursorColor: AppTheme.primaryColor,
                   decoration: InputDecoration(
                       contentPadding:
                           EdgeInsets.symmetric(vertical: 0, horizontal: 10),
@@ -207,6 +208,7 @@ class RegisterFields extends ConsumerWidget {
               height: 50.h,
               child: Center(
                 child: TextField(
+                  cursorColor: AppTheme.primaryColor,
                   decoration: InputDecoration(
                       contentPadding:
                           EdgeInsets.symmetric(vertical: 0, horizontal: 10),
@@ -250,6 +252,7 @@ class RegisterFields extends ConsumerWidget {
               height: 50.h,
               child: Center(
                 child: TextField(
+                  cursorColor: AppTheme.primaryColor,
                   decoration: InputDecoration(
                       contentPadding:
                           EdgeInsets.symmetric(vertical: 0, horizontal: 10),
@@ -409,6 +412,7 @@ class LoginFields extends ConsumerWidget {
             height: 50.h,
             child: Center(
               child: TextField(
+                cursorColor: AppTheme.primaryColor,
                 decoration: InputDecoration(
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 0, horizontal: 10),
@@ -452,6 +456,7 @@ class LoginFields extends ConsumerWidget {
             height: 50.h,
             child: Center(
               child: TextField(
+                cursorColor: AppTheme.primaryColor,
                 decoration: InputDecoration(
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 0, horizontal: 10),

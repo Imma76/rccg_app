@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rccg_app/views/authentication/forgot_password.dart';
 
 import '../../themes/app_theme.dart';
 
@@ -35,7 +36,7 @@ class PasswordChangeDone extends StatelessWidget {
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, PasswordChangeDone.route);
+                  Navigator.pushNamed(context, ForgotPassword.route);
                 },
                 child: Text(
                   'Login to account',

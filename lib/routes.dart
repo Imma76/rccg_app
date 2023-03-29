@@ -3,6 +3,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:rccg_app/views/authentication/auth.dart';
+import 'package:rccg_app/views/authentication/forgot_password.dart';
 import 'package:rccg_app/views/authentication/password_changed_done.dart';
 import 'package:rccg_app/views/authentication/verify_done.dart';
 import 'package:rccg_app/views/authentication/verify_email.dart';
@@ -16,4 +17,5 @@ final Map<String, WidgetBuilder> routes = {
   VerifyEmail.route:(context)=>VerifyEmail(),
   VerificationComplete.route:(context)=>VerificationComplete(),
   PasswordChangeDone.route:(context)=>PasswordChangeDone(),
+  ForgotPassword.route:(context)=>ForgotPassword(),
 };
