@@ -8,8 +8,10 @@ import '../themes/app_theme.dart';
 class AppTextField extends StatelessWidget {
   final String? hintText;
   final TextEditingController? controller;
+  final Color? backGroundColor;
+  final Widget? prefixIcon;
   const AppTextField({
-    Key? key,this.hintText,this.controller
+    Key? key,this.hintText,this.controller,this.backGroundColor,this.prefixIcon
   }) : super(key: key);
 
   @override
@@ -17,9 +19,14 @@ class AppTextField extends StatelessWidget {
     return TextField(
       controller: controller,
       cursorColor: AppTheme.primaryColor,
+
       decoration: InputDecoration(
+        fillColor: backGroundColor,
+          filled: backGroundColor!=null?true:false,
+          prefixIcon: prefixIcon
+          ,
           contentPadding:
-          EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+          backGroundColor== null?EdgeInsets.symmetric(vertical: 1, horizontal: 10):null,
           hintText: hintText,
           hintStyle: GoogleFonts.inter(
               color: AppTheme.white4,

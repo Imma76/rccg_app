@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../themes/app_theme.dart';
 import '../../widgets/text_fields.dart';
+import '../base/base.dart';
 
 class ForgotPassword extends ConsumerWidget {
   static const route = 'forgot_password';
@@ -81,7 +82,7 @@ class ForgotPassword extends ConsumerWidget {
           Center(
             child: ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, ForgotPassword.route);
+                Navigator.pushNamed(context, Base.route);
               },
               child: Text(
                 'Submit',

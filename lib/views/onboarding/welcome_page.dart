@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../themes/app_theme.dart';
+import '../base/base.dart';
 import 'onboarding1.dart';
 
 
@@ -32,7 +33,7 @@ class Welcome extends StatelessWidget {
              Gap(38.h),
              ElevatedButton(
                onPressed: (){
-                 Navigator.pushNamed(context, Onboarding.route);
+                 Navigator.pushNamed(context, Base.route);
                },
                child:Text('Get Started'),
                style: ElevatedButton.styleFrom(backgroundColor: AppTheme.primaryColor,

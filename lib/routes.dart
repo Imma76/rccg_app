@@ -7,6 +7,7 @@ import 'package:rccg_app/views/authentication/forgot_password.dart';
 import 'package:rccg_app/views/authentication/password_changed_done.dart';
 import 'package:rccg_app/views/authentication/verify_done.dart';
 import 'package:rccg_app/views/authentication/verify_email.dart';
+import 'package:rccg_app/views/base/base.dart';
 import 'package:rccg_app/views/onboarding/onboarding1.dart';
 import 'package:rccg_app/views/onboarding/welcome_page.dart';
 
@@ -18,4 +19,5 @@ final Map<String, WidgetBuilder> routes = {
   VerificationComplete.route:(context)=>VerificationComplete(),
   PasswordChangeDone.route:(context)=>PasswordChangeDone(),
   ForgotPassword.route:(context)=>ForgotPassword(),
+  Base.route :(context)=>Base(),
 };
