@@ -46,6 +46,7 @@ dependencies:
   get:
   google_fonts:
   hive:
+  pin_code_fields:
   http:
   image_picker:
   intl:
