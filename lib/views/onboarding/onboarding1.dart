@@ -31,10 +31,15 @@ class _OnboardingState extends State<Onboarding> {
         ),
         actions: [
 
-          Padding(
-            padding: const EdgeInsets.only(right:25.0),
-            child: Center(child: Text('Skip',style:GoogleFonts.inter(color: AppTheme.primaryColor,fontWeight: FontWeight
-            .w500))),
+          GestureDetector(
+            onTap: (){
+              Navigator.pushNamedAndRemoveUntil(context, Authentication.route, (route) => false);
+            },
+            child: Padding(
+              padding: const EdgeInsets.only(right:25.0),
+              child: Center(child: Text('Skip',style:GoogleFonts.inter(color: AppTheme.primaryColor,fontWeight: FontWeight
+              .w500))),
+            ),
           )
         ],
       ),

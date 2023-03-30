@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rccg_app/views/authentication/verify_email.dart';
 
+import '../../providers/all_providers.dart';
 import '../../themes/app_theme.dart';
 import '../../widgets/text_fields.dart';
 
@@ -19,9 +20,15 @@ class Authentication extends ConsumerStatefulWidget {
 }
 
 class _AuthenticationState extends ConsumerState<Authentication> {
-  int currentIndex = 0;
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    final authController = ref.read(authProvider);
+  }
   @override
   Widget build(BuildContext context) {
+    final authController = ref.watch(authProvider);
     return SafeArea(
       child: Scaffold(
           backgroundColor: AppTheme.white,
@@ -53,7 +60,7 @@ class _AuthenticationState extends ConsumerState<Authentication> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          currentIndex == 0
+                          authController.currentIndex == 0
                               ? SizedBox(
                                   height: 40.34.h,
                                   width: 150.w,
@@ -72,9 +79,9 @@ class _AuthenticationState extends ConsumerState<Authentication> {
                                   ))
                               : GestureDetector(
                                   onTap: () {
-                                    setState(() {
-                                      currentIndex = 0;
-                                    });
+
+                                      authController.changeIndex(0);
+
                                   },
                                   child: SizedBox(
                                       height: 40.34.h,
@@ -87,7 +94,7 @@ class _AuthenticationState extends ConsumerState<Authentication> {
                                             fontWeight: FontWeight.w400,
                                             color: AppTheme.grey),
                                       )))),
-                          currentIndex == 1
+                          authController.currentIndex == 1
                               ? SizedBox(
                                   height: 40.34.h,
                                   width: 150.w,
@@ -106,9 +113,7 @@ class _AuthenticationState extends ConsumerState<Authentication> {
                                   ))
                               : GestureDetector(
                                   onTap: () {
-                                    setState(() {
-                                      currentIndex = 1;
-                                    });
+                                    authController.changeIndex(1);
                                   },
                                   child: SizedBox(
                                       height: 40.34.h,
@@ -126,7 +131,7 @@ class _AuthenticationState extends ConsumerState<Authentication> {
                     ),
                   ),
                 ),
-                currentIndex == 0 ? RegisterFields() : LoginFields()
+                authController.currentIndex == 0 ? RegisterFields() : LoginFields()
               ],
             ),
           )),
@@ -141,6 +146,7 @@ class RegisterFields extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final authController = ref.watch(authProvider);
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -296,28 +302,33 @@ class RegisterFields extends ConsumerWidget {
             ),
           ),
           Gap(30.h),
-          Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  'Dont\'t have an account? ',
-                  style: GoogleFonts.inter(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 14.sp,
-                      color: AppTheme.grey,
-                      fontStyle: FontStyle.normal),
-                ),
-                Text(
-                  'Sign In',
-                  style: GoogleFonts.inter(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 14.sp,
-                      color: AppTheme.primaryColor,
-                      fontStyle: FontStyle.normal),
-                ),
-              ],
+          GestureDetector(
+            onTap: (){
+              authController.changeIndex(1);
+            },
+            child: Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    'Have an account? ',
+                    style: GoogleFonts.inter(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14.sp,
+                        color: AppTheme.grey,
+                        fontStyle: FontStyle.normal),
+                  ),
+                  Text(
+                    'Sign In',
+                    style: GoogleFonts.inter(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14.sp,
+                        color: AppTheme.primaryColor,
+                        fontStyle: FontStyle.normal),
+                  ),
+                ],
+              ),
             ),
           )
         ],
@@ -334,6 +345,7 @@ class LoginFields extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final authController = ref.watch(authProvider);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -477,28 +489,35 @@ class LoginFields extends ConsumerWidget {
           ),
         ),
         Gap(45.h),
-        Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                'Dont\'t have an account? ',
-                style: GoogleFonts.inter(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 14.sp,
-                    color: AppTheme.grey,
-                    fontStyle: FontStyle.normal),
-              ),
-              Text(
-                'Sign up',
-                style: GoogleFonts.inter(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 14.sp,
-                    color: AppTheme.primaryColor,
-                    fontStyle: FontStyle.normal),
-              ),
-            ],
+        GestureDetector(
+          onTap: (){
+
+              authController.changeIndex(0);
+
+          },
+          child: Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'Dont\'t have an account? ',
+                  style: GoogleFonts.inter(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14.sp,
+                      color: AppTheme.grey,
+                      fontStyle: FontStyle.normal),
+                ),
+                Text(
+                  'Sign up',
+                  style: GoogleFonts.inter(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14.sp,
+                      color: AppTheme.primaryColor,
+                      fontStyle: FontStyle.normal),
+                ),
+              ],
+            ),
           ),
         )
       ],

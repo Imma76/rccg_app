@@ -33,7 +33,7 @@ class Welcome extends StatelessWidget {
              Gap(38.h),
              ElevatedButton(
                onPressed: (){
-                 Navigator.pushNamed(context, Base.route);
+                 Navigator.pushNamed(context, Onboarding.route);
                },
                child:Text('Get Started'),
                style: ElevatedButton.styleFrom(backgroundColor: AppTheme.primaryColor,
