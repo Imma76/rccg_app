@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "862115994243",
+    "project_id": "rccg-app-f7633",
+    "storage_bucket": "rccg-app-f7633.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:862115994243:android:ed20e13e9810cc2b2f99b6",
+        "android_client_info": {
+          "package_name": "com.example.rccg_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "862115994243-fat8ett8tumel0bjmcnrdr85ldh2djrc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZNMpPrXFjQ3ZTw63BZDxIGqNXGP2mn18"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "862115994243-fat8ett8tumel0bjmcnrdr85ldh2djrc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "862115994243-3o2ib20oq2d8eogupo4qqb6jju23ohud.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.rccgApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

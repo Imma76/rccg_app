@@ -108,6 +108,7 @@ class _HomeState extends ConsumerState<Home> {
 
                 ],
               ),
+              Gap(16.h),
               Row(
                 children: [
                   Expanded(

@@ -1,10 +1,24 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:rccg_app/providers/all_providers.dart';
 import 'package:rccg_app/routes.dart';
+import 'package:rccg_app/themes/app_theme.dart';
+import 'package:rccg_app/views/base/base.dart';
 import 'package:rccg_app/views/onboarding/welcome_page.dart';
+import 'package:rccg_app/widgets/loader.dart';
 
-void main() {
+import 'controllers/central_controller.dart';
+import 'firebase_options.dart';
+
+Future<void> main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(options:  DefaultFirebaseOptions.currentPlatform);
+
   runApp(const MyApp());
 }
 
@@ -19,10 +33,11 @@ class MyApp extends StatelessWidget {
         designSize: const Size(401,812),
         builder: (context,widget) {
           return MaterialApp(
+            navigatorKey: centralState.navigatorKey,
             debugShowCheckedModeBanner: false,
             title: 'Rccg',
             routes: routes,
-            initialRoute: Welcome.route,
+           // initialRoute: Welcome.route,
             theme: ThemeData(
               // This is the theme of your application.
               //
@@ -35,9 +50,98 @@ class MyApp extends StatelessWidget {
               // is not restarted.
               primarySwatch: Colors.blue,
             ),
-            //home: const MyHomePage(title: 'Flutter Demo Home Page'),
+            home: LoadApp(),
           );
         }
+      ),
+    );
+  }
+}
+
+
+class LoadApp extends ConsumerStatefulWidget {
+  const LoadApp({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  ConsumerState createState() => _LoadAppState();
+}
+
+class _LoadAppState extends ConsumerState<LoadApp> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    ref.read(centralProvider).initializeApp();
+
+
+  }
+  @override
+  Widget build(BuildContext context) {
+    final centralController = ref.watch(centralProvider);
+    if(!centralController
+        .isConnectionStable){
+      return NoInternetConnection();
+    }
+    if(centralController.isAppLoading){
+
+      return Scaffold(body:Indicator());
+    }
+    if(centralController.isUserPresent){
+
+      return Base();
+    }
+
+
+    return Welcome();
+
+  }
+}
+
+
+class NoInternetConnection extends ConsumerWidget {
+  const NoInternetConnection({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context,ref) {
+      final centralController = ref.watch(centralProvider);
+    return Scaffold(
+      body: Center(
+        child: Container(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset('assets/no_internet.png'),
+                Text(
+                 'No internet connection',
+                  textAlign: TextAlign.center,
+                ),
+               Gap(20.h),
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  centralController.checkInternetConnection();
+                },
+                child: Text(
+                  'Retry',
+                  style: GoogleFonts.inter(
+                      fontWeight: FontWeight.w600, fontSize: 16.sp),
+                ),
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: AppTheme.primaryColor,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40)),
+                    minimumSize: Size(329.w, 52.h)),
+              ),
+            )
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
