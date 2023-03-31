@@ -139,8 +139,13 @@ class _HomeState extends ConsumerState<Home> {
                   Expanded(
                     child: GestureDetector(
                       onTap: ()async {
-                        await authController.googleSignIn.disconnect();
-                        await FirebaseAuth.instance.signOut();
+                        if(authController.googleUser!=null){
+                          await authController.googleSignIn.disconnect();
+                          await FirebaseAuth.instance.signOut();
+                        }else{
+                          await FirebaseAuth.instance.signOut();
+                        }
+
                         Navigator.pushNamedAndRemoveUntil(context, Authentication.route, (route) => false);
 
                       },

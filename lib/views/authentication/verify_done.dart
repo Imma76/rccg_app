@@ -37,7 +37,7 @@ class VerificationComplete extends StatelessWidget {
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context,Base.route);
+                Navigator.pushNamedAndRemoveUntil(context, Base.route, (route) => false);
                 },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: AppTheme.primaryColor,

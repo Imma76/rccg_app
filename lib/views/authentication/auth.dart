@@ -445,9 +445,9 @@ class LoginFields extends ConsumerWidget {
         ),
         Gap(17.h),
         Center(
-          child:authController.googleLoad?Indicator(): ElevatedButton(
+          child:authController.load?Indicator(): ElevatedButton(
             onPressed: ()async {
-              authController.googleLogIn();
+              authController.signIn();
             },
             child: Text(
               'Login',
@@ -490,7 +490,9 @@ class LoginFields extends ConsumerWidget {
         Gap(18.h),
         Center(
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () async{
+              await authController.googleLogIn();
+            },
             style: ElevatedButton.styleFrom(
               elevation: 0,
               backgroundColor: AppTheme.white,

@@ -21,18 +21,18 @@ class AuthService{
       return null;
 ;    }
   }
-  static Future<bool> signIn({String? email,String?password})async {
+  static  Future<UserCredential?> signIn({String? email,String?password})async {
     try {
       UserCredential user =  await FirebaseAuth.instance.signInWithEmailAndPassword(email: email.toString(), password: password.toString());
-      return true;
+      return user;
     }on FirebaseAuthException catch (e) {
       showToast(
           ErrorCodes.getFirebaseErrorMessage(e));
-      return false;
+      return null;
     }catch(e){
       showToast(e.toString());
       print(e.toString());
-      return false;
+      return null;
           }
   }
 

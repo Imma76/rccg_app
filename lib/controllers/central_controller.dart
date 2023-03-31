@@ -75,7 +75,7 @@ class CentralState extends ChangeNotifier{
         isAppLoading = true;
         user = firebaseUser;
         notifyListeners();
-        print(user);
+        print(user?.emailVerified);
         isUserPresent = (user != null);
         print(isUserPresent);
         notifyListeners();

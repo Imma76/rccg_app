@@ -18,6 +18,7 @@ class AuthController extends ChangeNotifier {
   bool load = false;
   bool googleLoad = false;
   int currentIndex = 0;
+  UserCredential? userDetails;
 
   changeIndex(int index) {
     currentIndex = index;
@@ -75,6 +76,7 @@ class AuthController extends ChangeNotifier {
         .then((value) {
       load = false;
       notifyListeners();
+      disposeControllers();
       Navigator.pushNamed(
           centralState.navigatorKey.currentContext!, VerifyEmail.route);
     });
@@ -104,10 +106,10 @@ class AuthController extends ChangeNotifier {
   }
 
   disposeControllers() {
-    emailController.dispose();
-    passwordController.dispose();
-    firstNameController.dispose();
-    lastNameController.dispose();
+    emailController.clear();
+    passwordController.clear();
+    firstNameController.clear();
+    lastNameController.clear();
   }
 
   Future signIn() async {
@@ -117,16 +119,16 @@ class AuthController extends ChangeNotifier {
     }
     load = true;
     notifyListeners();
-    bool login = await AuthService.signIn(
+    UserCredential? login = await AuthService.signIn(
         email: emailController.text.trim(),
         password: passwordController.text.trim());
 
-    if (!login) {
+    if (login == null) {
       load = false;
       notifyListeners();
       return;
     }
-    if (!centralState.user!.emailVerified) {
+    if (!login.user!.emailVerified) {
       await sendEmailVerificationLink();
     } else {
       await userController.init();
@@ -152,13 +154,14 @@ class AuthController extends ChangeNotifier {
         email: emailController.text.trim(),
         password: passwordController.text.trim());
 
-    final signInUser =await FirebaseAuth.instance.signInWithEmailAndPassword(email: emailController.text.trim(), password: passwordController.text.trim());
-
+    userDetails
+    =await FirebaseAuth.instance.signInWithEmailAndPassword(email: emailController.text.trim(), password: passwordController.text.trim());
+notifyListeners();
     UserModel userModel =UserModel(
         email: emailController.text.trim(),
         firstName: firstNameController.text.trim(),
         lastName: lastNameController.text.trim(),
-        userId: signInUser.user!.uid,
+        userId: userDetails?.user!.uid,
         createdAt: DateTime.now()
     );
     bool addUserToDb =await AuthService.createUser(userModel);
@@ -168,7 +171,7 @@ class AuthController extends ChangeNotifier {
       return;
     }
 
-    disposeControllers();
+
     await sendEmailVerificationLink();
 
     //Navigator.pushNamedAndRemoveUntil(centralState!.navigatorKey.currentContext!, Base.route, (route) => false);

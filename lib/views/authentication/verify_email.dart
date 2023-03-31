@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,14 +11,43 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:rccg_app/themes/app_theme.dart';
 import 'package:rccg_app/views/authentication/verify_done.dart';
 
-class VerifyEmail extends ConsumerWidget {
+import '../../controllers/central_controller.dart';
+import '../../providers/all_providers.dart';
+
+
+class VerifyEmail extends ConsumerStatefulWidget {
   static const route = 'verify email';
   const VerifyEmail({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState createState() => _VerifyEmailState();
+}
+
+class _VerifyEmailState extends ConsumerState<VerifyEmail> {
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    ref.read(authProvider);
+    Timer timer = Timer.periodic(Duration(seconds: 3), (timer) async{
+      print('waiting verification');
+      if(FirebaseAuth.instance.currentUser != null){
+        await FirebaseAuth.instance.currentUser!.reload();
+        if( FirebaseAuth.instance.currentUser!.emailVerified){
+          print('verified');
+          timer.cancel();
+          Navigator.pushNamedAndRemoveUntil(context, VerificationComplete.route, (route) => false);
+        }
+      }
+
+    });
+    super.initState();
+  }
+  @override
+  Widget build(BuildContext context, ) {
+    final centralController = ref.watch(centralProvider);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -61,14 +93,14 @@ class VerifyEmail extends ConsumerWidget {
                           fontWeight: FontWeight.w400),
                       children: [
                         TextSpan(
-                            text: 'victorvax@gmail.com. ',
+                            text: '${centralController.user!.email}. ',
                             style: GoogleFonts.inter(
                                 color: AppTheme.black2,
                                 fontSize: 16.sp,
                                 fontWeight: FontWeight.w600)),
                         TextSpan(
                             text:
-                                'Tap the link in that email to confirm that’s you.',
+                            'Tap the link in that email to confirm that’s you.',
                             style: GoogleFonts.inter(
                                 color: Colors.black,
                                 fontSize: 16.sp,
@@ -118,3 +150,5 @@ class VerifyEmail extends ConsumerWidget {
     );
   }
 }
+
+
