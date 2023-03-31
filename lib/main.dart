@@ -79,12 +79,14 @@ class _LoadAppState extends ConsumerState<LoadApp> {
     // TODO: implement initState
     super.initState();
     ref.read(centralProvider).initializeApp();
+    ref.read(authProvider);
 
 
   }
   @override
   Widget build(BuildContext context) {
     final centralController = ref.watch(centralProvider);
+    final authController =ref.watch(authProvider);
     if(!centralController
         .isConnectionStable){
       return NoInternetConnection();
@@ -93,7 +95,7 @@ class _LoadAppState extends ConsumerState<LoadApp> {
 
       return Scaffold(body:Indicator());
     }
-    if(centralController.isUserPresent){
+    if(centralController.isUserPresent && centralController.user!.emailVerified){
 
       return Base();
     }

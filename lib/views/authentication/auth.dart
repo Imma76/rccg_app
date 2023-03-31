@@ -156,6 +156,54 @@ class RegisterFields extends ConsumerWidget {
           Padding(
             padding: const EdgeInsets.only(left: 31.0),
             child: Text(
+              'First Name',
+              textAlign: TextAlign.left,
+              style: GoogleFonts.poppins(
+                  fontSize: 13.sp,
+                  fontWeight: FontWeight.w400,
+                  color: AppTheme.primary2),
+            ),
+          ),
+          Gap(8.h),
+          Padding(
+            padding: const EdgeInsets.only(left: 31.0),
+            child: SizedBox(
+              width: 330.36.w,
+              height: 50.h,
+              child: Center(
+                  child: AppTextField(hintText: 'First Name',controller: authController.firstNameController,)
+              ),
+            ),
+          ),
+          Gap(24.h),
+          Padding(
+            padding: const EdgeInsets.only(left: 31.0),
+            child: Text(
+              'Last Name',
+              textAlign: TextAlign.left,
+              style: GoogleFonts.poppins(
+                  fontSize: 13.sp,
+                  fontWeight: FontWeight.w400,
+                  color: AppTheme.primary2),
+            ),
+          ),
+          Gap(8.h),
+          Padding(
+            padding: const EdgeInsets.only(left: 31.0),
+            child: SizedBox(
+              width: 330.36.w,
+              height: 50.h,
+              child: Center(
+                child: AppTextField(hintText: 'Last name',controller: authController
+                    .lastNameController,),
+              ),
+            ),
+          ),
+
+          Gap(24.h),
+          Padding(
+            padding: const EdgeInsets.only(left: 31.0),
+            child: Text(
               'Email address',
               textAlign: TextAlign.left,
               style: GoogleFonts.poppins(
@@ -201,38 +249,16 @@ class RegisterFields extends ConsumerWidget {
               ),
             ),
           ),
-          Gap(
-            24.h,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 31.0),
-            child: Text(
-              'Confirm Password',
-              textAlign: TextAlign.left,
-              style: GoogleFonts.poppins(
-                  fontSize: 13.sp,
-                  fontWeight: FontWeight.w400,
-                  color: AppTheme.primary2),
-            ),
-          ),
-          Gap(8.h),
-          Padding(
-            padding: const EdgeInsets.only(left: 31.0),
-            child: SizedBox(
-              width: 330.36.w,
-              height: 50.h,
-              child: Center(
-                child: AppTextField(hintText: 'Confirm Password',controller: authController.confirmPasswordController,)
-              ),
-            ),
-          ),
+
+
+
           Gap(43.h),
           Center(
             child: authController.load?Indicator(color: AppTheme.primaryColor
               ,): ElevatedButton(
               onPressed: ()async {
                 // Navigator.pushNamed(context, VerifyEmail.route);
-                await authController.sendOtp();
+                await authController.signUp();
               },
               child: Text('Create Account'),
               style: ElevatedButton.styleFrom(

@@ -2,6 +2,7 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
+import 'package:rccg_app/controllers/user_controller.dart';
 
 import '../../main.dart';
 import '../views/authentication/auth.dart';
@@ -78,7 +79,7 @@ class CentralState extends ChangeNotifier{
         isUserPresent = (user != null);
         print(isUserPresent);
         notifyListeners();
-        //await userController.init();
+        await userController.init();
 
         isAppLoading = false;
         notifyListeners();
