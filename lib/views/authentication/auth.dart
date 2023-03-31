@@ -336,7 +336,8 @@ class RegisterFields extends ConsumerWidget {
                 ],
               ),
             ),
-          )
+          ),
+          Gap(20.h),
         ],
       ),
     );
@@ -418,9 +419,10 @@ class LoginFields extends ConsumerWidget {
         ),
         Gap(17.h),
         Center(
-          child:authController.load?Indicator(color: AppTheme.primaryColor
-            ,): ElevatedButton(
-            onPressed: () {},
+          child:authController.googleLoad?Indicator(): ElevatedButton(
+            onPressed: ()async {
+              authController.googleLogIn();
+            },
             child: Text(
               'Login',
               style: GoogleFonts.inter(
@@ -430,7 +432,7 @@ class LoginFields extends ConsumerWidget {
                 backgroundColor: AppTheme.primaryColor,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(40)),
-                minimumSize: Size(329.w, 52.h)),
+                minimumSize: Size(329.w, 52.h),),
           ),
         ),
         Gap(18.h),

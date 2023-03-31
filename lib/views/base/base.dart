@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../themes/app_theme.dart';
+import '../tv/dove_tv.dart';
 import 'home.dart';
 
 class Base extends ConsumerStatefulWidget {
@@ -19,6 +20,12 @@ class _BaseState extends ConsumerState<Base> {
   int currentIndex = 0;
   List<Widget> widgetList=[
     Home(),
+    DoveTv(),
+    Home(),
+    Home(),
+    Home(),
+
+
 
   ];
   @override

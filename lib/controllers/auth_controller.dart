@@ -42,7 +42,11 @@ class AuthController extends ChangeNotifier{
     notifyListeners();
     try{
       final signInUser = await googleSignIn.signIn();
-      if(signInUser==null)return;
+      if(signInUser==null){
+        googleLoad = false;
+        notifyListeners();
+        return;
+      }
       googleUser = signInUser;
       final googleAuth = await googleUser!.authentication;
       final credential = GoogleAuthProvider.credential(

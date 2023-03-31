@@ -74,6 +74,7 @@ dependencies:
   async:
   cloud_firestore:
   cool_alert:
+
   easy_onboarding:
   flutter_staggered_grid_view:
   email_auth:

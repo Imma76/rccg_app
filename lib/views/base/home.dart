@@ -4,11 +4,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rccg_app/views/programs/movies.dart';
 import 'package:rccg_app/widgets/text_fields.dart';
 
 import '../../providers/all_providers.dart';
 import '../../themes/app_theme.dart';
 import '../authentication/auth.dart';
+import '../programs/rccg_program.dart';
 
 class Home extends ConsumerStatefulWidget {
   const Home({
@@ -21,8 +23,15 @@ class Home extends ConsumerStatefulWidget {
 
 class _HomeState extends ConsumerState<Home> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    ref.read(homeProvider);
+  }
+  @override
   Widget build(BuildContext context) {
     final authController = ref.watch(authProvider);
+    final homeController =ref.watch(homeProvider);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -44,11 +53,11 @@ class _HomeState extends ConsumerState<Home> {
         title: Text('Welcome 👋 ',style: GoogleFonts.inter(fontWeight: FontWeight.w500,fontSize: 18.sp,color: AppTheme.black),),
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding:  EdgeInsets.only(left:27.w,right: 27.w),
-          child: Column(
-            children: [
-              Container(height: 121.h,
+        child: Column(
+          children: [
+            Padding(
+              padding:  EdgeInsets.only(left:27.w,right: 27.w),
+              child: Container(height: 121.h,
                 //width: 327.w,
 
                 decoration: BoxDecoration(color:AppTheme.purple2 , borderRadius: BorderRadius
@@ -64,8 +73,11 @@ class _HomeState extends ConsumerState<Home> {
                       child: AppTextField(hintText: 'Enter your location',prefixIcon:Icon(Icons.location_on_outlined,color: AppTheme.grey,),backGroundColor: AppTheme.white,)),
                 ),
                 ],),),
-              Gap(17.h),
-              Container(
+            ),
+            Gap(17.h),
+            Padding(
+              padding:  EdgeInsets.only(left:27.w,right: 27.w),
+              child: Container(
                 height: 72.h,
                // width: 326.w,
                 decoration: BoxDecoration(
@@ -102,8 +114,11 @@ class _HomeState extends ConsumerState<Home> {
                   ],
                 ),
               ),
-              Gap(27.h),
-              Row(
+            ),
+            Gap(27.h),
+            Padding(
+              padding:  EdgeInsets.only(left:27.w,right: 27.w),
+              child: Row(
                 children: [
                   Text('Features',style: GoogleFonts.inter(fontWeight: FontWeight.w600,fontSize: 14.sp,color: AppTheme.primaryColor)),
                   Spacer(),
@@ -112,8 +127,11 @@ class _HomeState extends ConsumerState<Home> {
 
                 ],
               ),
-              Gap(16.h),
-              Row(
+            ),
+            Gap(16.h),
+            Padding(
+              padding:  EdgeInsets.only(left:27.w,right: 27.w),
+              child: Row(
                 children: [
                   Expanded(
                     child: GestureDetector(
@@ -155,8 +173,11 @@ class _HomeState extends ConsumerState<Home> {
                   ),
                 ],
               ),
-              Gap(15.h),
-              Row(
+            ),
+            Gap(15.h),
+            Padding(
+              padding:  EdgeInsets.only(left:27.w,right: 27.w),
+              child: Row(
                 children: [
                   Expanded(
                     child: Container(
@@ -166,7 +187,7 @@ class _HomeState extends ConsumerState<Home> {
                           crossAxisAlignment:CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Image.asset('assets/manuals.png',height: 13.h,width: 18.w,),
+                            Image.asset('assets/charlets.png',height: 13.h,width: 18.w,),
                             Text('Rccg Charlets',style: GoogleFonts.inter(fontWeight: FontWeight.w500,fontSize: 14.sp,color: AppTheme.primaryColor))
                           ],),
                       ),
@@ -189,22 +210,299 @@ class _HomeState extends ConsumerState<Home> {
                   ),
                 ],
               ),
-              Gap(27.h),
-              Row(
+            ),
+            Gap(27.h),
+            Padding(
+              padding:  EdgeInsets.only(left:27.w,right: 27.w),
+              child: Row(
                 children: [
                   Text('Rccg Programs',style: GoogleFonts.inter(fontWeight: FontWeight.w600,fontSize: 14.sp,color: AppTheme.primaryColor)),
                   Spacer(),
-                  Text('View all',style: GoogleFonts.inter(fontWeight: FontWeight.w500,fontSize: 12.sp,color: AppTheme.primaryColor)),
-
+                  GestureDetector(
+                      onTap:(){
+                        Navigator.pushNamed(context, RccgProgram.route);
+                      },
+                      child: Text('View all',style: GoogleFonts.inter(fontWeight: FontWeight.w500,fontSize: 12.sp,color: AppTheme.primaryColor))),
 
                 ],
               ),
+            ),
+            Gap(27.h),
+            Padding(
+              padding:  EdgeInsets.only(left:27.w,right: 27.w),
+              child: SizedBox(
+                height: 35.h,
+                child: ListView(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: const [
+                    ProgramsChoiceButton(
+                      title: 'All',index: 0,
+                    ),Gap(10),ProgramsChoiceButton(  title: 'Live Programs',index: 1,),Gap(10),ProgramsChoiceButton(  title: 'Pastor EA Sermons',index: 2,),
 
+                  ],
+                ),
+              ),
+            ),
+            Gap(34.h),
 
-            ],
-          ),
+            SizedBox(
+              height: 220.h,
+              child: ListView.builder(
+                itemCount: 3,
+                scrollDirection: Axis.horizontal,
+                shrinkWrap: true,
+                itemBuilder: (context,index) {
+                  return ProgramCard();
+                }
+              ),
+            ),
+            Gap(27.h),
+            Padding(
+              padding:  EdgeInsets.only(left:27.w,right: 27.w),
+              child: Row(
+                children: [
+                  Text('Upcoming events',style: GoogleFonts.inter(fontWeight: FontWeight.w600,fontSize: 14.sp,color: AppTheme.primaryColor)),
+                  Spacer(),
+                  Text('View all',style: GoogleFonts.inter(fontWeight: FontWeight.w500,fontSize: 12.sp,color: AppTheme.primaryColor)),
+
+                ],
+              ),
+            ),
+            Gap(20.h),
+            Container(
+              width:329.w,
+              height:120.h,
+              padding: EdgeInsets.only(top: 12.h,left: 12.w),
+              decoration: BoxDecoration(
+                color:AppTheme.white,
+                boxShadow: [
+                  BoxShadow(
+                    offset: Offset(0, 13),
+                    blurRadius: 25,
+                    color: Color.fromARGB(14, 14, 14, 0),
+                  ),
+                ],
+                borderRadius: BorderRadius.circular(10)
+              ),
+              child: Row(
+                children: [
+                  Column(children: [
+                    ClipRRect(
+                        borderRadius:BorderRadius.circular(10),
+                        child: Image.asset('assets/events.png',width: 88.w,height:96.h,))
+                  ],),
+                  Gap(11.w),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text('April Holy Ghost Service',style: GoogleFonts.inter(fontWeight: FontWeight.w600,fontSize: 14.sp,color: AppTheme.primaryColor)),
+                      Gap(6.h),
+                      Text('Date: 7th April 2023',style: GoogleFonts.inter(fontWeight: FontWeight.w500,fontSize: 12.sp,color: AppTheme.grey3)),
+                      Gap(13.h),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Image.asset('assets/location.png',width: 11.w,height: 16.h,),Gap(8.w),
+                          Text('Redemption City',style: GoogleFonts.inter(fontWeight: FontWeight.w500,fontSize: 12.sp,color: AppTheme.grey3)),
+                         Gap(11.h),
+                          ElevatedButton(
+                            onPressed: ()async {
+
+                            },
+                            child: Text(
+                              'View',
+                              style: GoogleFonts.inter(
+                                  fontWeight: FontWeight.w600, fontSize: 16.sp),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: AppTheme.primaryColor,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(40)),
+                                minimumSize: Size(72.w, 32.h)),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+
+                ],
+              ),
+            ),
+            Gap(27.h),
+            Padding(
+              padding:  EdgeInsets.only(left:27.w,right: 27.w),
+              child: Row(
+                children: [
+                  Text('Christian Movies',style: GoogleFonts.inter(fontWeight: FontWeight.w600,fontSize: 14.sp,color: AppTheme.primaryColor)),
+                  Spacer(),
+                  GestureDetector(
+                      onTap: (){
+                        Navigator.pushNamed(context, ChristianMovie.route);
+                      },
+                      child: Text('View all',style: GoogleFonts.inter(fontWeight: FontWeight.w500,fontSize: 12.sp,color: AppTheme.primaryColor))),
+
+                ],
+              ),
+            ),
+            Gap(20.h),
+            Padding(
+              padding:  EdgeInsets.only(left:27.w,right: 27.w),
+              child: SizedBox(
+                height: 35.h,
+                child: ListView(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: const [
+                    MovieChoiceButton(
+
+                      title: 'All',index: 0,
+                    ),Gap(10),MovieChoiceButton(  title: 'Mount Zion Movies',index: 1,),Gap(10),MovieChoiceButton(  title: 'Kids Christian Movie',index: 2,),
+
+                  ],
+                ),
+              ),
+            ),
+            Gap(27.h),
+            SizedBox(
+              height: 220.h,
+              child: ListView.builder(
+                  itemCount: 3,
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap: true,
+                  itemBuilder: (context,index) {
+                    return MovieCard();
+                  }
+              ),
+            ),
+            Gap(20.h),
+          ],
         ),
       ),
     );
+  }
+}
+
+class ProgramCard extends StatelessWidget {
+  const ProgramCard({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left:8.0,right:8.0,bottom: 7.0),
+      child: Container(
+        padding: EdgeInsets.all(12),
+        height: 100.h,width: 288.w,decoration: BoxDecoration(color: AppTheme.white, boxShadow: [
+        BoxShadow(
+          offset: Offset(0, 13),
+          blurRadius: 25,
+          color: Color.fromARGB(14, 14, 14, 0),
+        ),
+      ],borderRadius: BorderRadius.circular(20)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Image.asset('assets/program.png', height: 144.h,width: 266.w,),
+            Gap(10.h),
+            Text('Pastor EA Adeboye Sermon Rccg Holy Ghost Service',style: GoogleFonts.inter(color: AppTheme.black2,fontSize: 12.sp,fontWeight: FontWeight.w400),),
+          ],
+        ),),
+    );
+  }
+}
+
+class MovieCard extends StatelessWidget {
+  const MovieCard({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left:8.0,right:8.0),
+      child: Container(
+        padding: EdgeInsets.all(12),
+        height: 218.h,width: 288.w,decoration: BoxDecoration(color: AppTheme.white, boxShadow: [
+        BoxShadow(
+          offset: Offset(0, 13),
+          blurRadius: 25,
+          color: Color.fromARGB(14, 14, 14, 0),
+        ),
+      ],),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Image.asset('assets/movie.png', height: 144.h,width: 266.w,),
+            Gap(10.h),
+            Text('Pastor EA Adeboye Sermon Rccg Holy Ghost Service',style: GoogleFonts.inter(color: AppTheme.black2,fontSize: 12.sp,fontWeight: FontWeight.w400),),
+          ],
+        ),),
+    );
+  // }
+  // builDot() {
+  //   return AnimatedSmoothIndicator(
+  //     activeIndex: activeIndex,
+  //     count: imageUrl.length,
+  //     effect: ExpandingDotsEffect(
+  //       activeDotColor: Color(0xff1CA9F8),
+  //       dotHeight: 7,
+  //       dotWidth: 7,
+  //     ),
+  //   );
+  // }
+}
+}
+
+class ProgramsChoiceButton extends ConsumerWidget {
+  final String? title;
+  final int? index;
+  const ProgramsChoiceButton({
+    Key? key,this.title,this.index=0
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context,ref) {
+    final homeController =ref.watch(homeProvider);
+    return GestureDetector(
+        onTap: (){
+          homeController.changeCurrentProgramChoice(index!);
+        },
+        child: Container(decoration: BoxDecoration(color: homeController.currentProgramChoice==index?AppTheme.primaryColor:AppTheme.white,borderRadius: BorderRadius.circular(60)),child: Padding(
+          padding: const EdgeInsets.only(left:24.0,right:24.0,top: 4,bottom: 4),
+          child: Center(
+            child: Text('$title',style:GoogleFonts.plusJakartaSans(color:homeController.currentProgramChoice==index?AppTheme.white:AppTheme.black)),
+          ),
+        ),));
+  }
+}
+
+
+class MovieChoiceButton extends ConsumerWidget {
+  final String? title;
+  final int? index;
+  const MovieChoiceButton({
+    Key? key,this.title,this.index=0
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context,ref) {
+    final homeController =ref.watch(homeProvider);
+    return GestureDetector(
+        onTap: (){
+          homeController.changeCurrentMovieChoice(index!);
+        },
+        child: Container(decoration: BoxDecoration(color: homeController.currentMovieChoice==index?AppTheme.primaryColor:AppTheme.white,borderRadius: BorderRadius.circular(60)),child: Padding(
+          padding: const EdgeInsets.only(left:24.0,right:24.0,top: 4,bottom: 4),
+          child: Center(
+            child: Text('$title',style:GoogleFonts.plusJakartaSans(color:homeController.currentMovieChoice==index?AppTheme.white:AppTheme.black)),
+          ),
+        ),));
   }
 }

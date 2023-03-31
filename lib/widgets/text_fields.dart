@@ -10,8 +10,10 @@ class AppTextField extends StatelessWidget {
   final TextEditingController? controller;
   final Color? backGroundColor;
   final Widget? prefixIcon;
+  final Color?borderColor;
+  final Widget? prefix;
   const AppTextField({
-    Key? key,this.hintText,this.controller,this.backGroundColor,this.prefixIcon
+    Key? key,this.hintText,this.borderColor=AppTheme.white2,this.prefix,this.controller,this.backGroundColor,this.prefixIcon
   }) : super(key: key);
 
   @override
@@ -25,6 +27,7 @@ class AppTextField extends StatelessWidget {
           filled: backGroundColor!=null?true:false,
           prefixIcon: prefixIcon
           ,
+          prefix:prefix ,
           contentPadding:
           backGroundColor== null?EdgeInsets.symmetric(vertical: 1, horizontal: 10):null,
           hintText: hintText,
@@ -33,13 +36,13 @@ class AppTextField extends StatelessWidget {
               fontSize: 13.sp,
               fontWeight: FontWeight.w400),
           enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: AppTheme.white2),
+              borderSide: BorderSide(color: borderColor!),
               borderRadius: BorderRadius.circular(28)),
           border: OutlineInputBorder(
-              borderSide: BorderSide(color: AppTheme.white2),
+              borderSide: BorderSide(color: borderColor!),
               borderRadius: BorderRadius.circular(28)),
           focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: AppTheme.white2),
+              borderSide: BorderSide(color: borderColor!),
               borderRadius: BorderRadius.circular(28))),
     );
   }
