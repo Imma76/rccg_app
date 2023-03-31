@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:rccg_app/views/authentication/password_changed_done.dart';
 
 import '../../themes/app_theme.dart';
+import '../base/base.dart';
 
 class VerificationComplete extends StatelessWidget {
   static const route = 'verify_done';
@@ -36,18 +37,18 @@ class VerificationComplete extends StatelessWidget {
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, PasswordChangeDone.route);
+                  Navigator.pushNamed(context,Base.route);
                 },
-                child: Text(
-                  'Get Started',
-                  style: GoogleFonts.inter(
-                      fontWeight: FontWeight.w600, fontSize: 16.sp),
-                ),
                 style: ElevatedButton.styleFrom(
                     backgroundColor: AppTheme.primaryColor,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(40)),
                     minimumSize: Size(329.w, 52.h)),
+                child: Text(
+                  'Get Started',
+                  style: GoogleFonts.inter(
+                      fontWeight: FontWeight.w600, fontSize: 16.sp),
+                ),
               ),
             ),
           ],

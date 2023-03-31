@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rccg_app/views/watch_programs/watch_movies.dart';
 
 import '../../themes/app_theme.dart';
 import '../../widgets/text_fields.dart';
@@ -71,32 +72,37 @@ class ChristianMovie extends ConsumerWidget {
               itemCount: 5,
               shrinkWrap: true,
               itemBuilder: (context,index) {
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 20,top: 20),
-                  child: Container(
-                    height: 281.h,
-                    width: 376.w,
-                    decoration: const BoxDecoration(
-                        color: AppTheme.white,
-                        borderRadius: BorderRadius.only(
-                            bottomRight: Radius.circular(20),
-                            bottomLeft: Radius.circular(20))),
-                    child: Column(
-                      children: [
-                        Image.asset('assets/movie_pic2.png',
-                            width: 397.w, height: 207.h),
-                        Gap(15.h),
-                        Row(
-                          children: [
-                            Padding(
-                              padding:  EdgeInsets.only(left:27.w,),
-                              child: Image.asset('assets/movie_pic.png', height: 35.h, width: 35.w),
-                            ),
-                            Gap(5.h),
-                            Text('Enoch | A Biopic of Pastor E.A. Adeboye'),
-                          ],
-                        )
-                      ],
+                return GestureDetector(
+                  onTap: (){
+                    Navigator.pushNamed(context,WatchMovies.route);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 20,top: 20),
+                    child: Container(
+                      height: 281.h,
+                      width: 376.w,
+                      decoration: const BoxDecoration(
+                          color: AppTheme.white,
+                          borderRadius: BorderRadius.only(
+                              bottomRight: Radius.circular(20),
+                              bottomLeft: Radius.circular(20))),
+                      child: Column(
+                        children: [
+                          Image.asset('assets/movie_pic2.png',
+                              width: 397.w, height: 207.h),
+                          Gap(15.h),
+                          Row(
+                            children: [
+                              Padding(
+                                padding:  EdgeInsets.only(left:27.w,),
+                                child: Image.asset('assets/movie_pic.png', height: 35.h, width: 35.w),
+                              ),
+                              Gap(5.h),
+                              Text('Enoch | A Biopic of Pastor E.A. Adeboye'),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 );

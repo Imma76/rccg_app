@@ -40,87 +40,78 @@ class VerifyEmail extends ConsumerWidget {
                     height: 56.h, width: 56.w)),
             Gap(20.h),
             Text(
-              'Verification Code',
+              'Confirm Email',
               textAlign: TextAlign.left,
               style: GoogleFonts.poppins(
                   fontSize: 20.sp,
                   fontWeight: FontWeight.w600,
                   color: AppTheme.primary2),
             ),
+            Gap(68.h),
+            Image.asset("assets/email.png", height: 127.h, width: 127.w),
             Gap(27.h),
-            Text(
-                'We have to send the verification to your email mic****@mail.com',textAlign: TextAlign.center, style: GoogleFonts.poppins(
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w400,
-                color: AppTheme.primary2) ,),
-            Gap(45.h),
-            Padding(
-              padding: const EdgeInsets.only(left:24.0,right:24),
-              child: PinCodeTextField(
-
-                appContext: context,
-                length: 5,
-                obscureText: false,
-                animationType: AnimationType.fade,
-                pinTheme: PinTheme(
-                  selectedFillColor: AppTheme.white,
-                  inactiveFillColor:   AppTheme.grey2,
-
-                  activeColor:  AppTheme.grey2,
-                  inactiveColor: AppTheme.grey2,
-                  shape: PinCodeFieldShape.box,
-
-                  borderRadius: BorderRadius.circular(16),
-                  fieldHeight: 56,
-                  fieldWidth: 56,
-                  activeFillColor: AppTheme.grey2,
-                ),
-                animationDuration: Duration(milliseconds: 300),
-               // backgroundColor: Colors.blue.shade50,
-                enableActiveFill: true,
-                // errorAnimationController: errorController,
-                // controller: textEditingController,
-                onCompleted: (v) {
-                  print("Completed");
-                },
-                onChanged: (value) {
-                  print(value);
-                  // setState(() {
-                  //   currentText = value;
-                  // });
-                },
-                beforeTextPaste: (text) {
-                  print("Allowing to paste $text");
-                  //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
-                  //but you can show anything you want here, like your pop up saying wrong paste format or etc
-                  return true;
-                },
-              ),
-            ),
-
-            Text(
-              'Resend code',textAlign: TextAlign.center, style: GoogleFonts.poppins(
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w500,
-                color: AppTheme.primaryColor) ,),
-            Gap(46.h),
             Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, VerificationComplete.route);
-                },
-                child: Text(
-                  'Verify',
-                  style: GoogleFonts.inter(
-                      fontWeight: FontWeight.w600, fontSize: 16.sp),
-                ),
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: AppTheme.primaryColor,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40)),
-                    minimumSize: Size(329.w, 52.h)),
-              ),
+              child: RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                      text: 'We sent a message to ',
+                      style: GoogleFonts.inter(
+                          color: Colors.black,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w400),
+                      children: [
+                        TextSpan(
+                            text: 'victorvax@gmail.com. ',
+                            style: GoogleFonts.inter(
+                                color: AppTheme.black2,
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w600)),
+                        TextSpan(
+                            text:
+                                'Tap the link in that email to confirm that’s you.',
+                            style: GoogleFonts.inter(
+                                color: Colors.black,
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w400)),
+                      ])),
             ),
+            // Padding(
+            //   padding: const EdgeInsets.only(left:10.0,right: 10),
+            //   child: Text('We sent a message to victorvax@gmail.com. Tap the link in that email to confirm that’s you.',textAlign:
+            //     TextAlign.center,style: GoogleFonts.inter(fontSize: 16.sp,fontWeight: FontWeight.w400,color: AppTheme.black2),),
+            // ),
+            Gap(191.h),
+            Text(
+              'Didn’t see the link? Kindly check your spam folder or click resend below',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.inter(
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w400,
+                  color: AppTheme.grey3),
+            ),
+            Gap(41.h),
+            GestureDetector(
+              onTap: () {},
+              child: Center(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/email_icon.png',
+                      width: 15.w,
+                      height: 12.h,
+                    ),
+                    Gap(10.h),
+                    Text('RESEND ACCOUNT VERIFICATION',
+                        style: GoogleFonts.inter(
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w500,
+                            color: AppTheme.primaryColor)),
+                  ],
+                ),
+              ),
+            )
           ],
         ),
       ),

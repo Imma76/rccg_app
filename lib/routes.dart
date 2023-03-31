@@ -12,16 +12,20 @@ import 'package:rccg_app/views/onboarding/onboarding1.dart';
 import 'package:rccg_app/views/onboarding/welcome_page.dart';
 import 'package:rccg_app/views/programs/movies.dart';
 import 'package:rccg_app/views/programs/rccg_program.dart';
+import 'package:rccg_app/views/watch_programs/watch_church_programs.dart';
+import 'package:rccg_app/views/watch_programs/watch_movies.dart';
 
 final Map<String, WidgetBuilder> routes = {
-  Welcome.route:(context)=>Welcome(),
-  Onboarding.route:(context)=>Onboarding(),
-  Authentication.route:(context)=>Authentication(),
-  VerifyEmail.route:(context)=>VerifyEmail(),
-  VerificationComplete.route:(context)=>VerificationComplete(),
-  PasswordChangeDone.route:(context)=>PasswordChangeDone(),
-  ForgotPassword.route:(context)=>ForgotPassword(),
-  Base.route :(context)=>Base(),
-  RccgProgram.route:(context)=>RccgProgram(),
-  ChristianMovie.route:(context)=>ChristianMovie()
+  Welcome.route:(context)=>const Welcome(),
+  Onboarding.route:(context)=>const Onboarding(),
+  Authentication.route:(context)=>const Authentication(),
+  VerifyEmail.route:(context)=>const VerifyEmail(),
+  VerificationComplete.route:(context)=>const VerificationComplete(),
+  PasswordChangeDone.route:(context)=>const PasswordChangeDone(),
+  ForgotPassword.route:(context)=>const ForgotPassword(),
+  Base.route :(context)=>const Base(),
+  RccgProgram.route:(context)=>const RccgProgram(),
+  ChristianMovie.route:(context)=>const ChristianMovie(),
+  WatchPrograms.route:(context)=>const WatchPrograms(),
+  WatchMovies.route:(context)=>const WatchMovies(),
 };

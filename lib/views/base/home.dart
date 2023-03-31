@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rccg_app/views/authentication/verify_email.dart';
 import 'package:rccg_app/views/programs/movies.dart';
 import 'package:rccg_app/widgets/text_fields.dart';
 
@@ -11,6 +12,8 @@ import '../../providers/all_providers.dart';
 import '../../themes/app_theme.dart';
 import '../authentication/auth.dart';
 import '../programs/rccg_program.dart';
+import '../watch_programs/watch_church_programs.dart';
+import '../watch_programs/watch_movies.dart';
 
 class Home extends ConsumerStatefulWidget {
   const Home({
@@ -342,7 +345,7 @@ class _HomeState extends ConsumerState<Home> {
                   Spacer(),
                   GestureDetector(
                       onTap: (){
-                        Navigator.pushNamed(context, ChristianMovie.route);
+                        Navigator.pushNamed(context,ChristianMovie.route);
                       },
                       child: Text('View all',style: GoogleFonts.inter(fontWeight: FontWeight.w500,fontSize: 12.sp,color: AppTheme.primaryColor))),
 
@@ -399,7 +402,7 @@ class ProgramCard extends StatelessWidget {
       padding: const EdgeInsets.only(left:8.0,right:8.0,bottom: 7.0),
       child: Container(
         padding: EdgeInsets.all(12),
-        height: 100.h,width: 288.w,decoration: BoxDecoration(color: AppTheme.white, boxShadow: [
+        height: 100.h,width: 288.w,decoration: BoxDecoration(color: AppTheme.white, boxShadow: const [
         BoxShadow(
           offset: Offset(0, 13),
           blurRadius: 25,
@@ -426,10 +429,10 @@ class MovieCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left:8.0,right:8.0),
+      padding: const EdgeInsets.only(left:8.0,right:8.0,bottom: 7.0),
       child: Container(
         padding: EdgeInsets.all(12),
-        height: 218.h,width: 288.w,decoration: BoxDecoration(color: AppTheme.white, boxShadow: [
+        height: 218.h,width: 288.w,decoration: const BoxDecoration(color: AppTheme.white, boxShadow: [
         BoxShadow(
           offset: Offset(0, 13),
           blurRadius: 25,
@@ -477,7 +480,7 @@ class ProgramsChoiceButton extends ConsumerWidget {
         child: Container(decoration: BoxDecoration(color: homeController.currentProgramChoice==index?AppTheme.primaryColor:AppTheme.white,borderRadius: BorderRadius.circular(60)),child: Padding(
           padding: const EdgeInsets.only(left:24.0,right:24.0,top: 4,bottom: 4),
           child: Center(
-            child: Text('$title',style:GoogleFonts.plusJakartaSans(color:homeController.currentProgramChoice==index?AppTheme.white:AppTheme.black)),
+            child: Text('$title',style:GoogleFonts.inter(color:homeController.currentProgramChoice==index?AppTheme.white:AppTheme.black)),
           ),
         ),));
   }
@@ -501,7 +504,7 @@ class MovieChoiceButton extends ConsumerWidget {
         child: Container(decoration: BoxDecoration(color: homeController.currentMovieChoice==index?AppTheme.primaryColor:AppTheme.white,borderRadius: BorderRadius.circular(60)),child: Padding(
           padding: const EdgeInsets.only(left:24.0,right:24.0,top: 4,bottom: 4),
           child: Center(
-            child: Text('$title',style:GoogleFonts.plusJakartaSans(color:homeController.currentMovieChoice==index?AppTheme.white:AppTheme.black)),
+            child: Text('$title',style:GoogleFonts.inter(color:homeController.currentMovieChoice==index?AppTheme.white:AppTheme.black)),
           ),
         ),));
   }
