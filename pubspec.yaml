@@ -79,7 +79,7 @@ dependencies:
   email_auth:
   firebase_auth:
   firebase_core:
-  flutter_local_notifications:
+#  flutter_local_notifications:
   flutter_widget_from_html:
   google_sign_in:
   lint:

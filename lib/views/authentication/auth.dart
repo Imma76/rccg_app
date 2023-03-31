@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rccg_app/views/authentication/verify_email.dart';
+import 'package:rccg_app/widgets/loader.dart';
 
 import '../../providers/all_providers.dart';
 import '../../themes/app_theme.dart';
@@ -170,7 +171,8 @@ class RegisterFields extends ConsumerWidget {
               width: 330.36.w,
               height: 50.h,
               child: Center(
-                child: AppTextField(hintText: 'Email address',),
+                child: AppTextField(hintText: 'Email address',controller: authController
+                  .emailController,),
               ),
             ),
           ),
@@ -195,7 +197,7 @@ class RegisterFields extends ConsumerWidget {
               width: 330.36.w,
               height: 50.h,
               child: Center(
-                child:AppTextField(hintText: 'Password',)
+                child:AppTextField(hintText: 'Password',controller: authController.passwordController,)
               ),
             ),
           ),
@@ -220,15 +222,17 @@ class RegisterFields extends ConsumerWidget {
               width: 330.36.w,
               height: 50.h,
               child: Center(
-                child: AppTextField(hintText: 'Confirm Password',)
+                child: AppTextField(hintText: 'Confirm Password',controller: authController.confirmPasswordController,)
               ),
             ),
           ),
           Gap(43.h),
           Center(
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, VerifyEmail.route);
+            child: authController.load?Indicator(color: AppTheme.primaryColor
+              ,): ElevatedButton(
+              onPressed: ()async {
+                // Navigator.pushNamed(context, VerifyEmail.route);
+                await authController.sendOtp();
               },
               child: Text('Create Account'),
               style: ElevatedButton.styleFrom(
@@ -266,8 +270,10 @@ class RegisterFields extends ConsumerWidget {
           ),
           Gap(10.h),
           Center(
-            child: ElevatedButton(
-              onPressed: () {},
+            child:authController.googleLoad?Indicator(): ElevatedButton(
+              onPressed: ()async {
+                authController.googleLogIn();
+              },
               child: Center(
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -343,6 +349,7 @@ class LoginFields extends ConsumerWidget {
     Key? key,
   }) : super(key: key);
 
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final authController = ref.watch(authProvider);
@@ -368,7 +375,7 @@ class LoginFields extends ConsumerWidget {
             width: 330.36.w,
             height: 50.h,
             child: Center(
-              child: AppTextField(hintText: 'Email Address',)
+              child: AppTextField(hintText: 'Email Address',controller: authController.emailController,)
             ),
           ),
         ),
@@ -393,7 +400,7 @@ class LoginFields extends ConsumerWidget {
             width: 330.36.w,
             height: 50.h,
             child: Center(
-              child: AppTextField(hintText: 'Password',)
+              child: AppTextField(hintText: 'Password',controller: authController.passwordController,)
             ),
           ),
         ),
@@ -411,7 +418,8 @@ class LoginFields extends ConsumerWidget {
         ),
         Gap(17.h),
         Center(
-          child: ElevatedButton(
+          child:authController.load?Indicator(color: AppTheme.primaryColor
+            ,): ElevatedButton(
             onPressed: () {},
             child: Text(
               'Login',
@@ -455,6 +463,15 @@ class LoginFields extends ConsumerWidget {
         Center(
           child: ElevatedButton(
             onPressed: () {},
+            style: ElevatedButton.styleFrom(
+              elevation: 0,
+              backgroundColor: AppTheme.white,
+              shape: RoundedRectangleBorder(
+                  side: BorderSide(color: Color.fromARGB(44, 30, 95, 0)),
+                  borderRadius: BorderRadius.circular(40)),
+              minimumSize: Size(329.w, 52.h),
+              maximumSize: Size(329.w, 52.h),
+            ),
             child: Center(
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -476,15 +493,6 @@ class LoginFields extends ConsumerWidget {
                   ),
                 ],
               ),
-            ),
-            style: ElevatedButton.styleFrom(
-              elevation: 0,
-              backgroundColor: AppTheme.white,
-              shape: RoundedRectangleBorder(
-                  side: BorderSide(color: Color.fromARGB(44, 30, 95, 0)),
-                  borderRadius: BorderRadius.circular(40)),
-              minimumSize: Size(329.w, 52.h),
-              maximumSize: Size(329.w, 52.h),
             ),
           ),
         ),
