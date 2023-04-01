@@ -80,6 +80,8 @@ dependencies:
   email_auth:
   firebase_auth:
   firebase_core:
+  flutter_launcher_icons:
+  flutter_native_splash:
 #  flutter_local_notifications:
   flutter_widget_from_html:
   google_sign_in:

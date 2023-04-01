@@ -18,10 +18,15 @@ class AuthController extends ChangeNotifier {
   bool load = false;
   bool googleLoad = false;
   int currentIndex = 0;
+  int currentHomeIndex = 0;
   UserCredential? userDetails;
 
   changeIndex(int index) {
     currentIndex = index;
+    notifyListeners();
+  }
+  changeHomeIndex(int index) {
+    currentHomeIndex = index;
     notifyListeners();
   }
 

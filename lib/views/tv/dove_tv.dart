@@ -173,6 +173,19 @@ class _DoveTvState extends State<DoveTv> {
                                 ),
                               ),
                             ),
+                            Gap(34.h),
+
+                            SizedBox(
+                              height: 220.h,
+                              child: ListView.builder(
+                                  itemCount: 3,
+                                  scrollDirection: Axis.horizontal,
+                                  shrinkWrap: true,
+                                  itemBuilder: (context,index) {
+                                    return ProgramCard();
+                                  }
+                              ),
+                            ),
                           ],
                         ),
                       )),

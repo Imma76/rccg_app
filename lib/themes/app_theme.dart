@@ -21,5 +21,7 @@ class AppTheme{
   static const Color lightPurple = Color(0xffDBD5F2);
   static const Color grey4 = Color(0xffB9BBBD);
   static const Color white6 =Color(0xffEDEDED);
+  static const Color grey5 = Color(0xffEEEFF0);
+  static const Color grey6 = Color(0xff818487);
 
 }

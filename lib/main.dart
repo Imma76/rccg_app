@@ -11,7 +11,7 @@ import 'package:rccg_app/themes/app_theme.dart';
 import 'package:rccg_app/views/base/base.dart';
 import 'package:rccg_app/views/onboarding/welcome_page.dart';
 import 'package:rccg_app/widgets/loader.dart';
-
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'controllers/central_controller.dart';
 import 'firebase_options.dart';
 
@@ -20,7 +20,9 @@ Future<void> main() async{
 
   await Firebase.initializeApp(options:  DefaultFirebaseOptions.currentPlatform);
 
+
   runApp(const MyApp());
+  //FlutterNativeSplash.remove();
 }
 
 final botToastBuilder = BotToastInit();

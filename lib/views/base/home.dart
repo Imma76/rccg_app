@@ -58,6 +58,90 @@ class _HomeState extends ConsumerState<Home> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            Center(
+              child: Container(
+                width: 320.w,
+                height: 44.9.h,
+                decoration: BoxDecoration(
+                    color: AppTheme.grey5,
+                    borderRadius: BorderRadius.circular(22)),
+                child: Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      authController.currentHomeIndex == 0
+                          ? SizedBox(
+                          height: 40.34.h,
+                          width: 150.w,
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                BorderRadius.circular(17)),
+                            child: Center(
+                                child: Text(
+                                  'Get Started',
+                                  style: GoogleFonts.inter(
+                                      fontSize: 13.sp,
+                                      fontWeight: FontWeight.w600,
+                                      color: AppTheme.primary2),
+                                )),
+                          ))
+                          : GestureDetector(
+                          onTap: () {
+
+                            authController.changeHomeIndex(0);
+
+                          },
+                          child: SizedBox(
+                              height: 40.34.h,
+                              width: 150.w,
+                              child: Center(
+                                  child: Text(
+                                    'Get Started',
+                                    style: GoogleFonts.inter(
+                                        fontSize: 13.sp,
+                                        fontWeight: FontWeight.w400,
+                                        color: AppTheme.grey),
+                                  )))),
+                      authController.currentHomeIndex == 1
+                          ? SizedBox(
+                          height: 40.34.h,
+                          width: 150.w,
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                BorderRadius.circular(17)),
+                            child: Center(
+                                child: Text(
+                                  'My Prayer Tracker',
+                                  style: GoogleFonts.inter(
+                                      fontSize: 13.sp,
+                                      fontWeight: FontWeight.w600,
+                                      color: AppTheme.primary2),
+                                )),
+                          ))
+                          : GestureDetector(
+                          onTap: () {
+                            authController.changeHomeIndex(1);
+                          },
+                          child: SizedBox(
+                              height: 40.34.h,
+                              width: 150.w,
+                              child: Center(
+                                  child: Text(
+                                    'My Prayer Tracker',
+                                    style: GoogleFonts.inter(
+                                        fontSize: 13.sp,
+                                        fontWeight: FontWeight.w400,
+                                        color: AppTheme.grey),
+                                  ))))
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Gap(19.h),
             Padding(
               padding:  EdgeInsets.only(left:27.w,right: 27.w),
               child: Container(height: 121.h,
@@ -77,45 +161,96 @@ class _HomeState extends ConsumerState<Home> {
                 ),
                 ],),),
             ),
-            Gap(17.h),
+            // Gap(17.h),
+            // Padding(
+            //   padding:  EdgeInsets.only(left:27.w,right: 27.w),
+            //   child: Container(
+            //     height: 72.h,
+            //    // width: 326.w,
+            //     decoration: BoxDecoration(
+            //       color:AppTheme.lightPurple,borderRadius: BorderRadius.circular(10)
+            //     ),
+            //     child: Row(
+            //       children: [
+            //         Padding(
+            //           padding: const EdgeInsets.only(left:21.0),
+            //           child: Column(
+            //             crossAxisAlignment: CrossAxisAlignment.start,
+            //             children: [
+            //               Gap(14.h),
+            //               Text('Go Premium Now 🚀',style: GoogleFonts.inter(fontWeight: FontWeight.w600,fontSize: 14.sp,color: AppTheme.primaryColor)),
+            //             Text('Access all features',style: GoogleFonts.inter(fontWeight: FontWeight.w400,fontSize: 12.sp,color: AppTheme.primaryColor))
+            //             ],
+            //           ),
+            //         ),
+            //         Spacer(),
+            //         Padding(
+            //           padding: const EdgeInsets.only(right:21.0),
+            //           child: Column(
+            //             mainAxisAlignment: MainAxisAlignment.center,
+            //             children: [
+            //               Row(
+            //                 children: [
+            //                   Text('View Details',style: GoogleFonts.inter(fontWeight: FontWeight.w500,fontSize: 12.sp,color: AppTheme.primaryColor)),Icon(Icons.arrow_forward_ios_rounded,size: 7,
+            //                   )
+            //                 ],
+            //               )
+            //             ],
+            //           ),
+            //         )
+            //       ],
+            //     ),
+            //   ),
+            // ),
+            Gap(27.h),
             Padding(
               padding:  EdgeInsets.only(left:27.w,right: 27.w),
-              child: Container(
-                height: 72.h,
-               // width: 326.w,
-                decoration: BoxDecoration(
-                  color:AppTheme.lightPurple,borderRadius: BorderRadius.circular(10)
-                ),
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left:21.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Gap(14.h),
-                          Text('Go Premium Now 🚀',style: GoogleFonts.inter(fontWeight: FontWeight.w600,fontSize: 14.sp,color: AppTheme.primaryColor)),
-                        Text('Access all features',style: GoogleFonts.inter(fontWeight: FontWeight.w400,fontSize: 12.sp,color: AppTheme.primaryColor))
-                        ],
-                      ),
+              child: Row(
+                children: [
+                  Text('Daily Open heavens',style: GoogleFonts.inter(fontWeight: FontWeight.w500,fontSize: 14.sp,color: AppTheme.grey6)),
+                  Spacer(),
+                 // Text('View all',style: GoogleFonts.inter(fontWeight: FontWeight.w500,fontSize: 12.sp,color: AppTheme.primaryColor)),
+
+                ],
+              ),
+            ),
+            Gap(20.h),
+            Container(
+              width:329.w,
+              height:120.h,
+              padding: EdgeInsets.only(top: 12.h,left: 12.w),
+              decoration: BoxDecoration(
+                  color:AppTheme.white,
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset(0, 13),
+                      blurRadius: 25,
+                      color: Color.fromARGB(14, 14, 14, 0),
                     ),
-                    Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.only(right:21.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Row(
-                            children: [
-                              Text('View Details',style: GoogleFonts.inter(fontWeight: FontWeight.w500,fontSize: 12.sp,color: AppTheme.primaryColor)),Icon(Icons.arrow_forward_ios_rounded,size: 7,
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                    )
                   ],
-                ),
+                  borderRadius: BorderRadius.circular(10)
+              ),
+              child: Row(
+                children: [
+                  Column(children: [
+                    ClipRRect(
+                        borderRadius:BorderRadius.circular(10),
+                        child: Image.asset('assets/open_heavens.png',width: 88.w,height:96.h,))
+                  ],),
+                  Gap(11.w),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text('Topic: God Is Taking Records.',style: GoogleFonts.inter(fontWeight: FontWeight.w600,fontSize: 14.sp,color: AppTheme.primaryColor)),
+                      Gap(6.h),
+                      Text('Date: 31st March 2023',style: GoogleFonts.inter(fontWeight: FontWeight.w500,fontSize: 12.sp,color: AppTheme.grey3)),
+                      // Gap(13.h),
+
+                    ],
+                  ),
+
+                ],
               ),
             ),
             Gap(27.h),
@@ -159,8 +294,8 @@ class _HomeState extends ConsumerState<Home> {
                             crossAxisAlignment:CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                            Image.asset('assets/manuals.png',height: 13.h,width: 18.w,),
-                            Text('Rccg Manuals',style: GoogleFonts.inter(fontWeight: FontWeight.w500,fontSize: 14.sp,color: AppTheme.primaryColor))
+                            Image.asset('assets/radio.png',height: 13.h,width: 18.w,),Gap(6.w),
+                            Text('Rccg Radio',style: GoogleFonts.inter(fontWeight: FontWeight.w500,fontSize: 14.sp,color: AppTheme.primaryColor))
                           ],),
                         ),),
                     ),
@@ -175,8 +310,8 @@ class _HomeState extends ConsumerState<Home> {
                         crossAxisAlignment:CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                        Image.asset('assets/music.png',height: 13.h,width: 18.w,),
-                        Text('Rccg Hymns',style: GoogleFonts.inter(fontWeight: FontWeight.w500,fontSize: 14.sp,color: AppTheme.primaryColor))
+                        Image.asset('assets/manuals.png',height: 13.h,width: 18.w,),Gap(6.w),
+                        Text('Rccg Manuals',style: GoogleFonts.inter(fontWeight: FontWeight.w500,fontSize: 14.sp,color: AppTheme.primaryColor))
                       ],),),
                   ),
                 ],
@@ -190,31 +325,32 @@ class _HomeState extends ConsumerState<Home> {
                   Expanded(
                     child: Container(
 
+                      height: 70.h,width: 150.w,decoration: BoxDecoration(color:
+                    AppTheme.white,borderRadius: BorderRadius.circular(10)),
+
                       child: Center(
                         child: Row(
                           crossAxisAlignment:CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Image.asset('assets/charlets.png',height: 13.h,width: 18.w,),
-                            Text('Rccg Charlets',style: GoogleFonts.inter(fontWeight: FontWeight.w500,fontSize: 14.sp,color: AppTheme.primaryColor))
+                            Image.asset('assets/music.png',height: 13.h,width: 18.w,),Gap(6.w),
+                            Text('Rccg Hymns',style: GoogleFonts.inter(fontWeight: FontWeight.w500,fontSize: 14.sp,color: AppTheme.primaryColor))
                           ],),
-                      ),
-                      height: 70.h,width: 150.w,decoration: BoxDecoration(color:
-                    AppTheme.white,borderRadius: BorderRadius.circular(10)),),
+                      ),),
                   ),
                   Gap(14.w),
                   Expanded(
                     child: Container(
+                      height: 70.h,width: 150.w,decoration: BoxDecoration(color:
+                    AppTheme.white,borderRadius: BorderRadius.circular(10)),
                       child: Row(
 
                         crossAxisAlignment:CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Image.asset('assets/bible.png',height: 13.h,width: 18.w,),
-                          Text('My Bible',style: GoogleFonts.inter(fontWeight: FontWeight.w500,fontSize: 14.sp,color: AppTheme.primaryColor))
-                        ],),
-                      height: 70.h,width: 150.w,decoration: BoxDecoration(color:
-                    AppTheme.white,borderRadius: BorderRadius.circular(10)),),
+                          Image.asset('assets/charlets.png',height: 13.h,width: 18.w,),Gap(6.w),
+                          Text('Rccg charlets',style: GoogleFonts.inter(fontWeight: FontWeight.w500,fontSize: 14.sp,color: AppTheme.primaryColor))
+                        ],),),
                   ),
                 ],
               ),
@@ -389,6 +525,62 @@ class _HomeState extends ConsumerState<Home> {
               ),
             ),
             Gap(20.h),
+            Container(
+              width:326.w,
+              height:107.h,
+              padding: EdgeInsets.only(top: 12.h,left: 12.w),
+              decoration: BoxDecoration(
+                  color:AppTheme.primaryColor,
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset(0, 13),
+                      blurRadius: 25,
+                      color: Color.fromARGB(14, 14, 14, 0),
+                    ),
+                  ],
+                  borderRadius: BorderRadius.circular(10)
+              ),
+              child: Row(
+                children: [
+                  Column(
+                    mainAxisAlignment:MainAxisAlignment.center,
+                    children: [
+                      Gap(15.h),
+                    ClipRRect(
+                        borderRadius:BorderRadius.circular(10),
+                        child: Image.asset('assets/support.png',width: 76.w,height:74.h,))
+                  ],),
+                  Gap(11.w),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Gap(15.h),
+                      Text('Love what we are doing ?',style: GoogleFonts.inter(fontWeight: FontWeight.w600,fontSize: 14.sp,color: AppTheme.white)),
+                      Gap(6.h),
+
+                      ElevatedButton(
+                        onPressed: ()async {
+
+                        },
+                        child: Text(
+                          'Support us',
+                          style: GoogleFonts.inter(
+                              fontWeight: FontWeight.w500, fontSize: 13.sp,color: AppTheme.primaryColor),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: AppTheme.white,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(40)),
+                            minimumSize: Size(72.w, 32.h)),
+                      ),
+
+                    ],
+                  ),
+
+                ],
+              ),
+            ),
           ],
         ),
       ),

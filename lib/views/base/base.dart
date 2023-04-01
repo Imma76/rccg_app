@@ -53,18 +53,13 @@ class _BaseState extends ConsumerState<Base> {
             icon: Image.asset('assets/tv.png',color: currentIndex==1?AppTheme.purple:null, height: 19.h, width: 19.w),
             label: 'Dove Tv'),
         BottomNavigationBarItem(
-            icon: CircleAvatar(
-              child: Icon(
-                Icons.add,color: AppTheme.white,
-              ),
-              backgroundColor: AppTheme.purple,
-            ),
-            label: ''),
-        BottomNavigationBarItem(
-            icon: Image.asset('assets/bible.png',color: currentIndex==3?AppTheme.purple:null, height: 19.h, width: 19.w),
+            icon:  Image.asset('assets/bible.png',color: currentIndex==2?AppTheme.purple:null, height: 19.h, width: 19.w),
             label: 'Bible'),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.search,size: 19,color: currentIndex==2?AppTheme.purple:null, ),
+            label: 'Discover'),
             BottomNavigationBarItem(
-            icon: Image.asset('assets/profile.png', color: currentIndex==4?AppTheme.purple:null,height: 19.h, width: 19.w,),
+            icon: Image.asset('assets/more.png', color: currentIndex==4?AppTheme.purple:null,height: 19.h, width: 19.w,),
             label: 'Profile')
       ]),
     );
