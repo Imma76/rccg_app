@@ -3,21 +3,49 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rccg_app/providers/all_providers.dart';
 import 'package:rccg_app/views/watch_programs/watch_church_programs.dart';
 import 'package:rccg_app/views/watch_programs/watch_movies.dart';
+import 'package:rccg_app/widgets/loader.dart';
 
 import '../../themes/app_theme.dart';
 import '../../widgets/text_fields.dart';
 import '../base/home.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
-class RccgProgram extends ConsumerWidget {
-  static const route = 'rccg program';
+import '../watch_programs/all_video_player.dart';
+
+
+class RccgProgram extends ConsumerStatefulWidget {
+  static const route ='rccg program';
   const RccgProgram({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState createState() => _RccgProgramState();
+}
+
+class _RccgProgramState extends ConsumerState<RccgProgram> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    final programController=ref.read(programProvider);
+    Future(() {
+      programController.getRccgProgramChannelInfo();
+    });
+
+
+
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    final programController=ref.watch(programProvider);
+    print(programController
+        .rccgProgramModel?.videos?.length,);
     return Scaffold(
       appBar: AppBar(
           elevation: 0.0,
@@ -68,49 +96,59 @@ class RccgProgram extends ConsumerWidget {
           ),
         ),
         Gap(39.h),
-        Expanded(
+       programController.load?Indicator(): Expanded(
           child: ListView.builder(
-            itemCount: 5,
-            shrinkWrap: true,
-            itemBuilder: (context,index) {
-              return GestureDetector(
-                onTap:(){
-                  Navigator.pushNamed(context, WatchPrograms.route);
-                },
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 20,top: 20),
-                  child: Container(
-                    height: 281.h,
-                    width: 376.w,
-                    decoration: const BoxDecoration(
-                        color: AppTheme.white,
-                        borderRadius: BorderRadius.only(
-                            bottomRight: Radius.circular(20),
-                            bottomLeft: Radius.circular(20))),
-                    child: Column(
-                      children: [
-                        Image.asset('assets/program_pic.png',
-                            width: 397.w, height: 207.h),
-                        Gap(15.h),
-                        Row(
-                          children: [
-                            Padding(
-                              padding:  EdgeInsets.only(left:27.w,),
-                              child: Image.asset('assets/app_logo.png', height: 35.h, width: 35.w),
-                            ),
-                            Gap(5.h),
-                            Text('PASTOR E.A ADEBOYE PROPHECY | YEAR 2023'),
-                          ],
-                        )
-                      ],
+              itemCount: programController
+              .rccgProgramModel?.videos?.length,
+              shrinkWrap: true,
+              itemBuilder: (context,index) {
+                return GestureDetector(
+                  onTap:(){
+                    Navigator.push(context, MaterialPageRoute(builder: (context){
+                      return WatchPrograms(rccgProgramModel: programController
+                          .rccgProgramModel?.videos![index],);
+                    }));
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 20,top: 20),
+                    child: Container(
+                      height: 281.h,
+                      width: 376.w,
+                      decoration: const BoxDecoration(
+                          color: AppTheme.white,
+                          borderRadius: BorderRadius.only(
+                              bottomRight: Radius.circular(20),
+                              bottomLeft: Radius.circular(20))),
+                      child: Column(
+                        children: [
+                          CachedNetworkImage(imageUrl: programController.rccgProgramModel!.videos![index].videoDetails!.thumbnails!.medium!.url.toString()
+                              ,
+                              width: 397.w, height: 207.h,fit: BoxFit.cover,),
+                          Gap(15.h),
+                          Row(
+                            children: [
+                              Padding(
+                                padding:  EdgeInsets.only(left:27.w,),
+                                child: Image.asset('assets/app_logo.png', height: 35.h, width: 35.w),
+                              ),
+                              Gap(5.h),
+                              Expanded(
+                                child: Text('${ programController
+                                    .rccgProgramModel?.videos?[index].videoDetails?.title}'),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              );
-            }
+                );
+              }
           ),
         )
       ]),
     );
   }
 }
+
+

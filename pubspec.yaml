@@ -78,6 +78,7 @@ dependencies:
   easy_onboarding:
   flutter_staggered_grid_view:
   email_auth:
+
   firebase_auth:
   firebase_core:
   flutter_launcher_icons:
