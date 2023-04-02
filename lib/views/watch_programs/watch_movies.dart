@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../providers/all_providers.dart';
 import '../../themes/app_theme.dart';
 
 class WatchMovies extends ConsumerStatefulWidget {
@@ -19,14 +20,15 @@ class WatchMovies extends ConsumerStatefulWidget {
 class _WatchMoviesState extends ConsumerState<WatchMovies> {
   @override
   Widget build(BuildContext context) {
+    final themeController = ref.watch(appThemeProvider);
     return Scaffold(
       appBar: AppBar(
           elevation: 0.0,
-          backgroundColor: Colors.transparent,
+          backgroundColor: LightAppTheme.transparent,
           leading: IconButton(
-            icon: const Icon(
+            icon: Icon(
               Icons.arrow_back_ios_rounded,
-              color: AppTheme.black,
+              color: LightAppTheme.black,
             ),
             onPressed: () {
               Navigator.pop(context);
@@ -36,14 +38,14 @@ class _WatchMoviesState extends ConsumerState<WatchMovies> {
               style: GoogleFonts.inter(
                   fontSize: 18.sp,
                   fontWeight: FontWeight.w600,
-                  color: AppTheme.black2))),
+                  color: LightAppTheme.black2))),
       body: Column(
         children: [
           Container(
             height: 281.h,
             // width: 376.w,
-            decoration: const BoxDecoration(
-                color: AppTheme.white,
+            decoration:  BoxDecoration(
+                color: LightAppTheme.white,
                 borderRadius: BorderRadius.only(
                     bottomRight: Radius.circular(20),
                     bottomLeft: Radius.circular(20))),
@@ -71,13 +73,13 @@ class _WatchMoviesState extends ConsumerState<WatchMovies> {
             padding:  EdgeInsets.only(left:27.w,right: 27.w),
             child: Row(
               children: [
-                Text('More Mount Zion Movies',style: GoogleFonts.inter(fontWeight: FontWeight.w600,fontSize: 14.sp,color: AppTheme.black2)),
+                Text('More Mount Zion Movies',style: GoogleFonts.inter(fontWeight: FontWeight.w600,fontSize: 14.sp,color: LightAppTheme.black2)),
                 Spacer(),
                 GestureDetector(
                     onTap: (){
 
                     },
-                    child: Text('View all',style: GoogleFonts.inter(fontWeight: FontWeight.w500,fontSize: 12.sp,color: AppTheme.black2))),
+                    child: Text('View all',style: GoogleFonts.inter(fontWeight: FontWeight.w500,fontSize: 12.sp,color: LightAppTheme.black2))),
 
               ],
             ),
@@ -86,7 +88,7 @@ class _WatchMoviesState extends ConsumerState<WatchMovies> {
             padding: EdgeInsets.only(top: 10,bottom: 15,right: 15,left: 15),
             width: 375.w,
             decoration: BoxDecoration(
-                color: AppTheme.white
+                color: LightAppTheme.white
             ),
             child: Row(
               children: [
@@ -105,7 +107,7 @@ class _WatchMoviesState extends ConsumerState<WatchMovies> {
                       width: 126.w,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(28),
-                          border: Border.all(color:AppTheme.grey4)
+                          border: Border.all(color:LightAppTheme.grey4)
                       ),
                       child: const Center(child: Text('Watch Movie')),
                     )

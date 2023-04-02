@@ -29,14 +29,14 @@ class Welcome extends StatelessWidget {
              Gap(127.h),
              Image.asset('assets/welcome_text.png',height: 86.h,width:293.w),
              Gap(23.h),
-             Center(child: Text('Hi there!  Welcome to your personalized \n RCCG App, it”s created just to make your \n Rccg membership delightful.',textAlign:TextAlign.center,style: GoogleFonts.inter(fontWeight: FontWeight.w400,fontSize: 14.sp,color: AppTheme.white2),)),
+             Center(child: Text('Hi there!  Welcome to your personalized \n RCCG App, it”s created just to make your \n Rccg membership delightful.',textAlign:TextAlign.center,style: GoogleFonts.inter(fontWeight: FontWeight.w400,fontSize: 14.sp,color: LightAppTheme.white2),)),
              Gap(38.h),
              ElevatedButton(
                onPressed: (){
                  Navigator.pushNamed(context, Onboarding.route);
                },
                child:Text('Get Started'),
-               style: ElevatedButton.styleFrom(backgroundColor: AppTheme.primaryColor,
+               style: ElevatedButton.styleFrom(backgroundColor: LightAppTheme.primaryColor,
                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
                    minimumSize: Size(329.w, 52.h)),),
            ],

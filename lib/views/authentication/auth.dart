@@ -30,9 +30,10 @@ class _AuthenticationState extends ConsumerState<Authentication> {
   @override
   Widget build(BuildContext context) {
     final authController = ref.watch(authProvider);
+
     return SafeArea(
       child: Scaffold(
-          backgroundColor: AppTheme.white,
+          backgroundColor: LightAppTheme.white,
           body: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,7 +55,7 @@ class _AuthenticationState extends ConsumerState<Authentication> {
                     width: 320.w,
                     height: 44.9.h,
                     decoration: BoxDecoration(
-                        color: AppTheme.lightBlue,
+                        color: LightAppTheme.lightBlue,
                         borderRadius: BorderRadius.circular(22)),
                     child: Center(
                       child: Row(
@@ -75,7 +76,7 @@ class _AuthenticationState extends ConsumerState<Authentication> {
                                       style: GoogleFonts.inter(
                                           fontSize: 13.sp,
                                           fontWeight: FontWeight.w600,
-                                          color: AppTheme.primary2),
+                                          color: LightAppTheme.primary2),
                                     )),
                                   ))
                               : GestureDetector(
@@ -93,7 +94,7 @@ class _AuthenticationState extends ConsumerState<Authentication> {
                                         style: GoogleFonts.inter(
                                             fontSize: 13.sp,
                                             fontWeight: FontWeight.w400,
-                                            color: AppTheme.grey),
+                                            color: LightAppTheme.grey),
                                       )))),
                           authController.currentIndex == 1
                               ? SizedBox(
@@ -109,7 +110,7 @@ class _AuthenticationState extends ConsumerState<Authentication> {
                                       style: GoogleFonts.inter(
                                           fontSize: 13.sp,
                                           fontWeight: FontWeight.w600,
-                                          color: AppTheme.primary2),
+                                          color: LightAppTheme.primary2),
                                     )),
                                   ))
                               : GestureDetector(
@@ -125,7 +126,7 @@ class _AuthenticationState extends ConsumerState<Authentication> {
                                         style: GoogleFonts.inter(
                                             fontSize: 13.sp,
                                             fontWeight: FontWeight.w400,
-                                            color: AppTheme.grey),
+                                            color: LightAppTheme.grey),
                                       ))))
                         ],
                       ),
@@ -148,6 +149,7 @@ class RegisterFields extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final authController = ref.watch(authProvider);
+    final themeController = ref.watch(appThemeProvider);
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -161,7 +163,7 @@ class RegisterFields extends ConsumerWidget {
               style: GoogleFonts.poppins(
                   fontSize: 13.sp,
                   fontWeight: FontWeight.w400,
-                  color: AppTheme.primary2),
+                  color: LightAppTheme.primary2),
             ),
           ),
           Gap(8.h),
@@ -184,7 +186,7 @@ class RegisterFields extends ConsumerWidget {
               style: GoogleFonts.poppins(
                   fontSize: 13.sp,
                   fontWeight: FontWeight.w400,
-                  color: AppTheme.primary2),
+                  color: LightAppTheme.primary2),
             ),
           ),
           Gap(8.h),
@@ -209,7 +211,7 @@ class RegisterFields extends ConsumerWidget {
               style: GoogleFonts.poppins(
                   fontSize: 13.sp,
                   fontWeight: FontWeight.w400,
-                  color: AppTheme.primary2),
+                  color: LightAppTheme.primary2),
             ),
           ),
           Gap(8.h),
@@ -235,7 +237,7 @@ class RegisterFields extends ConsumerWidget {
               style: GoogleFonts.poppins(
                   fontSize: 13.sp,
                   fontWeight: FontWeight.w400,
-                  color: AppTheme.primary2),
+                  color: LightAppTheme.primary2),
             ),
           ),
           Gap(8.h),
@@ -254,7 +256,7 @@ class RegisterFields extends ConsumerWidget {
 
           Gap(43.h),
           Center(
-            child: authController.load?Indicator(color: AppTheme.primaryColor
+            child: authController.load?Indicator(color: LightAppTheme.primaryColor
               ,): ElevatedButton(
               onPressed: ()async {
                 // Navigator.pushNamed(context, VerifyEmail.route);
@@ -262,7 +264,7 @@ class RegisterFields extends ConsumerWidget {
               },
               child: Text('Create Account'),
               style: ElevatedButton.styleFrom(
-                  backgroundColor: AppTheme.primaryColor,
+                  backgroundColor: LightAppTheme.primaryColor,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(40)),
                   minimumSize: Size(329.w, 52.h)),
@@ -276,7 +278,7 @@ class RegisterFields extends ConsumerWidget {
               children: [
                 Container(
                   width: 105.w,
-                  color: AppTheme.midGrey,
+                  color: LightAppTheme.midGrey,
                   height: 2,
                 ),
                 Gap(7),
@@ -284,11 +286,11 @@ class RegisterFields extends ConsumerWidget {
                     style: GoogleFonts.inter(
                         fontWeight: FontWeight.w400,
                         fontSize: 12.sp,
-                        color: AppTheme.grey)),
+                        color: LightAppTheme.grey)),
                 Gap(7),
                 Container(
                   width: 105.w,
-                  color: AppTheme.midGrey,
+                  color: LightAppTheme.midGrey,
                   height: 2,
                 ),
               ],
@@ -316,7 +318,7 @@ class RegisterFields extends ConsumerWidget {
                       style: GoogleFonts.manrope(
                           fontWeight: FontWeight.w600,
                           fontSize: 14.sp,
-                          color: AppTheme.primary2,
+                          color: LightAppTheme.primary2,
                           fontStyle: FontStyle.normal),
                     ),
                   ],
@@ -324,7 +326,7 @@ class RegisterFields extends ConsumerWidget {
               ),
               style: ElevatedButton.styleFrom(
                 elevation: 0,
-                backgroundColor: AppTheme.white,
+                backgroundColor: LightAppTheme.white,
                 shape: RoundedRectangleBorder(
                     side: BorderSide(color: Color.fromARGB(44, 30, 95, 0)),
                     borderRadius: BorderRadius.circular(40)),
@@ -348,7 +350,7 @@ class RegisterFields extends ConsumerWidget {
                     style: GoogleFonts.inter(
                         fontWeight: FontWeight.w400,
                         fontSize: 14.sp,
-                        color: AppTheme.grey,
+                        color: LightAppTheme.grey,
                         fontStyle: FontStyle.normal),
                   ),
                   Text(
@@ -356,7 +358,7 @@ class RegisterFields extends ConsumerWidget {
                     style: GoogleFonts.inter(
                         fontWeight: FontWeight.w400,
                         fontSize: 14.sp,
-                        color: AppTheme.primaryColor,
+                        color: LightAppTheme.primaryColor,
                         fontStyle: FontStyle.normal),
                   ),
                 ],
@@ -380,6 +382,7 @@ class LoginFields extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final authController = ref.watch(authProvider);
+    final themeController = ref.watch(appThemeProvider);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -392,7 +395,7 @@ class LoginFields extends ConsumerWidget {
             style: GoogleFonts.poppins(
                 fontSize: 13.sp,
                 fontWeight: FontWeight.w400,
-                color: AppTheme.primary2),
+                color: LightAppTheme.primary2),
           ),
         ),
         Gap(8.h),
@@ -417,7 +420,7 @@ class LoginFields extends ConsumerWidget {
             style: GoogleFonts.poppins(
                 fontSize: 13.sp,
                 fontWeight: FontWeight.w400,
-                color: AppTheme.primary2),
+                color: LightAppTheme.primary2),
           ),
         ),
         Gap(8.h),
@@ -439,7 +442,7 @@ class LoginFields extends ConsumerWidget {
                 style: GoogleFonts.inter(
                     fontWeight: FontWeight.w600,
                     fontSize: 14.sp,
-                    color: AppTheme.primaryColor)),
+                    color: LightAppTheme.primaryColor)),
             Gap(33.w)
           ],
         ),
@@ -455,7 +458,7 @@ class LoginFields extends ConsumerWidget {
                   fontWeight: FontWeight.w600, fontSize: 16.sp),
             ),
             style: ElevatedButton.styleFrom(
-                backgroundColor: AppTheme.primaryColor,
+                backgroundColor: LightAppTheme.primaryColor,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(40)),
                 minimumSize: Size(329.w, 52.h),),
@@ -469,7 +472,7 @@ class LoginFields extends ConsumerWidget {
             children: [
               Container(
                 width: 105.w,
-                color: AppTheme.midGrey,
+                color: LightAppTheme.midGrey,
                 height: 2,
               ),
               Gap(7),
@@ -477,11 +480,11 @@ class LoginFields extends ConsumerWidget {
                   style: GoogleFonts.inter(
                       fontWeight: FontWeight.w400,
                       fontSize: 12.sp,
-                      color: AppTheme.grey)),
+                      color: LightAppTheme.grey)),
               Gap(7),
               Container(
                 width: 105.w,
-                color: AppTheme.midGrey,
+                color: LightAppTheme.midGrey,
                 height: 2,
               ),
             ],
@@ -495,7 +498,7 @@ class LoginFields extends ConsumerWidget {
             },
             style: ElevatedButton.styleFrom(
               elevation: 0,
-              backgroundColor: AppTheme.white,
+              backgroundColor: LightAppTheme.white,
               shape: RoundedRectangleBorder(
                   side: BorderSide(color: Color.fromARGB(44, 30, 95, 0)),
                   borderRadius: BorderRadius.circular(40)),
@@ -518,7 +521,7 @@ class LoginFields extends ConsumerWidget {
                     style: GoogleFonts.manrope(
                         fontWeight: FontWeight.w600,
                         fontSize: 14.sp,
-                        color: AppTheme.primary2,
+                        color: LightAppTheme.primary2,
                         fontStyle: FontStyle.normal),
                   ),
                 ],
@@ -543,7 +546,7 @@ class LoginFields extends ConsumerWidget {
                   style: GoogleFonts.inter(
                       fontWeight: FontWeight.w400,
                       fontSize: 14.sp,
-                      color: AppTheme.grey,
+                      color: LightAppTheme.grey,
                       fontStyle: FontStyle.normal),
                 ),
                 Text(
@@ -551,7 +554,7 @@ class LoginFields extends ConsumerWidget {
                   style: GoogleFonts.inter(
                       fontWeight: FontWeight.w400,
                       fontSize: 14.sp,
-                      color: AppTheme.primaryColor,
+                      color: LightAppTheme.primaryColor,
                       fontStyle: FontStyle.normal),
                 ),
               ],

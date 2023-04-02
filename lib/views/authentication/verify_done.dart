@@ -25,13 +25,13 @@ class VerificationComplete extends StatelessWidget {
             Text(
               'Congratulations',
               style: GoogleFonts.inter(
-                  fontWeight: FontWeight.w600, fontSize: 20.sp,color: AppTheme.black2),
+                  fontWeight: FontWeight.w600, fontSize: 20.sp,color: LightAppTheme.black2),
             ),
             Gap(14.h),
             Text(
               'Voila! You have successfuly created \n your account.',textAlign: TextAlign.center,
               style: GoogleFonts.inter(
-                  fontWeight: FontWeight.w400, fontSize: 16.sp,color: AppTheme.black2),
+                  fontWeight: FontWeight.w400, fontSize: 16.sp,color: LightAppTheme.black2),
             ),
             Gap(69.h),
             Center(
@@ -40,7 +40,7 @@ class VerificationComplete extends StatelessWidget {
                 Navigator.pushNamedAndRemoveUntil(context, Base.route, (route) => false);
                 },
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: AppTheme.primaryColor,
+                    backgroundColor: LightAppTheme.primaryColor,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(40)),
                     minimumSize: Size(329.w, 52.h)),

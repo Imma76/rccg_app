@@ -23,11 +23,11 @@ class _WatchProgramsState extends ConsumerState<WatchPrograms> {
       child: Scaffold(
         appBar: AppBar(
             elevation: 0.0,
-            backgroundColor: Colors.transparent,
+            backgroundColor: LightAppTheme.transparent,
             leading: IconButton(
               icon: const Icon(
                 Icons.arrow_back_ios_rounded,
-                color: AppTheme.black,
+                color: LightAppTheme.black,
               ),
               onPressed: () {
                 Navigator.pop(context);
@@ -37,14 +37,14 @@ class _WatchProgramsState extends ConsumerState<WatchPrograms> {
                 style: GoogleFonts.inter(
                     fontSize: 18.sp,
                     fontWeight: FontWeight.w600,
-                    color: AppTheme.black2))),
+                    color: LightAppTheme.black2))),
         body: Column(
           children: [
             Container(
               height: 281.h,
              // width: 376.w,
               decoration: const BoxDecoration(
-                  color: AppTheme.white,
+                  color: LightAppTheme.white,
                   borderRadius: BorderRadius.only(
                       bottomRight: Radius.circular(20),
                       bottomLeft: Radius.circular(20))),
@@ -62,11 +62,11 @@ class _WatchProgramsState extends ConsumerState<WatchPrograms> {
                       Gap(5.h),
                       Expanded(
                         child: Text('Enoch | A Biopic of Pastor E.A. Adeboye',  style: GoogleFonts.inter(
-                            fontWeight: FontWeight.w500, fontSize: 14.sp,color: AppTheme.black2),),
+                            fontWeight: FontWeight.w500, fontSize: 14.sp,color: LightAppTheme.black2),),
                       ),
                       Gap(10.w),
                       Text('Share',  style: GoogleFonts.inter(
-                          fontWeight: FontWeight.w400, fontSize: 14.sp,color: AppTheme.black2),), Gap(10.w),
+                          fontWeight: FontWeight.w400, fontSize: 14.sp,color: LightAppTheme.black2),), Gap(10.w),
                       Image.asset('assets/share.png',width: 19.w,height: 16.h,),
                       Gap(10.w),
                     ],
@@ -80,13 +80,13 @@ class _WatchProgramsState extends ConsumerState<WatchPrograms> {
               padding:  EdgeInsets.only(left:27.w,right: 27.w),
               child: Row(
                 children: [
-                  Text('More Rccg Programs',style: GoogleFonts.inter(fontWeight: FontWeight.w600,fontSize: 14.sp,color: AppTheme.black2)),
+                  Text('More Rccg Programs',style: GoogleFonts.inter(fontWeight: FontWeight.w600,fontSize: 14.sp,color: LightAppTheme.black2)),
                   Spacer(),
                   GestureDetector(
                       onTap: (){
 
                       },
-                      child: Text('View all',style: GoogleFonts.inter(fontWeight: FontWeight.w500,fontSize: 12.sp,color: AppTheme.black2))),
+                      child: Text('View all',style: GoogleFonts.inter(fontWeight: FontWeight.w500,fontSize: 12.sp,color: LightAppTheme.black2))),
 
                 ],
               ),
@@ -97,7 +97,7 @@ class _WatchProgramsState extends ConsumerState<WatchPrograms> {
               padding: EdgeInsets.only(top: 10,bottom: 15,right: 15,left: 15),
               width: 375.w,
               decoration: BoxDecoration(
-                color: AppTheme.white
+                color: LightAppTheme.white
               ),
               child: Row(
                 children: [
@@ -109,16 +109,16 @@ class _WatchProgramsState extends ConsumerState<WatchPrograms> {
                   Gap(19.w),
                   Column(
                     children: [
-                      Text('April Holy Ghost...',style: GoogleFonts.inter(fontWeight: FontWeight.w600,fontSize: 14.sp,color: AppTheme.black2)),
+                      Text('April Holy Ghost...',style: GoogleFonts.inter(fontWeight: FontWeight.w600,fontSize: 14.sp,color: LightAppTheme.black2)),
                       Gap(16.h),
                       Container(
                         height: 36.h,
                         width: 126.w,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(28),
-                            border: Border.all(color:AppTheme.grey4)
+                            border: Border.all(color:LightAppTheme.grey4)
                         ),
-                        child: Center(child: Text('Watch Program',style: GoogleFonts.inter(fontWeight: FontWeight.w400,fontSize: 12.sp,color: AppTheme.black2))),
+                        child: Center(child: Text('Watch Program',style: GoogleFonts.inter(fontWeight: FontWeight.w400,fontSize: 12.sp,color: LightAppTheme.black2))),
                       )
                     ],
                   )

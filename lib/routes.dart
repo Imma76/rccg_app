@@ -8,6 +8,8 @@ import 'package:rccg_app/views/authentication/password_changed_done.dart';
 import 'package:rccg_app/views/authentication/verify_done.dart';
 import 'package:rccg_app/views/authentication/verify_email.dart';
 import 'package:rccg_app/views/base/base.dart';
+import 'package:rccg_app/views/manuals/rccg_manuals.dart';
+import 'package:rccg_app/views/manuals/read_manuals.dart';
 import 'package:rccg_app/views/onboarding/onboarding1.dart';
 import 'package:rccg_app/views/onboarding/welcome_page.dart';
 import 'package:rccg_app/views/programs/movies.dart';
@@ -28,4 +30,6 @@ final Map<String, WidgetBuilder> routes = {
   ChristianMovie.route:(context)=>const ChristianMovie(),
   WatchPrograms.route:(context)=>const WatchPrograms(),
   WatchMovies.route:(context)=>const WatchMovies(),
+  RccgManual.route:(context)=>RccgManual(),
+  ReadManuals.route:(context)=>ReadManuals()
 };

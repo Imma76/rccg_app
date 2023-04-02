@@ -6,7 +6,7 @@ import '../../themes/app_theme.dart';
 
 class Indicator extends StatelessWidget {
   final Color? color;
-  const Indicator({Key? key,this.color= AppTheme.primaryColor}) : super(key: key);
+  const Indicator({Key? key,this.color= LightAppTheme.primaryColor}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

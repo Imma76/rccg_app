@@ -34,7 +34,7 @@ class _BaseState extends ConsumerState<Base> {
       body: widgetList[currentIndex],
       bottomNavigationBar:
           BottomNavigationBar(
-            selectedItemColor: AppTheme.primaryColor,
+            selectedItemColor: LightAppTheme.primaryColor,
               currentIndex: currentIndex,
               onTap: (value){
                 setState(() {
@@ -44,22 +44,22 @@ class _BaseState extends ConsumerState<Base> {
               type: BottomNavigationBarType.fixed, items: [
         BottomNavigationBarItem(
             icon: Image.asset(
-              'assets/home.png',color: currentIndex==0?AppTheme.purple:null,
+              'assets/home.png',color: currentIndex==0?LightAppTheme.purple:null,
               height: 19.h,
               width: 19.w,
             ),
             label: 'Home'),
         BottomNavigationBarItem(
-            icon: Image.asset('assets/tv.png',color: currentIndex==1?AppTheme.purple:null, height: 19.h, width: 19.w),
+            icon: Image.asset('assets/tv.png',color: currentIndex==1?LightAppTheme.purple:null, height: 19.h, width: 19.w),
             label: 'Dove Tv'),
         BottomNavigationBarItem(
-            icon:  Image.asset('assets/bible.png',color: currentIndex==2?AppTheme.purple:null, height: 19.h, width: 19.w),
+            icon:  Image.asset('assets/bible.png',color: currentIndex==2?LightAppTheme.purple:null, height: 19.h, width: 19.w),
             label: 'Bible'),
         BottomNavigationBarItem(
-            icon: Icon(Icons.search,size: 19,color: currentIndex==2?AppTheme.purple:null, ),
+            icon: Icon(Icons.search,size: 19,color: currentIndex==2?LightAppTheme.purple:null, ),
             label: 'Discover'),
             BottomNavigationBarItem(
-            icon: Image.asset('assets/more.png', color: currentIndex==4?AppTheme.purple:null,height: 19.h, width: 19.w,),
+            icon: Image.asset('assets/more.png', color: currentIndex==4?LightAppTheme.purple:null,height: 19.h, width: 19.w,),
             label: 'Profile')
       ]),
     );

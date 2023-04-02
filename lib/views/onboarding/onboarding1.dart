@@ -21,9 +21,9 @@ class _OnboardingState extends State<Onboarding> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppTheme.white,
+      backgroundColor: LightAppTheme.white,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: LightAppTheme.transparent,
         elevation: 0,
         leading: Padding(
           padding: const EdgeInsets.only(left:20.0),
@@ -37,7 +37,7 @@ class _OnboardingState extends State<Onboarding> {
             },
             child: Padding(
               padding: const EdgeInsets.only(right:25.0),
-              child: Center(child: Text('Skip',style:GoogleFonts.inter(color: AppTheme.primaryColor,fontWeight: FontWeight
+              child: Center(child: Text('Skip',style:GoogleFonts.inter(color: LightAppTheme.primaryColor,fontWeight: FontWeight
               .w500))),
             ),
           )
@@ -78,7 +78,7 @@ class _OnboardingState extends State<Onboarding> {
 
 
                   Gap(18.h),
-                index == 0?  Center(child: Text('Get access to all RCCG’s Live and previous programs \n both in audio and video',textAlign: TextAlign.center,style:GoogleFonts.inter(fontSize: 14.sp,fontWeight: FontWeight.w400,color: AppTheme.primary2))):index == 1?Center(child: Text('Stay connected with RCCG’s Manuals, Events, Bible, Calendar and  Prayer tracker.',textAlign: TextAlign.center,style:GoogleFonts.inter(fontSize: 14.sp,fontWeight: FontWeight.w400,color: AppTheme.primary2))):Center(child: Text('Enjoy more features such as accommodation, christian movies & songs, Dove TV, map and  many more.',textAlign: TextAlign.center,style:GoogleFonts.inter(fontSize: 14.sp,fontWeight: FontWeight.w400,color: AppTheme.primary2))),
+                index == 0?  Center(child: Text('Get access to all RCCG’s Live and previous programs \n both in audio and video',textAlign: TextAlign.center,style:GoogleFonts.inter(fontSize: 14.sp,fontWeight: FontWeight.w400,color: LightAppTheme.primary2))):index == 1?Center(child: Text('Stay connected with RCCG’s Manuals, Events, Bible, Calendar and  Prayer tracker.',textAlign: TextAlign.center,style:GoogleFonts.inter(fontSize: 14.sp,fontWeight: FontWeight.w400,color: LightAppTheme.primary2))):Center(child: Text('Enjoy more features such as accommodation, christian movies & songs, Dove TV, map and  many more.',textAlign: TextAlign.center,style:GoogleFonts.inter(fontSize: 14.sp,fontWeight: FontWeight.w400,color: LightAppTheme.primary2))),
 
                   Gap(44.h),
                   ElevatedButton(
@@ -89,7 +89,7 @@ class _OnboardingState extends State<Onboarding> {
                       }
                     },
                     child:Text('Next',style: GoogleFonts.inter(fontWeight: FontWeight.w600,fontSize: 16.sp),),
-                    style: ElevatedButton.styleFrom(backgroundColor: AppTheme.primaryColor,
+                    style: ElevatedButton.styleFrom(backgroundColor: LightAppTheme.primaryColor,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
                         minimumSize: Size(329.w, 52.h)),),
                 ],

@@ -1,6 +1,30 @@
 import 'package:flutter/material.dart';
 
-class AppTheme{
+
+class AppThemeChange extends ChangeNotifier {
+
+  bool light = true;
+  var
+  appTheme= LightAppTheme();
+  changeTheme(){
+    if(light == true){
+      appTheme=LightAppTheme();
+      notifyListeners();
+    }else{
+      appTheme= DarkAppTheme() as LightAppTheme;
+      notifyListeners();
+    }
+  }
+
+
+}
+
+class LightAppTheme {
+  String theme = 'light';
+
+  changeTheme(String newTheme){
+    theme = newTheme;
+  }
   static const Color white = Colors.white;
   static const Color white2 = Color(0xffBEBEBE);
   static const Color primaryColor = Color(0xff28166F);
@@ -23,5 +47,46 @@ class AppTheme{
   static const Color white6 =Color(0xffEDEDED);
   static const Color grey5 = Color(0xffEEEFF0);
   static const Color grey6 = Color(0xff818487);
+  static const Color grey7 = Color(0xffD2CACA);
+  static const Color grey8 = Color(0xff8D98AF);
+  static const Color transparent = Colors.transparent;
+
+
+
+
+}
+
+class DarkAppTheme {
+  String theme = 'light';
+
+  changeTheme(String newTheme){
+    theme = newTheme;
+  }
+  Color white = Colors.black;
+  Color white2 =  Color(0xff1A1C1E);
+  Color primaryColor = Color(0xff28166F);
+  Color primary2 = Color(0xff171B2E);
+  Color lightBlue = Color(0xffF8F9FB);
+  Color grey = Color(0xff7E8392);
+  Color white3 = Color(0xffBBC0DB);
+  Color white4 = Color(0xffDADEE3);
+  Color midGrey = Color(0xffE6E8EC);
+  Color black = Colors.white;
+  Color white5 = Color(0xff2C1E5F);
+  Color primary4 =Color(0xff121F3E);
+  Color grey2 = Color(0xffEEF3F8);
+  Color black2 =Color(0xffBEBEBE);
+  Color grey3 = Color(0xff9CA3AF);
+  Color purple = Color(0xff5D5FEF);
+  Color purple2 = Color(0xff261C4B);
+  Color lightPurple = Color(0xffDBD5F2);
+  Color grey4 = Color(0xffB9BBBD);
+  Color white6 =Color(0xffEDEDED);
+  Color grey5 = Color(0xffEEEFF0);
+  Color grey6 = Color(0xff818487);
+  Color grey7 = Color(0xffD2CACA);
+  Color grey8 = Color(0xff8D98AF);
+  Color transparent = Colors.transparent;
+
 
 }

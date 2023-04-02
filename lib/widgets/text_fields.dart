@@ -13,14 +13,15 @@ class AppTextField extends StatelessWidget {
   final Color?borderColor;
   final Widget? prefix;
   const AppTextField({
-    Key? key,this.hintText,this.borderColor=AppTheme.white2,this.prefix,this.controller,this.backGroundColor,this.prefixIcon
+    Key? key,this.hintText,this.borderColor=LightAppTheme.white2,this.prefix,this.controller,this.backGroundColor,this.prefixIcon
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
     return TextField(
       controller: controller,
-      cursorColor: AppTheme.primaryColor,
+      cursorColor: LightAppTheme.primaryColor,
 
       decoration: InputDecoration(
         fillColor: backGroundColor,
@@ -32,7 +33,7 @@ class AppTextField extends StatelessWidget {
           backGroundColor== null?EdgeInsets.symmetric(vertical: 1, horizontal: 10):null,
           hintText: hintText,
           hintStyle: GoogleFonts.inter(
-              color: AppTheme.white4,
+              color: LightAppTheme.white4,
               fontSize: 13.sp,
               fontWeight: FontWeight.w400),
           enabledBorder: OutlineInputBorder(

@@ -140,7 +140,7 @@ class NoInternetConnection extends ConsumerWidget {
                       fontWeight: FontWeight.w600, fontSize: 16.sp),
                 ),
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: AppTheme.primaryColor,
+                    backgroundColor: LightAppTheme.primaryColor,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(40)),
                     minimumSize: Size(329.w, 52.h)),
