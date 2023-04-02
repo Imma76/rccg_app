@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../models/rccg_program_model.dart';
+import '../../providers/all_providers.dart';
 import '../../themes/app_theme.dart';
 
 class WatchPrograms extends ConsumerStatefulWidget {
@@ -58,7 +60,8 @@ class _WatchProgramsState extends ConsumerState<WatchPrograms> {
   bool fullScreen = false;
   @override
   Widget build(BuildContext context) {
-    print(widget.rccgProgramModel!.videoDetails!.resourceId!.videoId.toString());
+    final programController = ref.watch(programProvider);
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -141,69 +144,68 @@ class _WatchProgramsState extends ConsumerState<WatchPrograms> {
               ),
             ),
             Gap(33.h),
-            GestureDetector(
-              onTap:
-              (){
-                print('ll');
-                // _controller = YoutubePlayerController(
-                //     initialVideoId: 'hQIA-f0hprY',
-                //     flags: YoutubePlayerFlags(
-                //       mute: false,
-                //       autoPlay: true,
-                //     ))
-                //   ..addListener(() {
-                //     void _listener() {
-                //       if (_isPlayerReady!=null&&_isPlayerReady! && mounted! && !_controller!.value.isFullScreen) {}
-                //     }
-                //     setState(() {
-                //
-                //     });
-                //
-                //     _listener();
-                //   });
-
-                  _controller!.load('hQIA-f0hprY');
-                _controller?.play();
-                print(_controller!.initialVideoId);
-                //_controller?.reset();
-
-
-                setState(() {
-
-                });
-              },
-              child: Container(
-                height: 108.h,
-                padding: EdgeInsets.only(top: 10,bottom: 15,right: 15,left: 15),
-                width: 375.w,
-                decoration: BoxDecoration(
-                  color: AppTheme.white
-                ),
-                child: Row(
-                  children: [
-                    Column(
-                      children: [
-                        Image.asset('assets/program.png',width: 136.w,height: 80.h,)
-                      ],
-                    ),
-                    Gap(19.w),
-                    Column(
-                      children: [
-                        Text('April Holy Ghost...',style: GoogleFonts.inter(fontWeight: FontWeight.w600,fontSize: 14.sp,color: AppTheme.black2)),
-                        Gap(16.h),
-                        Container(
-                          height: 36.h,
-                          width: 126.w,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(28),
-                              border: Border.all(color:AppTheme.grey4)
+            Expanded(
+              child: ListView.builder(
+                shrinkWrap:true,
+                itemCount: programController.rccgProgramModel!.videos!.length,
+                itemBuilder: (context,index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      height: 108.h,
+                      padding: EdgeInsets.only(top: 10,bottom: 15,right: 15,left: 15),
+                      width: 375.w,
+                      decoration: BoxDecoration(
+                        color: AppTheme.white
+                      ),
+                      child: Row(
+                        children: [
+                          Column(
+                            children: [
+                              CachedNetworkImage(imageUrl: programController.rccgProgramModel!.videos![index].videoDetails!.thumbnails!.medium!.url.toString()
+                                ,
+                                width: 136.w, height: 80.h,fit: BoxFit.cover,),
+                            ],
                           ),
-                          child: Center(child: Text('Watch Program',style: GoogleFonts.inter(fontWeight: FontWeight.w400,fontSize: 12.sp,color: AppTheme.black2))),
-                        )
-                      ],
-                    )
-                  ],
-                ),
+                          Gap(19.w),
+                          Column(
+                            children: [
+                              SizedBox(
+                              width:199.w,
+                              child: Text('${programController.rccgProgramModel!.videos![index].videoDetails!.title}',maxLines:2,softWrap: true, overflow: TextOverflow.clip,style: GoogleFonts.inter(fontSize: 10),)),
+                          Gap(16.h),
+                              GestureDetector(
+                                onTap:
+                                    (){
+                                  print('ll');
+
+                                  _controller!.load(programController.rccgProgramModel!.videos![index].videoDetails!.resourceId!.videoId.toString());
+                                  _controller?.play();
+                                  print(_controller!.initialVideoId);
+                                  //_controller?.reset();
+
+
+                                  setState(() {
+
+                                  });
+                                },
+                                child: Container(
+                                  height: 36.h,
+                                  width: 126.w,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(28),
+                                      border: Border.all(color:AppTheme.grey4)
+                                  ),
+                                  child: Center(child: Text('Watch Program',style: GoogleFonts.inter(fontWeight: FontWeight.w400,fontSize: 12.sp,color: AppTheme.black2))),
+                                ),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                }
               ),
             )
           ],

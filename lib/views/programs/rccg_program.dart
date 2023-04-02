@@ -97,7 +97,8 @@ class _RccgProgramState extends ConsumerState<RccgProgram> {
         ),
         Gap(39.h),
        programController.load?Indicator(): Expanded(
-          child: ListView.builder(
+          child:programController
+        .rccgProgramModel==null?SizedBox(): ListView.builder(
               itemCount: programController
               .rccgProgramModel?.videos?.length,
               shrinkWrap: true,

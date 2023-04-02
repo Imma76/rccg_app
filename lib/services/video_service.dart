@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
+import 'package:rccg_app/models/rccg_movie_search_model.dart';
 import '../models/rccg_channel_info.dart';
 import '../models/rccg_program_model.dart';
 import '../models/rccg_videos_playlist.dart';
@@ -36,6 +37,25 @@ class ProgramService {
 
     return rccgProgram;
   }
+  static Future<RccgMovieSearchModel> getSearchedMovies() async {
+    Map<String, String> parameters = {
+      'part': 'snippet',
+      'type':'christian movies',
+      'forMine':'0',
+      'key': 'AIzaSyCqKNPqh9CJbjc4MSVbsiNFeiTDb31Aq6Q'
+      //'AIzaSyB6N2UIi4BfnM9AzARoRlWfaEVo7VpRMJc',
+
+    };
+    Map<String, String> headers = {
+      HttpHeaders.contentTypeHeader: 'application/json',
+    };
+    Uri uri = Uri.parse('https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=christian%20movies&type=video&videoDuration=long&access_token=AIzaSyB6N2UIi4BfnM9AzARoRlWfaEVo7VpRMJc&type=video&access_token=AIzaSyB6N2UIi4BfnM9AzARoRlWfaEVo7VpRMJc&key=$key');
+    Response response = await http.get(uri, headers: headers);
+    print(response.body);
+    RccgMovieSearchModel rccgMovie = rccgMovieSearchModelFromJson(response.body);
+
+    return rccgMovie;
+  }
 
 
   static Future<RccgProgramModel> getRccgProgramModelVideos( {String? playlistId, String? pageToken}) async {
@@ -52,7 +72,7 @@ class ProgramService {
     Uri uri = Uri.https(baseUrl, '/youtube/v3/playlistItems', parameters);
     Response response = await http.get(uri, headers: headers);
     print(response.body);
-    RccgProgramModel rccgProgramModel = rccgProgramModelFromJson(response.body);
+    RccgProgramModel? rccgProgramModel = rccgProgramModelFromJson(response.body);
 
     return rccgProgramModel;
   }

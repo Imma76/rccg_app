@@ -1,22 +1,45 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rccg_app/views/watch_programs/watch_movies.dart';
+import 'package:rccg_app/widgets/loader.dart';
 
+import '../../providers/all_providers.dart';
 import '../../themes/app_theme.dart';
 import '../../widgets/text_fields.dart';
 import '../base/home.dart';
 
-class ChristianMovie extends ConsumerWidget {
-  static const route = 'christian program';
+
+class ChristianMovie extends ConsumerStatefulWidget {
+  static const route = 'christian movie';
   const ChristianMovie({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState createState() => _ChristianMovieState();
+}
+
+class _ChristianMovieState extends ConsumerState<ChristianMovie> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    final programController=ref.read(programProvider);
+    Future(() {
+      programController.loadMovieVideos();
+    });
+
+
+
+  }
+  @override
+
+  Widget build(BuildContext context, ) {
+    final programController=ref.watch(programProvider);
     return Scaffold(
       appBar: AppBar(
           elevation: 0.0,
@@ -68,13 +91,18 @@ class ChristianMovie extends ConsumerWidget {
         ),
         Gap(39.h),
         Expanded(
-          child: ListView.builder(
-              itemCount: 5,
+          child: programController.load?Indicator():ListView.builder(
+              itemCount: programController.rccgMovieSearchModel!.videos!.length,
               shrinkWrap: true,
               itemBuilder: (context,index) {
                 return GestureDetector(
                   onTap: (){
-                    Navigator.pushNamed(context,WatchMovies.route);
+                 Navigator.push(context, MaterialPageRoute(builder: (context){
+                   return WatchMovies(
+                     videoId:  programController.rccgMovieSearchModel!.videos![index].id,
+                     searchVideoDetails:  programController.rccgMovieSearchModel!.videos![index].videoDetails,
+                   );
+                 }));
                   },
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 20,top: 20),
@@ -88,8 +116,9 @@ class ChristianMovie extends ConsumerWidget {
                               bottomLeft: Radius.circular(20))),
                       child: Column(
                         children: [
-                          Image.asset('assets/movie_pic2.png',
-                              width: 397.w, height: 207.h),
+                          CachedNetworkImage(imageUrl: programController.rccgMovieSearchModel!.videos![index].videoDetails!.thumbnails!.medium!.url.toString()
+                            ,
+                            width: 397.w, height: 207.h,fit: BoxFit.cover,),
                           Gap(15.h),
                           Row(
                             children: [
@@ -98,7 +127,7 @@ class ChristianMovie extends ConsumerWidget {
                                 child: Image.asset('assets/movie_pic.png', height: 35.h, width: 35.w),
                               ),
                               Gap(5.h),
-                              Text('Enoch | A Biopic of Pastor E.A. Adeboye'),
+                              Expanded(child: Text('${programController.rccgMovieSearchModel!.videos![index].videoDetails!.title}')),
                             ],
                           )
                         ],
@@ -113,3 +142,5 @@ class ChristianMovie extends ConsumerWidget {
     );
   }
 }
+
+
