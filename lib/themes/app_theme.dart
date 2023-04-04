@@ -32,6 +32,7 @@ class LightAppTheme {
   static const Color lightBlue = Color(0xffF8F9FB);
   static const Color grey = Color(0xff7E8392);
   static const Color white3 = Color(0xffBBC0DB);
+  static const Color shadowColor =  Color.fromRGBO(13, 13, 13, 0.05000000074505806);
   static const Color white4 = Color(0xffDADEE3);
   static const Color midGrey = Color(0xffE6E8EC);
   static const Color black = Colors.black;
@@ -49,6 +50,7 @@ class LightAppTheme {
   static const Color grey6 = Color(0xff818487);
   static const Color grey7 = Color(0xffD2CACA);
   static const Color grey8 = Color(0xff8D98AF);
+  static const Color primary5 = Color(0xffD6CAFC);
   static const Color transparent = Colors.transparent;
 
 
