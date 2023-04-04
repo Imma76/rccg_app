@@ -147,9 +147,9 @@ class _DoveTvState extends State<DoveTv> {
                               padding:  EdgeInsets.only(left:27.w,right: 27.w),
                               child: Row(
                                 children: [
-                                  Text('Rccg Programs',style: GoogleFonts.inter(fontWeight: FontWeight.w600,fontSize: 14.sp,color: AppTheme.primaryColor)),
+                                  Text('Rccg Programs',style: GoogleFonts.inter(fontWeight: FontWeight.w600,fontSize: 14.sp,color: LightAppTheme.primaryColor)),
                                   Spacer(),
-                                  Text('View all',style: GoogleFonts.inter(fontWeight: FontWeight.w500,fontSize: 12.sp,color: AppTheme.primaryColor)),
+                                  Text('View all',style: GoogleFonts.inter(fontWeight: FontWeight.w500,fontSize: 12.sp,color: LightAppTheme.primaryColor)),
 
                                 ],
                               ),

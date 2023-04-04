@@ -52,18 +52,18 @@ class _VerifyEmailState extends ConsumerState<VerifyEmail> {
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: Colors.transparent,
+          backgroundColor: LightAppTheme.transparent,
           leading: IconButton(
             icon: Icon(
               Icons.arrow_back_ios,
-              color: AppTheme.black,
+              color: LightAppTheme.black,
             ),
             onPressed: () {
               Navigator.pop(context);
             },
           ),
         ),
-        backgroundColor: AppTheme.white,
+        backgroundColor: LightAppTheme.white,
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -77,7 +77,7 @@ class _VerifyEmailState extends ConsumerState<VerifyEmail> {
               style: GoogleFonts.poppins(
                   fontSize: 20.sp,
                   fontWeight: FontWeight.w600,
-                  color: AppTheme.primary2),
+                  color: LightAppTheme.primary2),
             ),
             Gap(68.h),
             Image.asset("assets/email.png", height: 127.h, width: 127.w),
@@ -95,7 +95,7 @@ class _VerifyEmailState extends ConsumerState<VerifyEmail> {
                         TextSpan(
                             text: '${centralController.user!.email}. ',
                             style: GoogleFonts.inter(
-                                color: AppTheme.black2,
+                                color: LightAppTheme.black2,
                                 fontSize: 16.sp,
                                 fontWeight: FontWeight.w600)),
                         TextSpan(
@@ -119,7 +119,7 @@ class _VerifyEmailState extends ConsumerState<VerifyEmail> {
               style: GoogleFonts.inter(
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w400,
-                  color: AppTheme.grey3),
+                  color: LightAppTheme.grey3),
             ),
             Gap(41.h),
             GestureDetector(
@@ -139,7 +139,7 @@ class _VerifyEmailState extends ConsumerState<VerifyEmail> {
                         style: GoogleFonts.inter(
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w500,
-                            color: AppTheme.primaryColor)),
+                            color: LightAppTheme.primaryColor)),
                   ],
                 ),
               ),

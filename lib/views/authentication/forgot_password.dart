@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../providers/all_providers.dart';
 import '../../themes/app_theme.dart';
 import '../../widgets/text_fields.dart';
 import '../base/base.dart';
@@ -16,14 +17,15 @@ class ForgotPassword extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.transparent,
+        backgroundColor: LightAppTheme.transparent,
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back_ios,
-            color: AppTheme.black,
+            color: LightAppTheme.black,
           ),
           onPressed: () {
             Navigator.pop(context);
@@ -44,7 +46,7 @@ class ForgotPassword extends ConsumerWidget {
               style: GoogleFonts.poppins(
                   fontSize: 20.sp,
                   fontWeight: FontWeight.w600,
-                  color: AppTheme.primary2),
+                  color: LightAppTheme.primary2),
             ),
           ),
           Gap(12.h),
@@ -53,7 +55,7 @@ class ForgotPassword extends ConsumerWidget {
               'Enter your email address to reset your password',textAlign: TextAlign.center, style: GoogleFonts.poppins(
                 fontSize: 14.sp,
                 fontWeight: FontWeight.w400,
-                color: AppTheme.grey3) ,),
+                color: LightAppTheme.grey3) ,),
           ),
           Gap(37.h),
           Padding(
@@ -64,7 +66,7 @@ class ForgotPassword extends ConsumerWidget {
               style: GoogleFonts.poppins(
                   fontSize: 13.sp,
                   fontWeight: FontWeight.w400,
-                  color: AppTheme.primary2),
+                  color: LightAppTheme.primary2),
             ),
           ),
           Gap(8.h),
@@ -90,7 +92,7 @@ class ForgotPassword extends ConsumerWidget {
                     fontWeight: FontWeight.w600, fontSize: 16.sp),
               ),
               style: ElevatedButton.styleFrom(
-                  backgroundColor: AppTheme.primaryColor,
+                  backgroundColor: LightAppTheme.primaryColor,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(40)),
                   minimumSize: Size(329.w, 52.h)),

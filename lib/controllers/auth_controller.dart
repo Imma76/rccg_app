@@ -16,6 +16,13 @@ import 'central_controller.dart';
 
 class AuthController extends ChangeNotifier {
   bool load = false;
+  bool showPassword = true;
+  changeShowPassword(){
+
+    showPassword = !showPassword
+        ;
+    notifyListeners();
+  }
   bool googleLoad = false;
   int currentIndex = 0;
   int currentHomeIndex = 0;

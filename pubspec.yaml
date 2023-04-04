@@ -32,6 +32,7 @@ dependencies:
   animated_splash_screen:
   assets_audio_player:
   audioplayers:
+  smooth_page_indicator:
   cached_network_image:
 
   carousel_slider:

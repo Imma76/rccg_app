@@ -43,11 +43,11 @@ class _ChristianMovieState extends ConsumerState<ChristianMovie> {
     return Scaffold(
       appBar: AppBar(
           elevation: 0.0,
-          backgroundColor: Colors.transparent,
+          backgroundColor: LightAppTheme.transparent,
           leading: IconButton(
             icon: const Icon(
               Icons.arrow_back_ios_rounded,
-              color: AppTheme.black,
+              color: LightAppTheme.black,
             ),
             onPressed: () {
               Navigator.pop(context);
@@ -57,7 +57,7 @@ class _ChristianMovieState extends ConsumerState<ChristianMovie> {
               style: GoogleFonts.inter(
                   fontSize: 18.sp,
                   fontWeight: FontWeight.w600,
-                  color: AppTheme.black2))),
+                  color: LightAppTheme.black2))),
       body: Column(children: [
         Padding(
           padding: EdgeInsets.only(left: 23.w, right: 23.w),
@@ -65,9 +65,9 @@ class _ChristianMovieState extends ConsumerState<ChristianMovie> {
               height: 45,
               child: AppTextField(
                 hintText: 'Search for a christian movies',
-                prefixIcon: Icon(Icons.search, color: AppTheme.black),
-                backGroundColor: AppTheme.white,
-                borderColor: AppTheme.white6,
+                prefixIcon: Icon(Icons.search, color: LightAppTheme.black),
+                backGroundColor: LightAppTheme.white,
+                borderColor: LightAppTheme.white6,
               )),
         ),
         Gap(27.h),
@@ -110,7 +110,7 @@ class _ChristianMovieState extends ConsumerState<ChristianMovie> {
                       height: 281.h,
                       width: 376.w,
                       decoration: const BoxDecoration(
-                          color: AppTheme.white,
+                          color: LightAppTheme.white,
                           borderRadius: BorderRadius.only(
                               bottomRight: Radius.circular(20),
                               bottomLeft: Radius.circular(20))),
