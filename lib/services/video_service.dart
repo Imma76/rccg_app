@@ -2,7 +2,10 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
+import 'package:rccg_app/models/adeboye_sermon_model.dart';
 import 'package:rccg_app/models/rccg_movie_search_model.dart';
+import '../models/mmp_channel_info_model.dart';
+import '../models/mmp_video_model.dart';
 import '../models/rccg_channel_info.dart';
 import '../models/rccg_program_model.dart';
 import '../models/rccg_videos_playlist.dart';
@@ -14,6 +17,7 @@ class ProgramService {
   static const baseUrl = 'youtube.googleapis.com';
   static const psf_channel_id = 'UC6ImVeZBcRIKamgXC9BkGww';
   static const mmp_channel_id = 'UC8JqsCeV4IT5fb-KWAjLQOQ';
+  static const adeboyeSermonPlaylistId ='PLY2UjBLMXLF2eHzRHGaNZHQFaoic-X5Em';
   //     curl \
   // 'https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=rccglive&access_token=AIzaSyBJo-j8yDMT6A9alt5e2abjiuOyk3LXd-s&key=[YOUR_API_KEY]' \
   // --header 'Authorization: Bearer [YOUR_ACCESS_TOKEN]' \
@@ -37,7 +41,7 @@ class ProgramService {
 
     return rccgProgram;
   }
-  static Future<RccgMovieSearchModel> getSearchedMovies() async {
+  static Future<ChristianMovieModel> getSearchedMovies() async {
     Map<String, String> parameters = {
       'part': 'snippet',
       'type':'christian movies',
@@ -52,7 +56,7 @@ class ProgramService {
     Uri uri = Uri.parse('https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=christian%20movies&type=video&videoDuration=long&access_token=AIzaSyB6N2UIi4BfnM9AzARoRlWfaEVo7VpRMJc&type=video&access_token=AIzaSyB6N2UIi4BfnM9AzARoRlWfaEVo7VpRMJc&key=$key');
     Response response = await http.get(uri, headers: headers);
     print(response.body);
-    RccgMovieSearchModel rccgMovie = rccgMovieSearchModelFromJson(response.body);
+    ChristianMovieModel rccgMovie = rccgMovieSearchModelFromJson(response.body);
 
     return rccgMovie;
   }
@@ -63,7 +67,7 @@ class ProgramService {
       'part': 'snippet',
       'playlistId': playlistId.toString(),
       'maxResults': '50',
-      'pageToken': pageToken.toString(),
+      'pageToken': '',
       'key': key,
     };
     Map<String, String> headers = {
@@ -75,6 +79,25 @@ class ProgramService {
     RccgProgramModel? rccgProgramModel = rccgProgramModelFromJson(response.body);
 
     return rccgProgramModel;
+  }
+
+  static Future<PAdeboyeSermonModel> getPaAdeboyeVideos( {String? pageToken}) async {
+    Map<String, String> parameters = {
+      'part': 'snippet',
+      'playlistId': adeboyeSermonPlaylistId,
+      'maxResults': '50',
+      'pageToken': '',
+      'key': key,
+    };
+    Map<String, String> headers = {
+      HttpHeaders.contentTypeHeader: 'application/json',
+    };
+    Uri uri = Uri.https(baseUrl, '/youtube/v3/playlistItems', parameters);
+    Response response = await http.get(uri, headers: headers);
+    print(response.body);
+    PAdeboyeSermonModel? pAdeboyeSermonModel =pAdeboyeSermonModelFromJson(response.body);
+
+    return pAdeboyeSermonModel;
   }
 
 // code for getting the psf channel info
@@ -95,23 +118,23 @@ class ProgramService {
 //     return psfchannelInfo;
 //   }
 
-// code for getting the mmp channel info
-//   static Future<MmpChannelInfo> getMmpChannelInfo() async {
-//     Map<String, String> parameters = {
-//       'part': 'snippet,contentDetails,statistics',
-//       'id': mmp_channel_id,
-//       'key': key,
-//     };
-//     Map<String, String> headers = {
-//       HttpHeaders.contentTypeHeader: 'application/json',
-//     };
-//     Uri uri = Uri.https(baseUrl, '/youtube/v3/channels', parameters);
-//     Response response = await http.get(uri, headers: headers);
-//     //  print(response.body);
-//     MmpChannelInfo mmpchannelInfo = mmpChannelInfoFromJson(response.body);
-//
-//     return mmpchannelInfo;
-//   }
+//code for getting the mmp channel info
+  static Future<MmpChannelInfo> getMmpChannelInfo() async {
+    Map<String, String> parameters = {
+      'part': 'snippet,contentDetails,statistics',
+      'id': mmp_channel_id,
+      'key': key,
+    };
+    Map<String, String> headers = {
+      HttpHeaders.contentTypeHeader: 'application/json',
+    };
+    Uri uri = Uri.https(baseUrl, '/youtube/v3/channels', parameters);
+    Response response = await http.get(uri, headers: headers);
+    //  print(response.body);
+    MmpChannelInfo mmpchannelInfo = mmpChannelInfoFromJson(response.body);
+
+    return mmpchannelInfo;
+  }
 
 // code for getting the all videos list from rccg
 //   static Future<AllInfo> getAllVideosList(
@@ -155,23 +178,23 @@ class ProgramService {
 //   }
 
 //code for getting the mmp videosList
-//   static Future<MmpVideosList> getMmpVideosList(
-//       {String playlistId, String pageToken}) async {
-//     Map<String, String> parameters = {
-//       'part': 'snippet',
-//       'playlistId': playlistId,
-//       'maxResults': '50',
-//       'pageToken': pageToken,
-//       'key': key,
-//     };
-//     Map<String, String> headers = {
-//       HttpHeaders.contentTypeHeader: 'application/json',
-//     };
-//     Uri uri = Uri.https(baseUrl, '/youtube/v3/playlistItems', parameters);
-//     Response response = await http.get(uri, headers: headers);
-//
-//     MmpVideosList videoList = mmpVideosListFromJson(response.body);
-//
-//     return videoList;
-//   }
+  static Future<MmpVideosList> getMmpVideosList(
+      {String? playlistId, String? pageToken}) async {
+    Map<String, String> parameters = {
+      'part': 'snippet',
+      'playlistId': playlistId.toString(),
+      'maxResults': '50',
+      'pageToken': '',
+      'key': key,
+    };
+    Map<String, String> headers = {
+      HttpHeaders.contentTypeHeader: 'application/json',
+    };
+    Uri uri = Uri.https(baseUrl, '/youtube/v3/playlistItems', parameters);
+    Response response = await http.get(uri, headers: headers);
+
+    MmpVideosList videoList = mmpVideosListFromJson(response.body);
+
+    return videoList;
+  }
 }

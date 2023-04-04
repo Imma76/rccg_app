@@ -72,7 +72,7 @@ class _WatchMoviesState extends ConsumerState<WatchMovies> {
           leading: IconButton(
             icon: const Icon(
               Icons.arrow_back_ios_rounded,
-              color: AppTheme.black,
+              color:  LightAppTheme.black,
             ),
             onPressed: () {
               Navigator.pop(context);
@@ -82,7 +82,7 @@ class _WatchMoviesState extends ConsumerState<WatchMovies> {
               style: GoogleFonts.inter(
                   fontSize: 18.sp,
                   fontWeight: FontWeight.w600,
-                  color: AppTheme.black2))),
+                  color:  LightAppTheme.black2))),
       body: Column(
         children: [
 
@@ -101,13 +101,13 @@ class _WatchMoviesState extends ConsumerState<WatchMovies> {
             padding:  EdgeInsets.only(left:27.w,right: 27.w),
             child: Row(
               children: [
-                Text('More Mount Zion Movies',style: GoogleFonts.inter(fontWeight: FontWeight.w600,fontSize: 14.sp,color: AppTheme.black2)),
+                Text('More Mount Zion Movies',style: GoogleFonts.inter(fontWeight: FontWeight.w600,fontSize: 14.sp,color: LightAppTheme.black2)),
                 Spacer(),
                 GestureDetector(
                     onTap: (){
 
                     },
-                    child: Text('View all',style: GoogleFonts.inter(fontWeight: FontWeight.w500,fontSize: 12.sp,color: AppTheme.black2))),
+                    child: Text('View all',style: GoogleFonts.inter(fontWeight: FontWeight.w500,fontSize: 12.sp,color:  LightAppTheme.black2))),
 
               ],
             ),
@@ -115,7 +115,7 @@ class _WatchMoviesState extends ConsumerState<WatchMovies> {
           Expanded(
             child: ListView.builder(
               shrinkWrap: true,
-              itemCount: programController.rccgMovieSearchModel!.videos!.length,
+              itemCount: programController.christianMovieModel!.videos!.length,
               itemBuilder: (context,index) {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -124,13 +124,13 @@ class _WatchMoviesState extends ConsumerState<WatchMovies> {
                     padding: EdgeInsets.only(top: 10,bottom: 15,right: 15,left: 15),
                     width: 375.w,
                     decoration: BoxDecoration(
-                        color: AppTheme.white
+                        color:  LightAppTheme.white
                     ),
                     child: Row(
                       children: [
                         Column(
                           children: [
-                            CachedNetworkImage(imageUrl: programController.rccgMovieSearchModel!.videos![index].videoDetails!.thumbnails!.medium!.url.toString()
+                            CachedNetworkImage(imageUrl: programController.christianMovieModel!.videos![index].videoDetails!.thumbnails!.medium!.url.toString()
                               ,
                               width: 136.w, height: 80.h,fit: BoxFit.cover,),
                           ],
@@ -140,14 +140,14 @@ class _WatchMoviesState extends ConsumerState<WatchMovies> {
                           children: [
                             SizedBox(
                                 width:199.w,
-                                child: Text('${programController.rccgMovieSearchModel!.videos![index].videoDetails!.title}',maxLines:2,softWrap: true, overflow: TextOverflow.clip,style: GoogleFonts.inter(fontSize: 10),)),
+                                child: Text('${programController.christianMovieModel!.videos![index].videoDetails!.title}',maxLines:2,softWrap: true, overflow: TextOverflow.clip,style: GoogleFonts.inter(fontSize: 10),)),
 
                             Gap(16.h),
                             GestureDetector(
                               onTap:(){
-                                _controller!.load(programController.rccgMovieSearchModel!.videos![index].id!.videoUrl.toString());
+                                _controller!.load(programController.christianMovieModel!.videos![index].id!.videoUrl.toString());
                                 _controller?.play();
-                                print(programController.rccgMovieSearchModel!.videos![index].id,);
+                                print(programController.christianMovieModel!.videos![index].id,);
                                 //_controller?.reset();
 
 
@@ -160,7 +160,7 @@ class _WatchMoviesState extends ConsumerState<WatchMovies> {
                                 width: 126.w,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(28),
-                                    border: Border.all(color:AppTheme.grey4)
+                                    border: Border.all(color: LightAppTheme.grey4)
                                 ),
                                 child: const Center(child: Text('Watch Movie')),
                               ),

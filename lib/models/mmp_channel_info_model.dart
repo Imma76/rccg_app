@@ -1,59 +1,62 @@
 // To parse this JSON data, do
 //
-//     final rccgProgram = rccgProgramFromJson(jsonString);
+//     final mmpChannelnfo = mmpChannelnfoFromJson(jsonString);
+
+//model class for mmp channel video info
 
 import 'dart:convert';
 
-RccgProgramChannelInfo rccgProgramFromJson(String str) => RccgProgramChannelInfo.fromJson(json.decode(str));
+MmpChannelInfo mmpChannelInfoFromJson(String str) =>
+    MmpChannelInfo.fromJson(json.decode(str));
 
-String rccgProgramToJson(RccgProgramChannelInfo data) => json.encode(data.toJson());
+String mmpChannelInfoToJson(MmpChannelInfo data) => json.encode(data.toJson());
 
-class RccgProgramChannelInfo {
-  RccgProgramChannelInfo({
-    required this.kind,
-    required this.etag,
-    required this.pageInfo,
-    required this.items,
+class MmpChannelInfo {
+  MmpChannelInfo({
+    this.kind,
+    this.etag,
+    this.pageInfo,
+    this.items,
   });
 
-  String kind;
-  String etag;
-  PageInfo pageInfo;
-  List<ChannelInfoItem> items;
+  String? kind;
+  String? etag;
+  PageInfo? pageInfo;
+  List<MmpItem>? items;
 
-  factory RccgProgramChannelInfo.fromJson(Map<String, dynamic> json) => RccgProgramChannelInfo(
+  factory MmpChannelInfo.fromJson(Map<String, dynamic> json) => MmpChannelInfo(
     kind: json["kind"],
     etag: json["etag"],
     pageInfo: PageInfo.fromJson(json["pageInfo"]),
-    items: List<ChannelInfoItem>.from(json["items"].map((x) => ChannelInfoItem.fromJson(x))),
+    items: List<MmpItem>.from(json["items"].map((x) => MmpItem.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
     "kind": kind,
     "etag": etag,
-    "pageInfo": pageInfo.toJson(),
-    "items": List<dynamic>.from(items.map((x) => x.toJson())),
+    "pageInfo": pageInfo?.toJson(),
+    "items": List<dynamic>.from(items!.map((x) => x.toJson())),
   };
 }
 
-class ChannelInfoItem {
-  ChannelInfoItem({
-    required this.kind,
-    required this.etag,
-    required this.id,
-    required this.snippet,
-    required this.contentDetails,
-    required this.statistics,
+class MmpItem {
+  MmpItem({
+    this.kind,
+    this.etag,
+    this.id,
+    this.snippet,
+    this.contentDetails,
+    this.statistics,
   });
 
-  String kind;
-  String etag;
-  String id;
-  Snippet snippet;
-  ContentDetails contentDetails;
-  Statistics statistics;
+  String? kind;
+  String? etag;
+  String? id;
+  Snippet? snippet;
+  ContentDetails? contentDetails;
+  Statistics? statistics;
 
-  factory ChannelInfoItem.fromJson(Map<String, dynamic> json) => ChannelInfoItem(
+  factory MmpItem.fromJson(Map<String, dynamic> json) => MmpItem(
     kind: json["kind"],
     etag: json["etag"],
     id: json["id"],
@@ -66,41 +69,42 @@ class ChannelInfoItem {
     "kind": kind,
     "etag": etag,
     "id": id,
-    "snippet": snippet.toJson(),
-    "contentDetails": contentDetails.toJson(),
-    "statistics": statistics.toJson(),
+    "snippet": snippet!.toJson(),
+    "contentDetails": contentDetails!.toJson(),
+    "statistics": statistics!.toJson(),
   };
 }
 
 class ContentDetails {
   ContentDetails({
-    required this.relatedPlaylists,
+    this.relatedPlaylists,
   });
 
-  RelatedPlaylists relatedPlaylists;
+  RelatedPlaylists? relatedPlaylists;
 
   factory ContentDetails.fromJson(Map<String, dynamic> json) => ContentDetails(
     relatedPlaylists: RelatedPlaylists.fromJson(json["relatedPlaylists"]),
   );
 
   Map<String, dynamic> toJson() => {
-    "relatedPlaylists": relatedPlaylists.toJson(),
+    "relatedPlaylists": relatedPlaylists!.toJson(),
   };
 }
 
 class RelatedPlaylists {
   RelatedPlaylists({
-    required this.likes,
-    required this.uploads,
+    this.likes,
+    this.uploads,
   });
 
-  String likes;
-  String uploads;
+  String? likes;
+  String? uploads;
 
-  factory RelatedPlaylists.fromJson(Map<String, dynamic> json) => RelatedPlaylists(
-    likes: json["likes"],
-    uploads: json["uploads"],
-  );
+  factory RelatedPlaylists.fromJson(Map<String, dynamic> json) =>
+      RelatedPlaylists(
+        likes: json["likes"],
+        uploads: json["uploads"],
+      );
 
   Map<String, dynamic> toJson() => {
     "likes": likes,
@@ -110,27 +114,24 @@ class RelatedPlaylists {
 
 class Snippet {
   Snippet({
-    required this.title,
-    required this.description,
-    required this.customUrl,
-    required this.publishedAt,
-    required this.thumbnails,
-    required this.localized,
-    required this.country,
+    this.title,
+    this.description,
+    this.publishedAt,
+    this.thumbnails,
+    this.localized,
+    this.country,
   });
 
-  String title;
-  String description;
-  String customUrl;
-  DateTime publishedAt;
-  Thumbnails thumbnails;
-  Localized localized;
-  String country;
+  String? title;
+  String? description;
+  DateTime? publishedAt;
+  Thumbnails? thumbnails;
+  Localized? localized;
+  String? country;
 
   factory Snippet.fromJson(Map<String, dynamic> json) => Snippet(
     title: json["title"],
     description: json["description"],
-    customUrl: json["customUrl"],
     publishedAt: DateTime.parse(json["publishedAt"]),
     thumbnails: Thumbnails.fromJson(json["thumbnails"]),
     localized: Localized.fromJson(json["localized"]),
@@ -140,22 +141,21 @@ class Snippet {
   Map<String, dynamic> toJson() => {
     "title": title,
     "description": description,
-    "customUrl": customUrl,
-    "publishedAt": publishedAt.toIso8601String(),
-    "thumbnails": thumbnails.toJson(),
-    "localized": localized.toJson(),
+    "publishedAt": publishedAt!.toIso8601String(),
+    "thumbnails": thumbnails!.toJson(),
+    "localized": localized!.toJson(),
     "country": country,
   };
 }
 
 class Localized {
   Localized({
-    required this.title,
-    required this.description,
+    this.title,
+    this.description,
   });
 
-  String title;
-  String description;
+  String? title;
+  String? description;
 
   factory Localized.fromJson(Map<String, dynamic> json) => Localized(
     title: json["title"],
@@ -170,14 +170,14 @@ class Localized {
 
 class Thumbnails {
   Thumbnails({
-    required this.thumbnailsDefault,
-    required this.medium,
-    required this.high,
+    this.thumbnailsDefault,
+    this.medium,
+    this.high,
   });
 
-  Default thumbnailsDefault;
-  Default medium;
-  Default high;
+  Default? thumbnailsDefault;
+  Default? medium;
+  Default? high;
 
   factory Thumbnails.fromJson(Map<String, dynamic> json) => Thumbnails(
     thumbnailsDefault: Default.fromJson(json["default"]),
@@ -186,22 +186,22 @@ class Thumbnails {
   );
 
   Map<String, dynamic> toJson() => {
-    "default": thumbnailsDefault.toJson(),
-    "medium": medium.toJson(),
-    "high": high.toJson(),
+    "default": thumbnailsDefault!.toJson(),
+    "medium": medium!.toJson(),
+    "high": high!.toJson(),
   };
 }
 
 class Default {
   Default({
-    required this.url,
-    required this.width,
-    required this.height,
+    this.url,
+    this.width,
+    this.height,
   });
 
-  String url;
-  int width;
-  int height;
+  String? url;
+  int? width;
+  int? height;
 
   factory Default.fromJson(Map<String, dynamic> json) => Default(
     url: json["url"],
@@ -218,16 +218,16 @@ class Default {
 
 class Statistics {
   Statistics({
-    required this.viewCount,
-    required this.subscriberCount,
-    required this.hiddenSubscriberCount,
-    required this.videoCount,
+    this.viewCount,
+    this.subscriberCount,
+    this.hiddenSubscriberCount,
+    this.videoCount,
   });
 
-  String viewCount;
-  String subscriberCount;
-  bool hiddenSubscriberCount;
-  String videoCount;
+  String? viewCount;
+  String? subscriberCount;
+  bool? hiddenSubscriberCount;
+  String? videoCount;
 
   factory Statistics.fromJson(Map<String, dynamic> json) => Statistics(
     viewCount: json["viewCount"],
@@ -246,12 +246,12 @@ class Statistics {
 
 class PageInfo {
   PageInfo({
-    required this.totalResults,
-    required this.resultsPerPage,
+    this.totalResults,
+    this.resultsPerPage,
   });
 
-  int totalResults;
-  int resultsPerPage;
+  int? totalResults;
+  int? resultsPerPage;
 
   factory PageInfo.fromJson(Map<String, dynamic> json) => PageInfo(
     totalResults: json["totalResults"],

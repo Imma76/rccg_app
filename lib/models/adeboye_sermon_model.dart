@@ -1,107 +1,86 @@
 // To parse this JSON data, do
 //
-//     final rccgMovieSearchModel = rccgMovieSearchModelFromJson(jsonString);
+//     final pAdeboyeSermonModel = pAdeboyeSermonModelFromJson(jsonString);
 
 import 'dart:convert';
 
-ChristianMovieModel rccgMovieSearchModelFromJson(String str) => ChristianMovieModel.fromJson(json.decode(str));
+PAdeboyeSermonModel pAdeboyeSermonModelFromJson(String str) => PAdeboyeSermonModel.fromJson(json.decode(str));
 
-String rccgMovieSearchModelToJson(ChristianMovieModel data) => json.encode(data.toJson());
+String pAdeboyeSermonModelToJson(PAdeboyeSermonModel data) => json.encode(data.toJson());
 
-class ChristianMovieModel {
-  ChristianMovieModel({
+class PAdeboyeSermonModel {
+  PAdeboyeSermonModel({
     this.kind,
     this.etag,
     this.nextPageToken,
-    this.regionCode,
+    this.items,
     this.pageInfo,
-    this.videos,
   });
 
   String? kind;
   String? etag;
   String? nextPageToken;
-  String? regionCode;
+  List<PAdeboyeSermonModelVideoItem>? items;
   PageInfo? pageInfo;
-  List<SearchVideoItem>? videos;
 
-  factory ChristianMovieModel.fromJson(Map<String, dynamic> json) => ChristianMovieModel(
+  factory PAdeboyeSermonModel.fromJson(Map<String, dynamic> json) => PAdeboyeSermonModel(
     kind: json["kind"],
     etag: json["etag"],
     nextPageToken: json["nextPageToken"],
-    regionCode: json["regionCode"],
+    items: json["items"] == null ? [] : List<PAdeboyeSermonModelVideoItem>.from(json["items"]!.map((x) => PAdeboyeSermonModelVideoItem.fromJson(x))),
     pageInfo: json["pageInfo"] == null ? null : PageInfo.fromJson(json["pageInfo"]),
-    videos: json["items"] == null ? [] : List<SearchVideoItem>.from(json["items"]!.map((x) => SearchVideoItem.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
     "kind": kind,
     "etag": etag,
     "nextPageToken": nextPageToken,
-    "regionCode": regionCode,
+    "items": items == null ? [] : List<dynamic>.from(items!.map((x) => x.toJson())),
     "pageInfo": pageInfo?.toJson(),
-    "items": videos == null ? [] : List<dynamic>.from(videos!.map((x) => x.toJson())),
   };
 }
 
-class SearchVideoItem {
-  SearchVideoItem({
+class PAdeboyeSermonModelVideoItem {
+  PAdeboyeSermonModelVideoItem({
     this.kind,
     this.etag,
     this.id,
-    this.videoDetails,
+    this.snippet,
   });
 
   String? kind;
   String? etag;
-  VideoId? id;
-  SearchVideoDetails? videoDetails;
+  String? id;
+  Snippet? snippet;
 
-  factory SearchVideoItem.fromJson(Map<String, dynamic> json) => SearchVideoItem(
+  factory PAdeboyeSermonModelVideoItem.fromJson(Map<String, dynamic> json) => PAdeboyeSermonModelVideoItem(
     kind: json["kind"],
     etag: json["etag"],
-    id: json["id"] == null ? null : VideoId.fromJson(json["id"]),
-    videoDetails: json["snippet"] == null ? null : SearchVideoDetails.fromJson(json["snippet"]),
+    id: json["id"],
+    snippet: json["snippet"] == null ? null : Snippet.fromJson(json["snippet"]),
   );
 
   Map<String, dynamic> toJson() => {
     "kind": kind,
     "etag": etag,
-    "id": id?.toJson(),
-    "snippet": videoDetails?.toJson(),
+    "id": id,
+    "snippet": snippet?.toJson(),
   };
 }
 
-class VideoId {
-  VideoId({
-    this.kind,
-    this.videoUrl,
-  });
-
-  String? kind;
-  String? videoUrl;
-
-  factory VideoId.fromJson(Map<String, dynamic> json) => VideoId(
-    kind: json["kind"],
-    videoUrl: json["videoId"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "kind": kind,
-    "videoId": videoUrl,
-  };
-}
-
-class SearchVideoDetails {
-  SearchVideoDetails({
+class Snippet {
+  Snippet({
     this.publishedAt,
     this.channelId,
     this.title,
     this.description,
     this.thumbnails,
     this.channelTitle,
-    this.liveBroadcastContent,
-    this.publishTime,
+    this.playlistId,
+    this.position,
+    this.resourceId,
+    this.videoOwnerChannelTitle,
+    this.videoOwnerChannelId,
   });
 
   DateTime? publishedAt;
@@ -110,18 +89,24 @@ class SearchVideoDetails {
   String? description;
   Thumbnails? thumbnails;
   String? channelTitle;
-  String? liveBroadcastContent;
-  DateTime? publishTime;
+  String? playlistId;
+  int? position;
+  ResourceId? resourceId;
+  String? videoOwnerChannelTitle;
+  String? videoOwnerChannelId;
 
-  factory SearchVideoDetails.fromJson(Map<String, dynamic> json) => SearchVideoDetails(
+  factory Snippet.fromJson(Map<String, dynamic> json) => Snippet(
     publishedAt: json["publishedAt"] == null ? null : DateTime.parse(json["publishedAt"]),
     channelId: json["channelId"],
     title: json["title"],
     description: json["description"],
     thumbnails: json["thumbnails"] == null ? null : Thumbnails.fromJson(json["thumbnails"]),
     channelTitle: json["channelTitle"],
-    liveBroadcastContent: json["liveBroadcastContent"],
-    publishTime: json["publishTime"] == null ? null : DateTime.parse(json["publishTime"]),
+    playlistId: json["playlistId"],
+    position: json["position"],
+    resourceId: json["resourceId"] == null ? null : ResourceId.fromJson(json["resourceId"]),
+    videoOwnerChannelTitle: json["videoOwnerChannelTitle"],
+    videoOwnerChannelId: json["videoOwnerChannelId"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -131,8 +116,31 @@ class SearchVideoDetails {
     "description": description,
     "thumbnails": thumbnails?.toJson(),
     "channelTitle": channelTitle,
-    "liveBroadcastContent": liveBroadcastContent,
-    "publishTime": publishTime?.toIso8601String(),
+    "playlistId": playlistId,
+    "position": position,
+    "resourceId": resourceId?.toJson(),
+    "videoOwnerChannelTitle": videoOwnerChannelTitle,
+    "videoOwnerChannelId": videoOwnerChannelId,
+  };
+}
+
+class ResourceId {
+  ResourceId({
+    this.kind,
+    this.videoId,
+  });
+
+  String? kind;
+  String? videoId;
+
+  factory ResourceId.fromJson(Map<String, dynamic> json) => ResourceId(
+    kind: json["kind"],
+    videoId: json["videoId"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "kind": kind,
+    "videoId": videoId,
   };
 }
 
@@ -141,22 +149,30 @@ class Thumbnails {
     this.thumbnailsDefault,
     this.medium,
     this.high,
+    this.standard,
+    this.maxres,
   });
 
   Default? thumbnailsDefault;
   Default? medium;
   Default? high;
+  Default? standard;
+  Default? maxres;
 
   factory Thumbnails.fromJson(Map<String, dynamic> json) => Thumbnails(
     thumbnailsDefault: json["default"] == null ? null : Default.fromJson(json["default"]),
     medium: json["medium"] == null ? null : Default.fromJson(json["medium"]),
     high: json["high"] == null ? null : Default.fromJson(json["high"]),
+    standard: json["standard"] == null ? null : Default.fromJson(json["standard"]),
+    maxres: json["maxres"] == null ? null : Default.fromJson(json["maxres"]),
   );
 
   Map<String, dynamic> toJson() => {
     "default": thumbnailsDefault?.toJson(),
     "medium": medium?.toJson(),
     "high": high?.toJson(),
+    "standard": standard?.toJson(),
+    "maxres": maxres?.toJson(),
   };
 }
 

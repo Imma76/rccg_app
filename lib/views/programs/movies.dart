@@ -92,15 +92,15 @@ class _ChristianMovieState extends ConsumerState<ChristianMovie> {
         Gap(39.h),
         Expanded(
           child: programController.load?Indicator():ListView.builder(
-              itemCount: programController.rccgMovieSearchModel!.videos!.length,
+              itemCount: programController.christianMovieModel!.videos!.length,
               shrinkWrap: true,
               itemBuilder: (context,index) {
                 return GestureDetector(
                   onTap: (){
                  Navigator.push(context, MaterialPageRoute(builder: (context){
                    return WatchMovies(
-                     videoId:  programController.rccgMovieSearchModel!.videos![index].id,
-                     searchVideoDetails:  programController.rccgMovieSearchModel!.videos![index].videoDetails,
+                     videoId:  programController.christianMovieModel!.videos![index].id,
+                     searchVideoDetails:  programController.christianMovieModel!.videos![index].videoDetails,
                    );
                  }));
                   },
@@ -116,7 +116,8 @@ class _ChristianMovieState extends ConsumerState<ChristianMovie> {
                               bottomLeft: Radius.circular(20))),
                       child: Column(
                         children: [
-                          CachedNetworkImage(imageUrl: programController.rccgMovieSearchModel!.videos![index].videoDetails!.thumbnails!.medium!.url.toString()
+                          CachedNetworkImage(imageUrl: programController.christianMovieModel
+                          !.videos![index].videoDetails!.thumbnails!.medium!.url.toString()
                             ,
                             width: 397.w, height: 207.h,fit: BoxFit.cover,),
                           Gap(15.h),
@@ -127,7 +128,7 @@ class _ChristianMovieState extends ConsumerState<ChristianMovie> {
                                 child: Image.asset('assets/movie_pic.png', height: 35.h, width: 35.w),
                               ),
                               Gap(5.h),
-                              Expanded(child: Text('${programController.rccgMovieSearchModel!.videos![index].videoDetails!.title}')),
+                              Expanded(child: Text('${programController.christianMovieModel!.videos![index].videoDetails!.title}')),
                             ],
                           )
                         ],

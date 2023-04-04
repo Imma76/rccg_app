@@ -1,15 +1,20 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rccg_app/models/adeboye_sermon_model.dart';
+import 'package:rccg_app/models/rccg_movie_search_model.dart';
 import 'package:rccg_app/views/authentication/verify_email.dart';
 import 'package:rccg_app/views/manuals/rccg_manuals.dart';
 import 'package:rccg_app/views/programs/movies.dart';
+import 'package:rccg_app/widgets/loader.dart';
 import 'package:rccg_app/widgets/text_fields.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../../models/rccg_program_model.dart';
 import '../../providers/all_providers.dart';
 import '../../themes/app_theme.dart';
 import '../authentication/auth.dart';
@@ -32,6 +37,14 @@ class _HomeState extends ConsumerState<Home> {
     // TODO: implement initState
     super.initState();
     ref.read(homeProvider);
+    final programController=ref.read(programProvider);
+    Future(() {
+     // programController.getRccgProgramChannelInfo();
+
+    });
+    Future(() {
+     // programController.loadMovieVideos();
+    });
   }
   PageController controller = PageController();
   int index = 0;
@@ -39,6 +52,7 @@ class _HomeState extends ConsumerState<Home> {
   Widget build(BuildContext context) {
     final authController = ref.watch(authProvider);
     final homeController =ref.watch(homeProvider);
+    final programController=ref.watch(programProvider);
     return Scaffold(
       backgroundColor:LightAppTheme.lightBlue,
       appBar: AppBar(
@@ -571,100 +585,7 @@ Gap(10.h),
 
 
             Gap(14.h),
-            // Padding(
-            //   padding:  EdgeInsets.only(left:27.w,right: 27.w),
-            //   child: Row(
-            //     children: [
-            //       Expanded(
-            //         child: GestureDetector(
-            //           onTap: ()async {
-            //             if(authController.googleUser!=null){
-            //               await authController.googleSignIn.disconnect();
-            //               await FirebaseAuth.instance.signOut();
-            //             }else{
-            //               await FirebaseAuth.instance.signOut();
-            //             }
-            //
-            //             Navigator.pushNamedAndRemoveUntil(context, Authentication.route, (route) => false);
-            //
-            //           },
-            //           child: Container(
-            //
-            //             height: 70.h,width: 150.w,decoration: BoxDecoration(color:
-            //           LightAppTheme.white,borderRadius: BorderRadius.circular(10)),
-            //
-            //             child: Center(
-            //               child: Row(
-            //                 crossAxisAlignment:CrossAxisAlignment.center,
-            //                 mainAxisAlignment: MainAxisAlignment.center,
-            //                 children: [
-            //                 Image.asset('assets/radio.png',height: 20.h,width: 20.w,),Gap(6.w),
-            //                 Text('Rccg Radio',style: GoogleFonts.inter(fontWeight: FontWeight.w500,fontSize: 14.sp,color: LightAppTheme.primaryColor))
-            //               ],),
-            //             ),),
-            //         ),
-            //       ),
-            //       Gap(14.w),
-            //       Expanded(
-            //         child: GestureDetector(
-            //           onTap: (){
-            //             Navigator.pushNamed(context, RccgManual.route);
-            //           },
-            //           child: Container(
-            //             height: 70.h,width: 150.w,decoration: BoxDecoration(color:
-            //           LightAppTheme.white,borderRadius: BorderRadius.circular(10)),
-            //             child: Row(
-            //
-            //               crossAxisAlignment:CrossAxisAlignment.center,
-            //               mainAxisAlignment: MainAxisAlignment.center,
-            //               children: [
-            //               Image.asset('assets/manuals.png',height: 20.h,width: 20.w,),Gap(6.w),
-            //               Text('Rccg Manuals',style: GoogleFonts.inter(fontWeight: FontWeight.w500,fontSize: 14.sp,color: LightAppTheme.primaryColor))
-            //             ],),),
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
-            // Gap(15.h),
-            // Padding(
-            //   padding:  EdgeInsets.only(left:27.w,right: 27.w),
-            //   child: Row(
-            //     children: [
-            //       Expanded(
-            //         child: Container(
-            //
-            //           height: 70.h,width: 150.w,decoration: BoxDecoration(color:
-            //         LightAppTheme.white,borderRadius: BorderRadius.circular(10)),
-            //
-            //           child: Center(
-            //             child: Row(
-            //               crossAxisAlignment:CrossAxisAlignment.center,
-            //               mainAxisAlignment: MainAxisAlignment.center,
-            //               children: [
-            //                 Image.asset('assets/music.png',height: 20.h,width: 20.w,),Gap(6.w),
-            //                 Text('Rccg Hymns',style: GoogleFonts.inter(fontWeight: FontWeight.w500,fontSize: 14.sp,color: LightAppTheme.primaryColor))
-            //               ],),
-            //           ),),
-            //       ),
-            //       Gap(14.w),
-            //       Expanded(
-            //         child: Container(
-            //           height: 70.h,width: 150.w,decoration: BoxDecoration(color:
-            //         LightAppTheme.white,borderRadius: BorderRadius.circular(10)),
-            //           child: Row(
-            //
-            //             crossAxisAlignment:CrossAxisAlignment.center,
-            //             mainAxisAlignment: MainAxisAlignment.center,
-            //             children: [
-            //               Image.asset('assets/charlets.png',height: 20.h,width: 20.w,),Gap(6.w),
-            //               Text('Rccg charlets',style: GoogleFonts.inter(fontWeight: FontWeight.w500,fontSize: 14.sp,color: LightAppTheme.primaryColor))
-            //             ],),),
-            //       ),
-            //     ],
-            //   ),
-            // ),
-            // Gap(27.h),
+
             Padding(
               padding:  EdgeInsets.only(left:27.w,right: 27.w),
               child: Row(
@@ -700,23 +621,43 @@ Gap(10.h),
               ),
             ),
             Gap(34.h),
+            //if(homeController.currentProgramChoice==0)
+            // SizedBox(
+            //   height: 235.h,
+            //   child:programController.load?Indicator(): ListView.builder(
+            //     itemCount: programController.rccgProgramModel!.videos!.length,
+            //       padding: EdgeInsets.zero,
+            //     //itemExtent: 0,
+            //     scrollDirection: Axis.horizontal,
+            //     shrinkWrap: true,
+            //     itemBuilder: (context,index) {
+            //       return       // Figma Flutter Generator ItemcardproductWidget - FRAME - VERTICAL
+            //
+            //
+            //         ProgramCard(programDetails: programController.rccgProgramModel!.videos![index],);
+            //     }
+            //   ),
+            // ),
+            if(programController.pAdeboyeSermonModel!= null)
+              Visibility(
+                visible: homeController.currentProgramChoice==2?true:false,
+                child: SizedBox(
+                  height: 235.h,
+                  child:programController.loadAdeboyeSermon?Indicator(): ListView.builder(
+                      itemCount: programController.pAdeboyeSermonModel!.items!.length,
+                      padding: EdgeInsets.zero,
+                      //itemExtent: 0,
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemBuilder: (context,index) {
+                        return       // Figma Flutter Generator ItemcardproductWidget - FRAME - VERTICAL
 
-            SizedBox(
-              height: 235.h,
-              child: ListView.builder(
-                itemCount: 3,
-                  padding: EdgeInsets.zero,
-                //itemExtent: 0,
-                scrollDirection: Axis.horizontal,
-                shrinkWrap: true,
-                itemBuilder: (context,index) {
-                  return       // Figma Flutter Generator ItemcardproductWidget - FRAME - VERTICAL
 
-
-                    ProgramCard();
-                }
+                         AdeboyeSermonCard(adeboyeSermonVideoModel: programController.pAdeboyeSermonModel!.items![index],);
+                      }
+                  ),
+                ),
               ),
-            ),
             Gap(27.h),
             Padding(
               padding: const EdgeInsets.only(left:23.0,right: 23),
@@ -838,17 +779,18 @@ Gap(10.h),
               ),
             ),
             Gap(27.h),
-            SizedBox(
-              height: 220.h,
-              child: ListView.builder(
-                  itemCount: 3,
-                  scrollDirection: Axis.horizontal,
-                  shrinkWrap: true,
-                  itemBuilder: (context,index) {
-                    return const MovieCard();
-                  }
-              ),
-            ),
+            // SizedBox(
+            //   height: 220.h,
+            //   child:programController.loadMovies?Indicator():  ListView.builder(
+            //       itemCount: programController.christianMovieModel!.videos!.length,
+            //       scrollDirection: Axis.horizontal,
+            //       shrinkWrap: true,
+            //       itemBuilder: (context,index) {
+            //         return  MovieCard(searchVideoItem: programController.christianMovieModel!.videos![index]
+            //           ,);
+            //       }
+            //   ),
+            // ),
             Gap(40.h),
             Stack(
               children: [
@@ -930,7 +872,7 @@ Gap(10.h),
                       padding: EdgeInsets.only(top: 12.h,left: 12.w),
                       decoration: BoxDecoration(
                           color:LightAppTheme.purple2,
-                          boxShadow: [
+                          boxShadow: const [
                             BoxShadow(
                               offset: Offset(0, 13),
                               blurRadius: 25,
@@ -997,101 +939,264 @@ Gap(10.h),
   }
 }
 
-class ProgramCard extends StatelessWidget {
-  const ProgramCard({
-    Key? key,
+
+class MrsFaProgramCard extends StatelessWidget {
+  final RccgProgramVideoItem? programDetails;
+
+  const MrsFaProgramCard({
+    Key? key,this.programDetails
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left:23.0,right: 5,bottom:
-      4),
-      child: Container(
-        padding:  const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-        height: 100.h,width: 288.w,decoration: BoxDecoration(color:Color.fromRGBO(255, 255, 255, 1),
-          boxShadow: const [
-        BoxShadow(
-            color:LightAppTheme.shadowColor,
-            offset: Offset(0,10),
-            blurRadius: 15
-        ),
-      ],
-          borderRadius: BorderRadius.circular(20)),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Stack(
-              alignment: Alignment.topCenter,
-              children: [
-                Image.asset('assets/program.png', height: 144.h,width: 266.w,),
-                Positioned(
-                  top: 50,
-                 // left: 30,
-                  child:Image.asset('assets/play.png',height: 40.h,width: 40.w,)
-                )
-              ],
-            ),
-            Gap(10.h),
-            Text('Pastor EA Adeboye Sermon Rccg Holy Ghost Service',style: GoogleFonts.inter(color: LightAppTheme.black2,fontSize: 12.sp,fontWeight: FontWeight.w400),),
-          ],
-        ),),
+    return GestureDetector(
+      onTap: (){
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) {
+              return WatchPrograms(
+                rccgProgramModel:programDetails,
+              );
+            }));
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(left:23.0,right: 5,bottom:
+        4),
+        child: Container(
+          padding:  const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+          height: 100.h,width: 288.w,decoration: BoxDecoration(color:Color.fromRGBO(255, 255, 255, 1),
+            boxShadow: const [
+              BoxShadow(
+                  color:LightAppTheme.shadowColor,
+                  offset: Offset(0,10),
+                  blurRadius: 15
+              ),
+            ],
+            borderRadius: BorderRadius.circular(20)),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Stack(
+                alignment: Alignment.topCenter,
+                children: [
+                  CachedNetworkImage(
+                    imageUrl:
+                    programDetails!.videoDetails!
+                        .thumbnails!
+                        .medium!
+                        .url
+                        .toString(),
+                    height: 144.h,width: 266.w,
+                    fit: BoxFit.cover,
+                  ),
+                  Positioned(
+                      top: 50,
+                      // left: 30,
+                      child:Image.asset('assets/play.png',height: 40.h,width: 40.w,)
+                  )
+                ],
+              ),
+              Gap(20.h),
+              Center(child: Text(programDetails!.videoDetails!.title.toString(),style: GoogleFonts.inter(color: LightAppTheme.black2,fontSize: 12.sp,fontWeight: FontWeight.w400),)),
+            ],
+          ),),
+      ),
+    );
+  }
+}
+
+
+
+class ProgramCard extends StatelessWidget {
+  final RccgProgramVideoItem? programDetails;
+
+  const ProgramCard({
+    Key? key,this.programDetails
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: (){
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) {
+              return WatchPrograms(
+                rccgProgramModel:programDetails,
+              );
+            }));
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(left:23.0,right: 5,bottom:
+        4),
+        child: Container(
+          padding:  const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+          height: 100.h,width: 288.w,decoration: BoxDecoration(color:Color.fromRGBO(255, 255, 255, 1),
+            boxShadow: const [
+          BoxShadow(
+              color:LightAppTheme.shadowColor,
+              offset: Offset(0,10),
+              blurRadius: 15
+          ),
+        ],
+            borderRadius: BorderRadius.circular(20)),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Stack(
+                alignment: Alignment.topCenter,
+                children: [
+                  CachedNetworkImage(
+                    imageUrl:
+                       programDetails!.videoDetails!
+                        .thumbnails!
+                        .medium!
+                        .url
+                        .toString(),
+                    height: 144.h,width: 266.w,
+                    fit: BoxFit.cover,
+                  ),
+                  Positioned(
+                    top: 50,
+                   // left: 30,
+                    child:Image.asset('assets/play.png',height: 40.h,width: 40.w,)
+                  )
+                ],
+              ),
+              Gap(20.h),
+              Center(child: Text(programDetails!.videoDetails!.title.toString(),style: GoogleFonts.inter(color: LightAppTheme.black2,fontSize: 12.sp,fontWeight: FontWeight.w400),)),
+            ],
+          ),),
+      ),
+    );
+  }
+}
+
+
+class AdeboyeSermonCard extends StatelessWidget {
+  final PAdeboyeSermonModelVideoItem? adeboyeSermonVideoModel;
+
+  const AdeboyeSermonCard({
+    Key? key,this.adeboyeSermonVideoModel
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: (){
+        // Navigator.push(context,
+        //     MaterialPageRoute(builder: (context) {
+        //       return WatchPrograms(
+        //         rccgProgramModel:programDetails,
+        //       );
+        //     }));
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(left:23.0,right: 5,bottom:
+        4),
+        child: Container(
+          padding:  const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+          height: 100.h,width: 288.w,decoration: BoxDecoration(color:Color.fromRGBO(255, 255, 255, 1),
+            boxShadow: const [
+              BoxShadow(
+                  color:LightAppTheme.shadowColor,
+                  offset: Offset(0,10),
+                  blurRadius: 15
+              ),
+            ],
+            borderRadius: BorderRadius.circular(20)),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Stack(
+                alignment: Alignment.topCenter,
+                children: [
+                  CachedNetworkImage(
+                    imageUrl:
+                   adeboyeSermonVideoModel!.snippet!
+                        .thumbnails!
+                        .medium!
+                        .url
+                        .toString(),
+                    height: 144.h,width: 266.w,
+                    fit: BoxFit.cover,
+                  ),
+                  Positioned(
+                      top: 50,
+                      // left: 30,
+                      child:Image.asset('assets/play.png',height: 40.h,width: 40.w,)
+                  )
+                ],
+              ),
+              Gap(20.h),
+              Center(child: Text(  adeboyeSermonVideoModel!.snippet!.title.toString(),style: GoogleFonts.inter(color: LightAppTheme.black2,fontSize: 12.sp,fontWeight: FontWeight.w400),)),
+            ],
+          ),),
+      ),
     );
   }
 }
 
 class MovieCard extends StatelessWidget {
+  final SearchVideoItem? searchVideoItem;
   const MovieCard({
-    Key? key,
+    Key? key,this.searchVideoItem
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left:23.0,right: 5,bottom:
-      4),
-      child: Container(
-        padding:  EdgeInsets.symmetric(horizontal: 12, vertical: 12,),
-        height: 218.h,width: 288.w,decoration:  BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: LightAppTheme.white, boxShadow: [
-        BoxShadow(
-            color:LightAppTheme.shadowColor,
-            offset: Offset(0,10),
-            blurRadius: 15
-        ),
-      ],),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Stack(
-              alignment: Alignment.topCenter,
-              children: [
-                Image.asset('assets/movie.png', height: 144.h,width: 266.w,),
-                Positioned(
-                    top: 50,
-                    // left: 30,
-                    child:Image.asset('assets/play.png',height: 40.h,width: 40.w,)
-                )
-              ],
-            ),
-            Gap(10.h),
-            Text('Pastor EA Adeboye Sermon Rccg Holy Ghost Service',style: GoogleFonts.inter(color: LightAppTheme.black2,fontSize: 12.sp,fontWeight: FontWeight.w400),),
-          ],
-        ),),
+    return GestureDetector(
+      onTap: (){
+        Navigator.push(context, MaterialPageRoute(builder: (context){
+          return WatchMovies(
+            videoId:  searchVideoItem!.id,
+            searchVideoDetails: searchVideoItem!.videoDetails,
+          );
+        }));
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(left:23.0,right: 5,bottom:
+        4),
+        child: Container(
+          padding:  EdgeInsets.symmetric(horizontal: 12, vertical: 12,),
+          height: 218.h,width: 288.w,decoration:  BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: LightAppTheme.white, boxShadow: [
+          BoxShadow(
+              color:LightAppTheme.shadowColor,
+              offset: Offset(0,10),
+              blurRadius: 15
+          ),
+        ],),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Stack(
+                alignment: Alignment.topCenter,
+                children: [
+                  CachedNetworkImage(
+                    imageUrl:
+                    searchVideoItem!.videoDetails!
+                        .thumbnails!
+                        .medium!
+                        .url
+                        .toString(),
+                    height: 144.h,width: 266.w,
+                    fit: BoxFit.cover,
+                  ),
+                  Positioned(
+                      top: 50,
+                      // left: 30,
+                      child:Image.asset('assets/play.png',height: 40.h,width: 40.w,)
+                  )
+                ],
+              ),
+              Gap(10.h),
+              Text(searchVideoItem!
+                .videoDetails!.title.toString()
+                ,style: GoogleFonts.inter(color: LightAppTheme.black2,fontSize: 12.sp,fontWeight: FontWeight.w400),),
+            ],
+          ),),
+      ),
     );
-  // }
-  // builDot() {
-  //   return AnimatedSmoothIndicator(
-  //     activeIndex: activeIndex,
-  //     count: imageUrl.length,
-  //     effect: ExpandingDotsEffect(
-  //       activeDotColor: Color(0xff1CA9F8),
-  //       dotHeight: 7,
-  //       dotWidth: 7,
-  //     ),
-  //   );
-  // }
 }
 }
 
@@ -1105,9 +1210,17 @@ class ProgramsChoiceButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context,ref) {
     final homeController =ref.watch(homeProvider);
+    final programController =ref.watch(programProvider);
     return GestureDetector(
-        onTap: (){
+        onTap: ()async{
           homeController.changeCurrentProgramChoice(index!);
+          if(index==2){
+            print('kkk$index');
+            await programController.loadAdeboyeSermons();
+          }else{
+            //homeController.changeCurrentProgramChoice(index!);
+          }
+
         },
         child: Container(decoration: BoxDecoration(color: homeController.currentProgramChoice==index?LightAppTheme.primaryColor:LightAppTheme.white,borderRadius: BorderRadius.circular(60),border: Border.all(color: Color(0xffE3E9ED))),child: Padding(
           padding: const EdgeInsets.only(left:24.0,right:24.0,top: 4,bottom: 4),

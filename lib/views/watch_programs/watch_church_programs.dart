@@ -70,7 +70,7 @@ class _WatchProgramsState extends ConsumerState<WatchPrograms> {
             leading: IconButton(
               icon: const Icon(
                 Icons.arrow_back_ios_rounded,
-                color: AppTheme.black,
+                color:  LightAppTheme.black,
               ),
               onPressed: () {
                 Navigator.pop(context);
@@ -80,7 +80,7 @@ class _WatchProgramsState extends ConsumerState<WatchPrograms> {
                 style: GoogleFonts.inter(
                     fontSize: 18.sp,
                     fontWeight: FontWeight.w600,
-                    color: AppTheme.black2))),
+                    color:  LightAppTheme.black2))),
         body: Column(
           children: [
             YoutubePlayer(
@@ -132,13 +132,13 @@ class _WatchProgramsState extends ConsumerState<WatchPrograms> {
               padding:  EdgeInsets.only(left:27.w,right: 27.w),
               child: Row(
                 children: [
-                  Text('More Rccg Programs',style: GoogleFonts.inter(fontWeight: FontWeight.w600,fontSize: 14.sp,color: AppTheme.black2)),
+                  Text('More Rccg Programs',style: GoogleFonts.inter(fontWeight: FontWeight.w600,fontSize: 14.sp,color:  LightAppTheme.black2)),
                   Spacer(),
                   GestureDetector(
                       onTap: (){
 
                       },
-                      child: Text('View all',style: GoogleFonts.inter(fontWeight: FontWeight.w500,fontSize: 12.sp,color: AppTheme.black2))),
+                      child: Text('View all',style: GoogleFonts.inter(fontWeight: FontWeight.w500,fontSize: 12.sp,color:  LightAppTheme.black2))),
 
                 ],
               ),
@@ -156,7 +156,7 @@ class _WatchProgramsState extends ConsumerState<WatchPrograms> {
                       padding: EdgeInsets.only(top: 10,bottom: 15,right: 15,left: 15),
                       width: 375.w,
                       decoration: BoxDecoration(
-                        color: AppTheme.white
+                        color: LightAppTheme.white
                       ),
                       child: Row(
                         children: [
@@ -194,9 +194,9 @@ class _WatchProgramsState extends ConsumerState<WatchPrograms> {
                                   width: 126.w,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(28),
-                                      border: Border.all(color:AppTheme.grey4)
+                                      border: Border.all(color: LightAppTheme.grey4)
                                   ),
-                                  child: Center(child: Text('Watch Program',style: GoogleFonts.inter(fontWeight: FontWeight.w400,fontSize: 12.sp,color: AppTheme.black2))),
+                                  child: Center(child: Text('Watch Program',style: GoogleFonts.inter(fontWeight: FontWeight.w400,fontSize: 12.sp,color: LightAppTheme.black2))),
                                 ),
                               )
                             ],

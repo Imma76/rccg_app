@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:rccg_app/models/adeboye_sermon_model.dart';
+import 'package:rccg_app/models/mmp_channel_info_model.dart';
+import 'package:rccg_app/models/mmp_video_model.dart';
 import 'package:rccg_app/models/rccg_movie_search_model.dart';
 import 'package:rccg_app/models/rccg_program_model.dart';
 import 'package:rccg_app/services/video_service.dart';
@@ -6,36 +9,59 @@ import 'package:rccg_app/services/video_service.dart';
 import '../models/rccg_channel_info.dart';
 
 class ProgramController extends ChangeNotifier{
-  RccgProgramChannelInfo? rccgProgram;
+  RccgProgramChannelInfo? rccgProgramChannelInfo;
   RccgProgramModel? rccgProgramModel;
-  RccgMovieSearchModel? rccgMovieSearchModel;
-  String? nextPageToken='';
-  Item? item;
+  ChristianMovieModel?christianMovieModel;
+  MmpChannelInfo? mmpChannelInfo;
+  PAdeboyeSermonModel?pAdeboyeSermonModel;
+  String? programsnextPageToken='';
+  String? moviesNextPageToken = '';
+  String? mmpNextPageToken = '';
+  ChannelInfoItem? chanelInfoItem;
   bool load =false;
+  bool loadMovies = false;
+  bool loadMmp =false;
+  bool loadAdeboyeSermon = false;
   init(){
 
   }
+
+  Future loadAdeboyeSermons()async{
+    loadAdeboyeSermon = true;
+    notifyListeners();
+   pAdeboyeSermonModel = await ProgramService.getPaAdeboyeVideos();
+    notifyListeners();
+    loadAdeboyeSermon= false;
+    notifyListeners();
+  }
+
   Future getRccgProgramChannelInfo()async{
     load=true;
     notifyListeners();
-    rccgProgram=await ProgramService.getRccgProgramInfo();
-    item =rccgProgram!.items[0];
-    print(item?.contentDetails.relatedPlaylists.uploads);
+    rccgProgramChannelInfo=await ProgramService.getRccgProgramInfo();
+    chanelInfoItem =rccgProgramChannelInfo!.items[0];
+    print(chanelInfoItem?.contentDetails.relatedPlaylists.uploads);
     await loadProgramVideos();
     notifyListeners();
     load=false;
     notifyListeners();
   }
-  Future getRccgMovieChannelInfo()async{
-    load=true;
+  Future getMmpChannelInfo()async{
+    loadMmp=true;
+    notifyListeners();
+    mmpChannelInfo = await ProgramService.getMmpChannelInfo();
+    loadMmp= false;
     notifyListeners();
 
-    rccgMovieSearchModel=await ProgramService.getSearchedMovies();
-    item =rccgProgram!.items[0];
-    print(item?.contentDetails.relatedPlaylists.uploads);
-    await loadProgramVideos();
+  }
+
+  Future loadMmpVideos()async{
+    loadMmp= true;
     notifyListeners();
-    load=false;
+    MmpVideosList
+     result = await ProgramService.getMmpVideosList(playlistId: mmpChannelInfo!.items![0].contentDetails!.relatedPlaylists!.uploads,pageToken: mmpNextPageToken);
+    mmpNextPageToken= result.nextPageToken;
+    loadMmp= false;
     notifyListeners();
   }
 
@@ -43,12 +69,12 @@ class ProgramController extends ChangeNotifier{
   loadProgramVideos()async{
     load=true;
     notifyListeners();
-    RccgProgramModel result=await ProgramService.getRccgProgramModelVideos(playlistId: item?.contentDetails.relatedPlaylists.uploads,
-    pageToken: nextPageToken
+    RccgProgramModel result=await ProgramService.getRccgProgramModelVideos(playlistId: chanelInfoItem?.contentDetails.relatedPlaylists.uploads,
+    pageToken: programsnextPageToken
     );
     rccgProgramModel=result;
     notifyListeners();
-    nextPageToken= result.nextPageToken;
+    programsnextPageToken= result.nextPageToken;
     //rccgProgramModel?.videos=[];
     print('${result!.videos?.length}kkiii');
 
@@ -58,20 +84,18 @@ class ProgramController extends ChangeNotifier{
     notifyListeners();
   }
   loadMovieVideos()async{
-    load=true;
+    loadMovies=true;
     notifyListeners();
-    RccgProgramModel result=await ProgramService.getRccgProgramModelVideos(playlistId: item?.contentDetails.relatedPlaylists.uploads,
-        pageToken: nextPageToken
-    );
-    rccgProgramModel=result;
+    ChristianMovieModel result=await ProgramService.getSearchedMovies();
+    christianMovieModel=result;
     notifyListeners();
-    nextPageToken= result.nextPageToken;
+    programsnextPageToken= result.nextPageToken;
     //rccgProgramModel?.videos=[];
     print('${result!.videos?.length}kkiii');
 
     print('${rccgProgramModel?.videos?.length}kpoooo');
     notifyListeners();
-    load=false;
+    loadMovies=false;
     notifyListeners();
   }
 }

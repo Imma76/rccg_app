@@ -71,7 +71,7 @@ class _AllVideoPlayerState extends State<AllVideoPlayer> {
                   color: Colors.white,
                 ),
               ),
-              backgroundColor: AppTheme.primaryColor,
+              backgroundColor:  LightAppTheme.primaryColor,
             ),
             body: Stack(
               // mainAxisAlignment: MainAxisAlignment.center,
@@ -97,7 +97,7 @@ class _AllVideoPlayerState extends State<AllVideoPlayer> {
                         height: 500,
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          color: AppTheme.white,
+                          color:  LightAppTheme.white,
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(30),
                             topRight: Radius.circular(30),
@@ -158,7 +158,7 @@ class _AllVideoPlayerState extends State<AllVideoPlayer> {
                                         child: Text(
                                           'View all',
                                           style: GoogleFonts.inter(
-                                            color:AppTheme.primaryColor,
+                                            color: LightAppTheme.primaryColor,
                                           ),
                                         ),
                                       ),
