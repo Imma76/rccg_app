@@ -693,7 +693,7 @@ Gap(10.h),
                     Gap(20.w,),
                     ProgramsChoiceButton(
                       title: 'All',index: 0,
-                    ),Gap(10),ProgramsChoiceButton(  title: 'Live Programs',index: 1,),Gap(10),ProgramsChoiceButton(  title: 'Pastor EA Sermons',index: 2,),    Gap(20.w,),
+                    ),Gap(10),ProgramsChoiceButton(  title: 'Live Programs',index: 1,),Gap(10),ProgramsChoiceButton(  title: 'Pastor EA Sermons',index: 2,), Gap(10),ProgramsChoiceButton(  title: 'Pastor Mrs FA Sermons',index: 3,),Gap(10),ProgramsChoiceButton(  title: 'Holy Ghost Service',index: 4,),Gap(10),ProgramsChoiceButton(  title: 'Convention',index: 5,), Gap(10),ProgramsChoiceButton(  title: 'Congress',index: 6,), Gap(10),ProgramsChoiceButton(  title: 'Psf Programs',index: 7,),Gap(10),ProgramsChoiceButton(  title: 'RCCG Youths',index: 8,),    Gap(10),ProgramsChoiceButton(  title: 'RCCG MMP',index: 9,), Gap(10),ProgramsChoiceButton(  title: 'Feast of Esther',index: 10,),    Gap(20.w,),
 
                   ],
                 ),
@@ -831,7 +831,7 @@ Gap(10.h),
                     MovieChoiceButton(
 
                       title: 'All',index: 0,
-                    ),Gap(10),MovieChoiceButton(  title: 'Mount Zion Movies',index: 1,),Gap(10),MovieChoiceButton(  title: 'Kids Christian Movie',index: 2,),    Gap(20.w,),
+                    ),Gap(10),MovieChoiceButton(  title: 'Mount Zion Movies',index: 1,),Gap(10),MovieChoiceButton(  title: 'Kids Christian Movie',index: 2,),Gap(10),MovieChoiceButton(  title: 'International Christian Movie',index: 2,),    Gap(20.w,),
 
                   ],
                 ),
