@@ -4,11 +4,13 @@ import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:rccg_app/models/adeboye_sermon_model.dart';
 import 'package:rccg_app/models/rccg_movie_search_model.dart';
+import '../models/holy_ghost_service.dart';
 import '../models/mmp_channel_info_model.dart';
 import '../models/mmp_video_model.dart';
 import '../models/rccg_channel_info.dart';
 import '../models/rccg_program_model.dart';
 import '../models/rccg_videos_playlist.dart';
+import '../models/youth_convention_model.dart';
 // service class id=s for getting the various programs videosList and channel from the api endpoint
 class ProgramService {
   static const key = 'AIzaSyAk_kh4x-TjjsuxkQV-xCmAAAUEE6bE8x8';
@@ -18,6 +20,8 @@ class ProgramService {
   static const psf_channel_id = 'UC6ImVeZBcRIKamgXC9BkGww';
   static const mmp_channel_id = 'UC8JqsCeV4IT5fb-KWAjLQOQ';
   static const adeboyeSermonPlaylistId ='PLY2UjBLMXLF2eHzRHGaNZHQFaoic-X5Em';
+  static const holyGhostServicePlaylistId = 'PLY2UjBLMXLF2sLHc3Oy-aPF07wq2aj2X5';
+  static const youthConventionPlaylistId = 'PLY2UjBLMXLF2UeFa2_zDUAP_hjtGwWdfg';
   //     curl \
   // 'https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=rccglive&access_token=AIzaSyBJo-j8yDMT6A9alt5e2abjiuOyk3LXd-s&key=[YOUR_API_KEY]' \
   // --header 'Authorization: Bearer [YOUR_ACCESS_TOKEN]' \
@@ -98,6 +102,45 @@ class ProgramService {
     PAdeboyeSermonModel? pAdeboyeSermonModel =pAdeboyeSermonModelFromJson(response.body);
 
     return pAdeboyeSermonModel;
+  }
+  static Future<YouthConventionModel> getYouthConventionVideos( {String? pageToken}) async {
+    Map<String, String> parameters = {
+      'part': 'snippet',
+      'playlistId': youthConventionPlaylistId,
+      'maxResults': '50',
+      'pageToken': '',
+      'key': key,
+    };
+    Map<String, String> headers = {
+      HttpHeaders.contentTypeHeader: 'application/json',
+    };
+    Uri uri = Uri.https(baseUrl, '/youtube/v3/playlistItems', parameters);
+    Response response = await http.get(uri, headers: headers);
+    print(response.body);
+    YouthConventionModel? youthConventionModel =youthConventionModelFromJson(response.body);
+
+    return youthConventionModel;
+  }
+
+  static Future<HolyGhostServiceModel> getHolyGhostVideos( {String? pageToken}) async {
+    Map<String, String> parameters = {
+      'part': 'snippet',
+      'playlistId': holyGhostServicePlaylistId,
+      'maxResults': '50',
+      'pageToken': '',
+      'key': key,
+    };
+    Map<String, String> headers = {
+      HttpHeaders.contentTypeHeader: 'application/json',
+    };
+    Uri uri = Uri.https(baseUrl, '/youtube/v3/playlistItems', parameters);
+    Response response = await http.get(uri, headers: headers);
+    print(response.body);
+    HolyGhostServiceModel
+    ? holyGhostServiceModel
+    =holyGhostServiceModelFromJson(response.body);
+
+    return holyGhostServiceModel;
   }
 
 // code for getting the psf channel info

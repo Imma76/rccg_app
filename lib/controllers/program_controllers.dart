@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:rccg_app/models/adeboye_sermon_model.dart';
+import 'package:rccg_app/models/holy_ghost_service.dart';
 import 'package:rccg_app/models/mmp_channel_info_model.dart';
 import 'package:rccg_app/models/mmp_video_model.dart';
 import 'package:rccg_app/models/rccg_movie_search_model.dart';
 import 'package:rccg_app/models/rccg_program_model.dart';
+import 'package:rccg_app/models/youth_convention_model.dart';
 import 'package:rccg_app/services/video_service.dart';
 
 import '../models/rccg_channel_info.dart';
@@ -18,10 +20,13 @@ class ProgramController extends ChangeNotifier{
   String? moviesNextPageToken = '';
   String? mmpNextPageToken = '';
   ChannelInfoItem? chanelInfoItem;
+  HolyGhostServiceModel? holyGhostServiceModel;
   bool load =false;
   bool loadMovies = false;
   bool loadMmp =false;
   bool loadAdeboyeSermon = false;
+  YouthConventionModel?youthConventionModel;
+
   init(){
 
   }
@@ -32,6 +37,24 @@ class ProgramController extends ChangeNotifier{
    pAdeboyeSermonModel = await ProgramService.getPaAdeboyeVideos();
     notifyListeners();
     loadAdeboyeSermon= false;
+    notifyListeners();
+  }
+
+  Future loadHolyGhostService()async{
+    load = true;
+    notifyListeners();
+    holyGhostServiceModel= await ProgramService.getHolyGhostVideos();
+    notifyListeners();
+    load = false;
+    notifyListeners();
+  }
+
+  Future loadYouthConvention()async{
+    load = true;
+    notifyListeners();
+    youthConventionModel= await ProgramService.getYouthConventionVideos();
+    notifyListeners();
+    load = false;
     notifyListeners();
   }
 

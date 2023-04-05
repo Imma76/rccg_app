@@ -7,6 +7,7 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rccg_app/models/adeboye_sermon_model.dart';
 import 'package:rccg_app/models/rccg_movie_search_model.dart';
+import 'package:rccg_app/models/youth_convention_model.dart';
 import 'package:rccg_app/views/authentication/verify_email.dart';
 import 'package:rccg_app/views/manuals/rccg_manuals.dart';
 import 'package:rccg_app/views/programs/movies.dart';
@@ -14,6 +15,7 @@ import 'package:rccg_app/widgets/loader.dart';
 import 'package:rccg_app/widgets/text_fields.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../../models/holy_ghost_service.dart';
 import '../../models/rccg_program_model.dart';
 import '../../providers/all_providers.dart';
 import '../../themes/app_theme.dart';
@@ -621,23 +623,26 @@ Gap(10.h),
               ),
             ),
             Gap(34.h),
-            //if(homeController.currentProgramChoice==0)
-            // SizedBox(
-            //   height: 235.h,
-            //   child:programController.load?Indicator(): ListView.builder(
-            //     itemCount: programController.rccgProgramModel!.videos!.length,
-            //       padding: EdgeInsets.zero,
-            //     //itemExtent: 0,
-            //     scrollDirection: Axis.horizontal,
-            //     shrinkWrap: true,
-            //     itemBuilder: (context,index) {
-            //       return       // Figma Flutter Generator ItemcardproductWidget - FRAME - VERTICAL
-            //
-            //
-            //         ProgramCard(programDetails: programController.rccgProgramModel!.videos![index],);
-            //     }
-            //   ),
-            // ),
+            if(homeController.currentProgramChoice==0)
+            Visibility(
+              visible: homeController.currentProgramChoice==0?true:false,
+              child: SizedBox(
+                height: 235.h,
+                child:programController.load?Indicator(): ListView.builder(
+                  itemCount: programController.rccgProgramModel!.videos!.length,
+                    padding: EdgeInsets.zero,
+                  //itemExtent: 0,
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap: true,
+                  itemBuilder: (context,index) {
+                    return       // Figma Flutter Generator ItemcardproductWidget - FRAME - VERTICAL
+
+
+                      ProgramCard(programDetails: programController.rccgProgramModel!.videos![index],);
+                  }
+                ),
+              ),
+            ),
             if(programController.pAdeboyeSermonModel!= null)
               Visibility(
                 visible: homeController.currentProgramChoice==2?true:false,
@@ -654,6 +659,47 @@ Gap(10.h),
 
 
                          AdeboyeSermonCard(adeboyeSermonVideoModel: programController.pAdeboyeSermonModel!.items![index],);
+                      }
+                  ),
+                ),
+              ),
+            if(programController.holyGhostServiceModel!= null)
+              Visibility(
+                visible: homeController.currentProgramChoice==4?true:false,
+                child: SizedBox(
+                  height: 235.h,
+                  child:programController.load?Indicator(): ListView.builder(
+                      itemCount: programController.holyGhostServiceModel!.items!.length,
+                      padding: EdgeInsets.zero,
+                      //itemExtent: 0,
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemBuilder: (context,index) {
+                        return       // Figma Flutter Generator ItemcardproductWidget - FRAME - VERTICAL
+
+
+                          HolyGhostProgramCard(holyGhostServiceVideoItem:  programController.holyGhostServiceModel!.items![index],);
+                      }
+                  ),
+                ),
+              ),
+            if(programController.youthConventionModel
+                != null)
+              Visibility(
+                visible: homeController.currentProgramChoice==8?true:false,
+                child: SizedBox(
+                  height: 235.h,
+                  child:programController.load?Indicator(): ListView.builder(
+                      itemCount: programController.youthConventionModel!.items!.length,
+                      padding: EdgeInsets.zero,
+                      //itemExtent: 0,
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemBuilder: (context,index) {
+                        return       // Figma Flutter Generator ItemcardproductWidget - FRAME - VERTICAL
+
+
+                         YouthConventionProgramCard(youthConventionVideoItem: programController.youthConventionModel!.items![index],);
                       }
                   ),
                 ),
@@ -1006,6 +1052,138 @@ class MrsFaProgramCard extends StatelessWidget {
 
 
 
+class HolyGhostProgramCard extends StatelessWidget {
+  final HolyGhostServiceVideoItem?holyGhostServiceVideoItem;
+
+  const HolyGhostProgramCard({
+    Key? key,this.holyGhostServiceVideoItem
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: (){
+        // Navigator.push(context,
+        //     MaterialPageRoute(builder: (context) {
+        //       return WatchPrograms(
+        //         rccgProgramModel:programDetails,
+        //       );
+        //     }));
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(left:23.0,right: 5,bottom:
+        4),
+        child: Container(
+          padding:  const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+          height: 100.h,width: 288.w,decoration: BoxDecoration(color:Color.fromRGBO(255, 255, 255, 1),
+            boxShadow: const [
+              BoxShadow(
+                  color:LightAppTheme.shadowColor,
+                  offset: Offset(0,10),
+                  blurRadius: 15
+              ),
+            ],
+            borderRadius: BorderRadius.circular(20)),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Stack(
+                alignment: Alignment.topCenter,
+                children: [
+                  CachedNetworkImage(
+                    imageUrl:
+                    holyGhostServiceVideoItem!.snippet!
+                        .thumbnails!
+                        .medium!
+                        .url
+                        .toString(),
+                    height: 144.h,width: 266.w,
+                    fit: BoxFit.cover,
+                  ),
+                  Positioned(
+                      top: 50,
+                      // left: 30,
+                      child:Image.asset('assets/play.png',height: 40.h,width: 40.w,)
+                  )
+                ],
+              ),
+              Gap(20.h),
+              Center(child: Text(holyGhostServiceVideoItem!.snippet!.title.toString(),style: GoogleFonts.inter(color: LightAppTheme.black2,fontSize: 12.sp,fontWeight: FontWeight.w400),)),
+            ],
+          ),),
+      ),
+    );
+  }
+}
+
+
+
+class YouthConventionProgramCard extends StatelessWidget {
+  final YouthConventionVideoItem? youthConventionVideoItem;
+
+  const  YouthConventionProgramCard({
+    Key? key,this.youthConventionVideoItem
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: (){
+        // Navigator.push(context,
+        //     MaterialPageRoute(builder: (context) {
+        //       return WatchPrograms(
+        //         rccgProgramModel:programDetails,
+        //       );
+        //     }));
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(left:23.0,right: 5,bottom:
+        4),
+        child: Container(
+          padding:  const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+          height: 100.h,width: 288.w,decoration: BoxDecoration(color:Color.fromRGBO(255, 255, 255, 1),
+            boxShadow: const [
+              BoxShadow(
+                  color:LightAppTheme.shadowColor,
+                  offset: Offset(0,10),
+                  blurRadius: 15
+              ),
+            ],
+            borderRadius: BorderRadius.circular(20)),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Stack(
+                alignment: Alignment.topCenter,
+                children: [
+                  CachedNetworkImage(
+                    imageUrl:
+                    youthConventionVideoItem!.snippet!
+                        .thumbnails!
+                        .medium!
+                        .url
+                        .toString(),
+                    height: 144.h,width: 266.w,
+                    fit: BoxFit.cover,
+                  ),
+                  Positioned(
+                      top: 50,
+                      // left: 30,
+                      child:Image.asset('assets/play.png',height: 40.h,width: 40.w,)
+                  )
+                ],
+              ),
+              Gap(20.h),
+              Center(child: Text( youthConventionVideoItem!.snippet!.title.toString(),style: GoogleFonts.inter(color: LightAppTheme.black2,fontSize: 12.sp,fontWeight: FontWeight.w400),)),
+            ],
+          ),),
+      ),
+    );
+  }
+}
+
+
+
 class ProgramCard extends StatelessWidget {
   final RccgProgramVideoItem? programDetails;
 
@@ -1214,7 +1392,18 @@ class ProgramsChoiceButton extends ConsumerWidget {
     return GestureDetector(
         onTap: ()async{
           homeController.changeCurrentProgramChoice(index!);
-          if(index==2){
+
+          if(index== 8 &&programController.youthConventionModel==null){
+            await programController.loadYouthConvention();
+          }
+          if(index == 0&& programController.rccgProgramModel==null){
+            await programController.getRccgProgramChannelInfo();
+          }
+
+          if(index == 4 && programController.holyGhostServiceModel==null){
+            await programController.loadHolyGhostService();
+          }
+          if(index==2 && programController.pAdeboyeSermonModel==null){
             print('kkk$index');
             await programController.loadAdeboyeSermons();
           }else{
