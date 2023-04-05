@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:rccg_app/models/adeboye_sermon_model.dart';
 import 'package:rccg_app/models/rccg_movie_search_model.dart';
+import '../models/feastOfEsther.dart';
 import '../models/holy_ghost_service.dart';
 import '../models/mmp_channel_info_model.dart';
 import '../models/mmp_video_model.dart';
@@ -63,6 +64,25 @@ class ProgramService {
     ChristianMovieModel rccgMovie = rccgMovieSearchModelFromJson(response.body);
 
     return rccgMovie;
+  }
+  static Future<FeastofEsther> getFeastOfEsther() async {
+    Map<String, String> parameters = {
+      'part': 'snippet',
+      'type':'christian movies',
+      'forMine':'0',
+      'key': 'AIzaSyCqKNPqh9CJbjc4MSVbsiNFeiTDb31Aq6Q'
+      //'AIzaSyB6N2UIi4BfnM9AzARoRlWfaEVo7VpRMJc',
+
+    };
+    Map<String, String> headers = {
+      HttpHeaders.contentTypeHeader: 'application/json',
+    };
+    Uri uri = Uri.parse('https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=feast%20movies&type=video&videoDuration=long&access_token=AIzaSyB6N2UIi4BfnM9AzARoRlWfaEVo7VpRMJc&type=video&access_token=AIzaSyB6N2UIi4BfnM9AzARoRlWfaEVo7VpRMJc&key=$key');
+    Response response = await http.get(uri, headers: headers);
+    print(response.body);
+    FeastofEsther feastofEsther = feastofEstherFromJson(response.body);
+
+    return feastofEsther;
   }
 
 
@@ -144,22 +164,22 @@ class ProgramService {
   }
 
 // code for getting the psf channel info
-//   static Future<PsfChannelInfo> getPsfChannelInfo() async {
-//     Map<String, String> parameters = {
-//       'part': 'snippet,contentDetails,statistics',
-//       'id': psf_channel_id,
-//       'key': key,
-//     };
-//     Map<String, String> headers = {
-//       HttpHeaders.contentTypeHeader: 'application/json',
-//     };
-//     Uri uri = Uri.https(baseUrl, '/youtube/v3/channels', parameters);
-//     Response response = await http.get(uri, headers: headers);
-//     //  print(response.body);
-//     PsfChannelInfo psfchannelInfo = psfChannelInfoFromJson(response.body);
-//
-//     return psfchannelInfo;
-//   }
+  static Future<PsfChannelInfo> getPsfChannelInfo() async {
+    Map<String, String> parameters = {
+      'part': 'snippet,contentDetails,statistics',
+      'id': psf_channel_id,
+      'key': key,
+    };
+    Map<String, String> headers = {
+      HttpHeaders.contentTypeHeader: 'application/json',
+    };
+    Uri uri = Uri.https(baseUrl, '/youtube/v3/channels', parameters);
+    Response response = await http.get(uri, headers: headers);
+    //  print(response.body);
+    PsfChannelInfo psfchannelInfo = psfChannelInfoFromJson(response.body);
+
+    return psfchannelInfo;
+  }
 
 //code for getting the mmp channel info
   static Future<MmpChannelInfo> getMmpChannelInfo() async {
