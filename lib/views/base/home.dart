@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rccg_app/models/adeboye_sermon_model.dart';
+import 'package:rccg_app/models/kids_christian_movies.dart';
 import 'package:rccg_app/models/mmp_video_model.dart';
 import 'package:rccg_app/models/mount_zion_movies.dart';
 import 'package:rccg_app/models/rccg_movie_search_model.dart';
@@ -1164,7 +1165,7 @@ class _HomeState extends ConsumerState<Home> {
                     const Gap(10),
                     const MovieChoiceButton(
                       title: 'International Christian Movie',
-                      index: 2,
+                      index: 3,
                     ),
                     Gap(
                       20.w,
@@ -1193,6 +1194,22 @@ class _HomeState extends ConsumerState<Home> {
                 ),
               ),
             ),
+
+            if(programController.kidsChristianMovies!=null)
+              Visibility(
+                visible:homeController.currentMovieChoice==2,
+                child: SizedBox(
+                  height: 220.h,
+                  child: ListView.builder(
+                      itemCount: programController.kidsChristianMovies!.items!.length,
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemBuilder: (context,index) {
+                        return  KidsMovieCard(kidsMoviesItem: programController.kidsChristianMovies!.items![index],);
+                      }
+                  ),
+                ),
+              ),
             if(programController.mountZionMovies!=null)
               Visibility(
                 visible:homeController.currentMovieChoice==1,
@@ -1961,6 +1978,7 @@ class MovieCard extends StatelessWidget {
 
 
 
+
 class MountZionMovieCard extends StatelessWidget {
   final MountZionVideoItem?mountZionVideoItem;
   const MountZionMovieCard({Key? key, this.mountZionVideoItem}) : super(key: key);
@@ -2092,6 +2110,80 @@ class ProgramsChoiceButton extends ConsumerWidget {
   }
 }
 
+
+class KidsMovieCard extends StatelessWidget {
+  final KidsMoviesItem?kidsMoviesItem;
+  const KidsMovieCard({Key? key, this.kidsMoviesItem}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        // Navigator.push(context, MaterialPageRoute(builder: (context) {
+        //   return WatchMovies(
+        //     videoId: searchVideoItem!.id,
+        //     searchVideoDetails: searchVideoItem!.videoDetails,
+        //   );
+        // }));
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(left: 23.0, right: 5, bottom: 4),
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 12,
+            vertical: 12,
+          ),
+          height: 218.h,
+          width: 288.w,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: LightAppTheme.white,
+            boxShadow: [
+              const BoxShadow(
+                  color: LightAppTheme.shadowColor,
+                  offset: Offset(0, 10),
+                  blurRadius: 15),
+            ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Stack(
+                alignment: Alignment.topCenter,
+                children: [
+                  CachedNetworkImage(
+                    imageUrl: kidsMoviesItem!.snippet!
+                        .thumbnails!.medium!.url
+                        .toString(),
+                    height: 144.h,
+                    width: 266.w,
+                    fit: BoxFit.cover,
+                  ),
+                  Positioned(
+                      top: 50,
+                      // left: 30,
+                      child: Image.asset(
+                        'assets/play.png',
+                        height: 40.h,
+                        width: 40.w,
+                      ))
+                ],
+              ),
+              Gap(10.h),
+              Text(
+                kidsMoviesItem!.snippet!.title.toString(),
+                style: GoogleFonts.inter(
+                    color: LightAppTheme.black2,
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w400),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
 class MovieChoiceButton extends ConsumerWidget {
   final String? title;
   final int? index;
@@ -2110,6 +2202,9 @@ class MovieChoiceButton extends ConsumerWidget {
           }
           if(index ==0&& programController.christianMovieModel ==null){
             await programController.loadMovieVideos();
+          }
+          if(index == 2&& programController.kidsChristianMovies==null){
+            await programController.getKidsMovies();
           }
         },
         child: Container(

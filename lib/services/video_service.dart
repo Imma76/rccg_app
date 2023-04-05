@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:rccg_app/models/adeboye_sermon_model.dart';
+import 'package:rccg_app/models/kids_christian_movies.dart';
 import 'package:rccg_app/models/rccg_movie_search_model.dart';
 import '../models/feastOfEsther.dart';
 import '../models/holy_ghost_service.dart';
@@ -85,6 +86,25 @@ class ProgramService {
     Response response = await http.get(uri, headers: headers);
     print(response.body);
     MountZionMovies result = mountZionMoviesFromJson(response.body);
+
+    return result;
+  }
+  static Future<KidsChristianMovies> getKidsChristianMovies() async {
+    Map<String, String> parameters = {
+      'part': 'snippet',
+      'type':'christian movies',
+      'forMine':'0',
+      'key': 'AIzaSyCqKNPqh9CJbjc4MSVbsiNFeiTDb31Aq6Q'
+      //'AIzaSyB6N2UIi4BfnM9AzARoRlWfaEVo7VpRMJc',
+
+    };
+    Map<String, String> headers = {
+      HttpHeaders.contentTypeHeader: 'application/json',
+    };
+    Uri uri = Uri.parse('https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=Kids%20christian%20movies&type=video&videoDuration=long&access_token=AIzaSyB6N2UIi4BfnM9AzARoRlWfaEVo7VpRMJc&type=video&access_token=AIzaSyB6N2UIi4BfnM9AzARoRlWfaEVo7VpRMJc&key=$key');
+    Response response = await http.get(uri, headers: headers);
+    print(response.body);
+    KidsChristianMovies result = kidsChristianMoviesFromJson(response.body);
 
     return result;
   }

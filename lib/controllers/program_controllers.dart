@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rccg_app/models/adeboye_sermon_model.dart';
 import 'package:rccg_app/models/holy_ghost_service.dart';
+import 'package:rccg_app/models/kids_christian_movies.dart';
 import 'package:rccg_app/models/mmp_channel_info_model.dart';
 import 'package:rccg_app/models/mmp_video_model.dart';
 import 'package:rccg_app/models/psfChannellnfo.dart';
@@ -27,6 +28,7 @@ class ProgramController extends ChangeNotifier{
   PsfChannelInfo?psfChannelInfo;
   PsfVideosList?psfVideosList;
   MmpVideosList?mmpVideosList;
+  KidsChristianMovies? kidsChristianMovies;
  MountZionMovies? mountZionMovies;
   bool load =false;
 
@@ -72,6 +74,13 @@ class ProgramController extends ChangeNotifier{
     youthConventionModel= await ProgramService.getYouthConventionVideos();
     notifyListeners();
     load = false;
+    notifyListeners();
+  }
+  Future getKidsMovies()async{
+    loadMovies=true;
+    notifyListeners();
+    kidsChristianMovies = await ProgramService.getKidsChristianMovies();
+    loadMovies= false;
     notifyListeners();
   }
 
