@@ -8,6 +8,7 @@ import '../models/feastOfEsther.dart';
 import '../models/holy_ghost_service.dart';
 import '../models/mmp_channel_info_model.dart';
 import '../models/mmp_video_model.dart';
+import '../models/mount_zion_movies.dart';
 import '../models/psfChannellnfo.dart';
 import '../models/psfVideoModel.dart';
 import '../models/rccg_channel_info.dart';
@@ -66,6 +67,26 @@ class ProgramService {
     ChristianMovieModel rccgMovie = rccgMovieSearchModelFromJson(response.body);
 
     return rccgMovie;
+  }
+
+  static Future<MountZionMovies> getMountZionMovies() async {
+    Map<String, String> parameters = {
+      'part': 'snippet',
+      'type':'christian movies',
+      'forMine':'0',
+      'key': 'AIzaSyCqKNPqh9CJbjc4MSVbsiNFeiTDb31Aq6Q'
+      //'AIzaSyB6N2UIi4BfnM9AzARoRlWfaEVo7VpRMJc',
+
+    };
+    Map<String, String> headers = {
+      HttpHeaders.contentTypeHeader: 'application/json',
+    };
+    Uri uri = Uri.parse('https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=Mount%20zion%20movies&type=video&videoDuration=long&access_token=AIzaSyB6N2UIi4BfnM9AzARoRlWfaEVo7VpRMJc&type=video&access_token=AIzaSyB6N2UIi4BfnM9AzARoRlWfaEVo7VpRMJc&key=$key');
+    Response response = await http.get(uri, headers: headers);
+    print(response.body);
+    MountZionMovies result = mountZionMoviesFromJson(response.body);
+
+    return result;
   }
   static Future<FeastofEsther> getFeastOfEsther() async {
     Map<String, String> parameters = {

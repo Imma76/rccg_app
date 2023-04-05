@@ -9,6 +9,7 @@ import 'package:rccg_app/models/rccg_program_model.dart';
 import 'package:rccg_app/models/youth_convention_model.dart';
 import 'package:rccg_app/services/video_service.dart';
 
+import '../models/mount_zion_movies.dart';
 import '../models/psfVideoModel.dart';
 import '../models/rccg_channel_info.dart';
 
@@ -26,6 +27,7 @@ class ProgramController extends ChangeNotifier{
   PsfChannelInfo?psfChannelInfo;
   PsfVideosList?psfVideosList;
   MmpVideosList?mmpVideosList;
+ MountZionMovies? mountZionMovies;
   bool load =false;
 
   bool loadMovies = false;
@@ -43,6 +45,15 @@ class ProgramController extends ChangeNotifier{
    pAdeboyeSermonModel = await ProgramService.getPaAdeboyeVideos();
     notifyListeners();
     loadAdeboyeSermon= false;
+    notifyListeners();
+  }
+
+  Future loadMountZionMovies()async{
+    loadMovies = true;
+    notifyListeners();
+    mountZionMovies = await ProgramService.getMountZionMovies();
+    notifyListeners();
+    loadMovies= false;
     notifyListeners();
   }
 
@@ -72,8 +83,8 @@ class ProgramController extends ChangeNotifier{
     print(chanelInfoItem?.contentDetails.relatedPlaylists.uploads);
     await loadProgramVideos();
     notifyListeners();
-    load=false;
-    notifyListeners();
+    // load=false;
+    // notifyListeners();
   }
   Future getMmpChannelInfo()async{
     load=true;

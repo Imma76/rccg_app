@@ -7,6 +7,7 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rccg_app/models/adeboye_sermon_model.dart';
 import 'package:rccg_app/models/mmp_video_model.dart';
+import 'package:rccg_app/models/mount_zion_movies.dart';
 import 'package:rccg_app/models/rccg_movie_search_model.dart';
 import 'package:rccg_app/models/youth_convention_model.dart';
 import 'package:rccg_app/views/authentication/verify_email.dart';
@@ -866,16 +867,17 @@ class _HomeState extends ConsumerState<Home> {
                 ),
               ),
             ),
+
             Gap(34.h),
-            if (homeController.currentProgramChoice == 0)
+            if(programController.load)
+              Indicator(),
+            if (programController.rccgProgramModel!=null)
               Visibility(
                 visible:
                     homeController.currentProgramChoice == 0 ? true : false,
                 child: SizedBox(
                   height: 235.h,
-                  child: programController.load
-                      ? const Indicator()
-                      : ListView.builder(
+                  child:ListView.builder(
                           itemCount: programController
                               .rccgProgramModel!.videos!.length,
                           padding: EdgeInsets.zero,
@@ -884,7 +886,6 @@ class _HomeState extends ConsumerState<Home> {
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
                             return // Figma Flutter Generator ItemcardproductWidget - FRAME - VERTICAL
-
                                 ProgramCard(
                               programDetails: programController
                                   .rccgProgramModel!.videos![index],
@@ -892,15 +893,15 @@ class _HomeState extends ConsumerState<Home> {
                           }),
                 ),
               ),
+
+
             if (programController.psfVideosList!=null)
               Visibility(
                 visible:
                 homeController.currentProgramChoice == 7 ? true : false,
                 child: SizedBox(
                   height: 235.h,
-                  child: programController.load
-                      ? const Indicator()
-                      : ListView.builder(
+                  child:  ListView.builder(
                       itemCount: programController.psfVideosList!.psfvideos!.length,
                       padding: EdgeInsets.zero,
                       //itemExtent: 0,
@@ -919,9 +920,7 @@ class _HomeState extends ConsumerState<Home> {
                 homeController.currentProgramChoice == 9 ? true : false,
                 child: SizedBox(
                   height: 235.h,
-                  child: programController.load
-                      ? const Indicator()
-                      : ListView.builder(
+                  child: ListView.builder(
                       itemCount: programController.mmpVideosList!.mmpvideos!.length,
                       padding: EdgeInsets.zero,
                       //itemExtent: 0,
@@ -940,9 +939,7 @@ class _HomeState extends ConsumerState<Home> {
                     homeController.currentProgramChoice == 2 ? true : false,
                 child: SizedBox(
                   height: 235.h,
-                  child: programController.loadAdeboyeSermon
-                      ? const Indicator()
-                      : ListView.builder(
+                  child:ListView.builder(
                           itemCount: programController
                               .pAdeboyeSermonModel!.items!.length,
                           padding: EdgeInsets.zero,
@@ -965,9 +962,7 @@ class _HomeState extends ConsumerState<Home> {
                     homeController.currentProgramChoice == 4 ? true : false,
                 child: SizedBox(
                   height: 235.h,
-                  child: programController.load
-                      ? const Indicator()
-                      : ListView.builder(
+                  child:ListView.builder(
                           itemCount: programController
                               .holyGhostServiceModel!.items!.length,
                           padding: EdgeInsets.zero,
@@ -990,9 +985,7 @@ class _HomeState extends ConsumerState<Home> {
                     homeController.currentProgramChoice == 8 ? true : false,
                 child: SizedBox(
                   height: 235.h,
-                  child: programController.load
-                      ? const Indicator()
-                      : ListView.builder(
+                  child: ListView.builder(
                           itemCount: programController
                               .youthConventionModel!.items!.length,
                           padding: EdgeInsets.zero,
@@ -1181,18 +1174,40 @@ class _HomeState extends ConsumerState<Home> {
               ),
             ),
             Gap(27.h),
-            // SizedBox(
-            //   height: 220.h,
-            //   child:programController.loadMovies?Indicator():  ListView.builder(
-            //       itemCount: programController.christianMovieModel!.videos!.length,
-            //       scrollDirection: Axis.horizontal,
-            //       shrinkWrap: true,
-            //       itemBuilder: (context,index) {
-            //         return  MovieCard(searchVideoItem: programController.christianMovieModel!.videos![index]
-            //           ,);
-            //       }
-            //   ),
-            // ),
+            if(programController.loadMovies)
+              Indicator(),
+
+            if(programController.christianMovieModel!=null)
+            Visibility(
+              visible:homeController.currentMovieChoice==0,
+              child: SizedBox(
+                height: 220.h,
+                child: ListView.builder(
+                    itemCount: programController.christianMovieModel!.videos!.length,
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    itemBuilder: (context,index) {
+                      return  MovieCard(searchVideoItem: programController.christianMovieModel!.videos![index]
+                        ,);
+                    }
+                ),
+              ),
+            ),
+            if(programController.mountZionMovies!=null)
+              Visibility(
+                visible:homeController.currentMovieChoice==1,
+                child: SizedBox(
+                  height: 220.h,
+                  child:programController.loadMovies?Indicator():  ListView.builder(
+                      itemCount: programController.christianMovieModel!.videos!.length,
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemBuilder: (context,index) {
+                        return MountZionMovieCard(mountZionVideoItem: programController.mountZionMovies!.items![index],);
+                      }
+                  ),
+                ),
+              ),
             Gap(40.h),
             Stack(
               children: [
@@ -1944,6 +1959,81 @@ class MovieCard extends StatelessWidget {
   }
 }
 
+
+
+class MountZionMovieCard extends StatelessWidget {
+  final MountZionVideoItem?mountZionVideoItem;
+  const MountZionMovieCard({Key? key, this.mountZionVideoItem}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        // Navigator.push(context, MaterialPageRoute(builder: (context) {
+        //   return WatchMovies(
+        //     videoId: searchVideoItem!.id,
+        //     searchVideoDetails: searchVideoItem!.videoDetails,
+        //   );
+        // }));
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(left: 23.0, right: 5, bottom: 4),
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 12,
+            vertical: 12,
+          ),
+          height: 218.h,
+          width: 288.w,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: LightAppTheme.white,
+            boxShadow: [
+              const BoxShadow(
+                  color: LightAppTheme.shadowColor,
+                  offset: Offset(0, 10),
+                  blurRadius: 15),
+            ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Stack(
+                alignment: Alignment.topCenter,
+                children: [
+                  CachedNetworkImage(
+                    imageUrl: mountZionVideoItem!.snippet!
+                       .thumbnails!.medium!.url
+                        .toString(),
+                    height: 144.h,
+                    width: 266.w,
+                    fit: BoxFit.cover,
+                  ),
+                  Positioned(
+                      top: 50,
+                      // left: 30,
+                      child: Image.asset(
+                        'assets/play.png',
+                        height: 40.h,
+                        width: 40.w,
+                      ))
+                ],
+              ),
+              Gap(10.h),
+              Text(
+                mountZionVideoItem!.snippet!.title.toString(),
+                style: GoogleFonts.inter(
+                    color: LightAppTheme.black2,
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w400),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
 class ProgramsChoiceButton extends ConsumerWidget {
   final String? title;
   final int? index;
@@ -1957,10 +2047,10 @@ class ProgramsChoiceButton extends ConsumerWidget {
     return GestureDetector(
         onTap: () async {
           homeController.changeCurrentProgramChoice(index!);
-          if(index ==7){
+          if(index ==7 && programController.psfVideosList==null){
             await programController.getPsfChannelInfo();
           }
-          if(index == 9){
+          if(index == 9&& programController.mmpVideosList==null){
             await programController.getMmpChannelInfo();
           }
           if (index == 8 && programController.youthConventionModel == null) {
@@ -2011,9 +2101,16 @@ class MovieChoiceButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final homeController = ref.watch(homeProvider);
+    final programController = ref.watch(programProvider);
     return GestureDetector(
-        onTap: () {
+        onTap: () async{
           homeController.changeCurrentMovieChoice(index!);
+          if(index == 1&& programController.mountZionMovies==null){
+            await programController.loadMountZionMovies();
+          }
+          if(index ==0&& programController.christianMovieModel ==null){
+            await programController.loadMovieVideos();
+          }
         },
         child: Container(
           decoration: BoxDecoration(
