@@ -3,11 +3,13 @@ import 'package:rccg_app/models/adeboye_sermon_model.dart';
 import 'package:rccg_app/models/holy_ghost_service.dart';
 import 'package:rccg_app/models/mmp_channel_info_model.dart';
 import 'package:rccg_app/models/mmp_video_model.dart';
+import 'package:rccg_app/models/psfChannellnfo.dart';
 import 'package:rccg_app/models/rccg_movie_search_model.dart';
 import 'package:rccg_app/models/rccg_program_model.dart';
 import 'package:rccg_app/models/youth_convention_model.dart';
 import 'package:rccg_app/services/video_service.dart';
 
+import '../models/psfVideoModel.dart';
 import '../models/rccg_channel_info.dart';
 
 class ProgramController extends ChangeNotifier{
@@ -21,7 +23,11 @@ class ProgramController extends ChangeNotifier{
   String? mmpNextPageToken = '';
   ChannelInfoItem? chanelInfoItem;
   HolyGhostServiceModel? holyGhostServiceModel;
+  PsfChannelInfo?psfChannelInfo;
+  PsfVideosList?psfVideosList;
+  MmpVideosList?mmpVideosList;
   bool load =false;
+
   bool loadMovies = false;
   bool loadMmp =false;
   bool loadAdeboyeSermon = false;
@@ -70,21 +76,42 @@ class ProgramController extends ChangeNotifier{
     notifyListeners();
   }
   Future getMmpChannelInfo()async{
-    loadMmp=true;
+    load=true;
     notifyListeners();
     mmpChannelInfo = await ProgramService.getMmpChannelInfo();
-    loadMmp= false;
+    await loadMmpVideos();
+    load= false;
     notifyListeners();
 
   }
 
+
+
   Future loadMmpVideos()async{
-    loadMmp= true;
+    load= true;
     notifyListeners();
-    MmpVideosList
-     result = await ProgramService.getMmpVideosList(playlistId: mmpChannelInfo!.items![0].contentDetails!.relatedPlaylists!.uploads,pageToken: mmpNextPageToken);
-    mmpNextPageToken= result.nextPageToken;
-    loadMmp= false;
+    mmpVideosList= await ProgramService.getMmpVideosList(playlistId: mmpChannelInfo!.items![0].contentDetails!.relatedPlaylists!.uploads,pageToken: mmpNextPageToken);
+    //mmpNextPageToken= result.nextPageToken;
+    load= false;
+    notifyListeners();
+  }
+
+  Future getPsfChannelInfo()async{
+    load =true;
+    notifyListeners();
+    psfChannelInfo = await ProgramService.getPsfChannelInfo();
+    await loadPsfVideos();
+    load= false;
+    notifyListeners();
+
+  }
+
+  Future loadPsfVideos()async{
+    load= true;
+    notifyListeners();
+    psfVideosList= await ProgramService.getPsfVideosList(playlistId: psfChannelInfo!.items![0].contentDetails!.relatedPlaylists!.uploads);
+    //mmpNextPageToken= resul.nextPageToken;
+    load= false;
     notifyListeners();
   }
 

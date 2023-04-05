@@ -8,6 +8,8 @@ import '../models/feastOfEsther.dart';
 import '../models/holy_ghost_service.dart';
 import '../models/mmp_channel_info_model.dart';
 import '../models/mmp_video_model.dart';
+import '../models/psfChannellnfo.dart';
+import '../models/psfVideoModel.dart';
 import '../models/rccg_channel_info.dart';
 import '../models/rccg_program_model.dart';
 import '../models/rccg_videos_playlist.dart';
@@ -220,25 +222,25 @@ class ProgramService {
 //   }
 
 // code for getting the psf videos list
-//   static Future<PsfVideosList> getPsfVideosList(
-//       {String playlistId, String pageToken}) async {
-//     Map<String, String> parameters = {
-//       'part': 'snippet',
-//       'playlistId': playlistId,
-//       'maxResults': '50',
-//       'pageToken': pageToken,
-//       'key': key,
-//     };
-//     Map<String, String> headers = {
-//       HttpHeaders.contentTypeHeader: 'application/json',
-//     };
-//     Uri uri = Uri.https(baseUrl, '/youtube/v3/playlistItems', parameters);
-//     Response response = await http.get(uri, headers: headers);
-//
-//     PsfVideosList videoList = psfVideosListFromJson(response.body);
-//
-//     return videoList;
-//   }
+  static Future<PsfVideosList> getPsfVideosList(
+      {String? playlistId, String? pageToken}) async {
+    Map<String, String> parameters = {
+      'part': 'snippet',
+      'playlistId': playlistId.toString(),
+      'maxResults': '50',
+      'pageToken':'',
+      'key': key,
+    };
+    Map<String, String> headers = {
+      HttpHeaders.contentTypeHeader: 'application/json',
+    };
+    Uri uri = Uri.https(baseUrl, '/youtube/v3/playlistItems', parameters);
+    Response response = await http.get(uri, headers: headers);
+
+    PsfVideosList videoList = psfVideosListFromJson(response.body);
+
+    return videoList;
+  }
 
 //code for getting the mmp videosList
   static Future<MmpVideosList> getMmpVideosList(
