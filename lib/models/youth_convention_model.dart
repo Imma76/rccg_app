@@ -13,21 +13,21 @@ class YouthConventionModel {
     this.kind,
     this.etag,
     this.nextPageToken,
-    this.items,
+    this.videoDetails,
     this.pageInfo,
   });
 
   String? kind;
   String? etag;
   String? nextPageToken;
-  List<YouthConventionVideoItem>? items;
+  List<YouthConventionVideoItem>? videoDetails;
   PageInfo? pageInfo;
 
   factory YouthConventionModel.fromJson(Map<String, dynamic> json) => YouthConventionModel(
     kind: json["kind"],
     etag: json["etag"],
     nextPageToken: json["nextPageToken"],
-    items: json["items"] == null ? [] : List<YouthConventionVideoItem>.from(json["items"]!.map((x) => YouthConventionVideoItem.fromJson(x))),
+    videoDetails: json["items"] == null ? [] : List<YouthConventionVideoItem>.from(json["items"]!.map((x) => YouthConventionVideoItem.fromJson(x))),
     pageInfo: json["pageInfo"] == null ? null : PageInfo.fromJson(json["pageInfo"]),
   );
 
@@ -35,7 +35,7 @@ class YouthConventionModel {
     "kind": kind,
     "etag": etag,
     "nextPageToken": nextPageToken,
-    "items": items == null ? [] : List<dynamic>.from(items!.map((x) => x.toJson())),
+    "items": videoDetails == null ? [] : List<dynamic>.from(videoDetails!.map((x) => x.toJson())),
     "pageInfo": pageInfo?.toJson(),
   };
 }

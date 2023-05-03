@@ -15,21 +15,21 @@ class MmpVideosList {
     this.kind,
     this.etag,
     this.nextPageToken,
-    this.mmpvideos,
+    this.videoDetails,
     this.pageInfo,
   });
 
   String? kind;
   String? etag;
   String? nextPageToken;
-  List<MmpVideoItem>? mmpvideos;
+  List<MmpVideoItem>? videoDetails;
   PageInfo? pageInfo;
 
   factory MmpVideosList.fromJson(Map<String, dynamic> json) => MmpVideosList(
     kind: json["kind"],
     etag: json["etag"],
     nextPageToken: json["nextPageToken"],
-    mmpvideos: List<MmpVideoItem>.from(
+    videoDetails: List<MmpVideoItem>.from(
         json["items"].map((x) => MmpVideoItem.fromJson(x))),
     pageInfo: PageInfo.fromJson(json["pageInfo"]),
   );
@@ -38,7 +38,7 @@ class MmpVideosList {
     "kind": kind,
     "etag": etag,
     "nextPageToken": nextPageToken,
-    "items": List<dynamic>.from(mmpvideos!.map((x) => x.toJson())),
+    "items": List<dynamic>.from(videoDetails!.map((x) => x.toJson())),
     "pageInfo": pageInfo!.toJson(),
   };
 }

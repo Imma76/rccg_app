@@ -15,7 +15,7 @@ class KidsChristianMovies {
     this.nextPageToken,
     this.regionCode,
     this.pageInfo,
-    this.items,
+    this.videoDetails,
   });
 
   String? kind;
@@ -23,7 +23,7 @@ class KidsChristianMovies {
   String? nextPageToken;
   String? regionCode;
   PageInfo? pageInfo;
-  List<KidsMoviesItem>? items;
+  List<KidsMoviesItem>? videoDetails;
 
   factory KidsChristianMovies.fromJson(Map<String, dynamic> json) => KidsChristianMovies(
     kind: json["kind"],
@@ -31,7 +31,7 @@ class KidsChristianMovies {
     nextPageToken: json["nextPageToken"],
     regionCode: json["regionCode"],
     pageInfo: json["pageInfo"] == null ? null : PageInfo.fromJson(json["pageInfo"]),
-    items: json["items"] == null ? [] : List<KidsMoviesItem>.from(json["items"]!.map((x) => KidsMoviesItem.fromJson(x))),
+    videoDetails: json["items"] == null ? [] : List<KidsMoviesItem>.from(json["items"]!.map((x) => KidsMoviesItem.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -40,7 +40,7 @@ class KidsChristianMovies {
     "nextPageToken": nextPageToken,
     "regionCode": regionCode,
     "pageInfo": pageInfo?.toJson(),
-    "items": items == null ? [] : List<dynamic>.from(items!.map((x) => x.toJson())),
+    "items": videoDetails == null ? [] : List<dynamic>.from(videoDetails!.map((x) => x.toJson())),
   };
 }
 

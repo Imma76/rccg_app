@@ -14,19 +14,22 @@ class AppTextField extends StatelessWidget {
   final Widget? suffixIcon;
   final Color?borderColor;
   final Widget? prefix;
+
+  final void Function(String)?onTap;
   final bool? obscure;
   const AppTextField({
-    Key? key,this.hintText,this.obscure=false,this.suffixIcon,this.borderColor=LightAppTheme.white2,this.prefix,this.controller,this.backGroundColor,this.prefixIcon
+    Key? key,this.hintText,this.onTap,this.obscure=false,this.suffixIcon,this.borderColor=LightAppTheme.white2,this.prefix,this.controller,this.backGroundColor,this.prefixIcon
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
 
     return TextField(
+
       obscureText: obscure!,
       controller: controller,
       cursorColor: LightAppTheme.primaryColor,
-
+      onChanged: onTap,
       decoration: InputDecoration(
         fillColor: backGroundColor,
           filled: backGroundColor!=null?true:false,

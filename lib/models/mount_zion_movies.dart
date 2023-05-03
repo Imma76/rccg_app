@@ -13,21 +13,21 @@ class MountZionMovies {
     this.kind,
     this.etag,
     this.nextPageToken,
-    this.items,
+    this.videoDetails,
     this.pageInfo,
   });
 
   String? kind;
   String? etag;
   String? nextPageToken;
-  List<MountZionVideoItem>? items;
+  List<MountZionVideoItem>? videoDetails;
   PageInfo? pageInfo;
 
   factory MountZionMovies.fromJson(Map<String, dynamic> json) => MountZionMovies(
     kind: json["kind"],
     etag: json["etag"],
     nextPageToken: json["nextPageToken"],
-    items: json["items"] == null ? [] : List<MountZionVideoItem>.from(json["items"]!.map((x) => MountZionVideoItem.fromJson(x))),
+    videoDetails: json["items"] == null ? [] : List<MountZionVideoItem>.from(json["items"]!.map((x) => MountZionVideoItem.fromJson(x))),
     pageInfo: json["pageInfo"] == null ? null : PageInfo.fromJson(json["pageInfo"]),
   );
 
@@ -35,7 +35,7 @@ class MountZionMovies {
     "kind": kind,
     "etag": etag,
     "nextPageToken": nextPageToken,
-    "items": items == null ? [] : List<dynamic>.from(items!.map((x) => x.toJson())),
+    "items": videoDetails == null ? [] : List<dynamic>.from(videoDetails!.map((x) => x.toJson())),
     "pageInfo": pageInfo?.toJson(),
   };
 }

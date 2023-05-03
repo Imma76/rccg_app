@@ -15,7 +15,7 @@ class ChristianMovieModel {
     this.nextPageToken,
     this.regionCode,
     this.pageInfo,
-    this.videos,
+    this.videoDetails,
   });
 
   String? kind;
@@ -23,7 +23,7 @@ class ChristianMovieModel {
   String? nextPageToken;
   String? regionCode;
   PageInfo? pageInfo;
-  List<SearchVideoItem>? videos;
+  List<SearchVideoItem>? videoDetails;
 
   factory ChristianMovieModel.fromJson(Map<String, dynamic> json) => ChristianMovieModel(
     kind: json["kind"],
@@ -31,7 +31,7 @@ class ChristianMovieModel {
     nextPageToken: json["nextPageToken"],
     regionCode: json["regionCode"],
     pageInfo: json["pageInfo"] == null ? null : PageInfo.fromJson(json["pageInfo"]),
-    videos: json["items"] == null ? [] : List<SearchVideoItem>.from(json["items"]!.map((x) => SearchVideoItem.fromJson(x))),
+    videoDetails: json["items"] == null ? [] : List<SearchVideoItem>.from(json["items"]!.map((x) => SearchVideoItem.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -40,7 +40,7 @@ class ChristianMovieModel {
     "nextPageToken": nextPageToken,
     "regionCode": regionCode,
     "pageInfo": pageInfo?.toJson(),
-    "items": videos == null ? [] : List<dynamic>.from(videos!.map((x) => x.toJson())),
+    "items": videoDetails == null ? [] : List<dynamic>.from(videoDetails!.map((x) => x.toJson())),
   };
 }
 
@@ -49,26 +49,26 @@ class SearchVideoItem {
     this.kind,
     this.etag,
     this.id,
-    this.videoDetails,
+    this.snippet,
   });
 
   String? kind;
   String? etag;
   VideoId? id;
-  SearchVideoDetails? videoDetails;
+  SearchVideoDetails? snippet;
 
   factory SearchVideoItem.fromJson(Map<String, dynamic> json) => SearchVideoItem(
     kind: json["kind"],
     etag: json["etag"],
     id: json["id"] == null ? null : VideoId.fromJson(json["id"]),
-    videoDetails: json["snippet"] == null ? null : SearchVideoDetails.fromJson(json["snippet"]),
+    snippet: json["snippet"] == null ? null : SearchVideoDetails.fromJson(json["snippet"]),
   );
 
   Map<String, dynamic> toJson() => {
     "kind": kind,
     "etag": etag,
     "id": id?.toJson(),
-    "snippet": videoDetails?.toJson(),
+    "snippet": snippet?.toJson(),
   };
 }
 

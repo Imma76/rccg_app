@@ -43,7 +43,12 @@ class AuthController extends ChangeNotifier {
     "serverKey": "v7tJsg"
   };
   final auth = FirebaseAuth.instance;
-  final googleSignIn = GoogleSignIn();
+  final googleSignIn = GoogleSignIn(
+  //   scopes: [
+  //   'email',
+  //   'https://www.googleapis.com/auth/contacts.readonly',
+  // ],
+  );
   GoogleSignInAccount? googleUser;
 
   TextEditingController emailController = TextEditingController();

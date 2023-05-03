@@ -3,10 +3,14 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:rccg_app/models/adeboye_sermon_model.dart';
+import 'package:rccg_app/models/convetion_video_model.dart';
+import 'package:rccg_app/models/fa_sermons_model.dart';
 import 'package:rccg_app/models/kids_christian_movies.dart';
 import 'package:rccg_app/models/rccg_movie_search_model.dart';
+import '../models/congress_video_model.dart';
 import '../models/feastOfEsther.dart';
 import '../models/holy_ghost_service.dart';
+import '../models/international_christian_movies.dart';
 import '../models/mmp_channel_info_model.dart';
 import '../models/mmp_video_model.dart';
 import '../models/mount_zion_movies.dart';
@@ -89,6 +93,47 @@ class ProgramService {
 
     return result;
   }
+
+
+  static Future<CongressVideoModel> getCongressVideos() async {
+    Map<String, String> parameters = {
+      'part': 'snippet',
+      'type':'christian movies',
+      'forMine':'0',
+      'key': 'AIzaSyCqKNPqh9CJbjc4MSVbsiNFeiTDb31Aq6Q'
+      //'AIzaSyB6N2UIi4BfnM9AzARoRlWfaEVo7VpRMJc',
+
+    };
+    Map<String, String> headers = {
+      HttpHeaders.contentTypeHeader: 'application/json',
+    };
+    Uri uri = Uri.parse('https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=UCHp4qCAPmz7-5BJ601FDFnA&q=congress&type=video&videoDuration=long&access_token=AIzaSyB6N2UIi4BfnM9AzARoRlWfaEVo7VpRMJc&type=video&access_token=AIzaSyB6N2UIi4BfnM9AzARoRlWfaEVo7VpRMJc&key=$key');
+    Response response = await http.get(uri, headers: headers);
+    print(response.body);
+    CongressVideoModel result  = congressVideoModelFromJson(response.body);
+
+    return result;
+  }
+
+  static Future<ConventionVideoModel> getConvetionVideos() async {
+    Map<String, String> parameters = {
+      'part': 'snippet',
+      'type':'christian movies',
+      'forMine':'0',
+      'key': 'AIzaSyCqKNPqh9CJbjc4MSVbsiNFeiTDb31Aq6Q'
+      //'AIzaSyB6N2UIi4BfnM9AzARoRlWfaEVo7VpRMJc',
+
+    };
+    Map<String, String> headers = {
+      HttpHeaders.contentTypeHeader: 'application/json',
+    };
+    Uri uri = Uri.parse('https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=UCHp4qCAPmz7-5BJ601FDFnA&q=convention&type=video&videoDuration=long&access_token=AIzaSyB6N2UIi4BfnM9AzARoRlWfaEVo7VpRMJc&type=video&access_token=AIzaSyB6N2UIi4BfnM9AzARoRlWfaEVo7VpRMJc&key=$key');
+    Response response = await http.get(uri, headers: headers);
+    print(response.body);
+    ConventionVideoModel result  = conventionVideoModelFromJson(response.body);
+
+    return result;
+  }
   static Future<KidsChristianMovies> getKidsChristianMovies() async {
     Map<String, String> parameters = {
       'part': 'snippet',
@@ -105,6 +150,45 @@ class ProgramService {
     Response response = await http.get(uri, headers: headers);
     print(response.body);
     KidsChristianMovies result = kidsChristianMoviesFromJson(response.body);
+
+    return result;
+  }
+  static Future<FaSermonsModel> getFaSermons() async {
+    Map<String, String> parameters = {
+      'part': 'snippet',
+      'type':'christian movies',
+      'forMine':'0',
+      'key': 'AIzaSyCqKNPqh9CJbjc4MSVbsiNFeiTDb31Aq6Q'
+      //'AIzaSyB6N2UIi4BfnM9AzARoRlWfaEVo7VpRMJc',
+
+    };
+    Map<String, String> headers = {
+      HttpHeaders.contentTypeHeader: 'application/json',
+    };
+    Uri uri = Uri.parse('https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=pastor%20mrs%20folu%20adeboye%20sermons&type=video&videoDuration=long&access_token=AIzaSyB6N2UIi4BfnM9AzARoRlWfaEVo7VpRMJc&type=video&access_token=AIzaSyB6N2UIi4BfnM9AzARoRlWfaEVo7VpRMJc&key=$key');
+    Response response = await http.get(uri, headers: headers);
+    print(response.body);
+    FaSermonsModel result = faSermonsModelFromJson(response.body);
+
+    return result;
+  }
+
+  static Future<InternationalChristianMovies> getInternationalChristianMovies() async {
+    Map<String, String> parameters = {
+      'part': 'snippet',
+      'type':'christian movies',
+      'forMine':'0',
+      'key': 'AIzaSyCqKNPqh9CJbjc4MSVbsiNFeiTDb31Aq6Q'
+      //'AIzaSyB6N2UIi4BfnM9AzARoRlWfaEVo7VpRMJc',
+
+    };
+    Map<String, String> headers = {
+      HttpHeaders.contentTypeHeader: 'application/json',
+    };
+    Uri uri = Uri.parse('https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=International%20christian%20movies&type=video&videoDuration=long&access_token=AIzaSyB6N2UIi4BfnM9AzARoRlWfaEVo7VpRMJc&type=video&access_token=AIzaSyB6N2UIi4BfnM9AzARoRlWfaEVo7VpRMJc&key=$key');
+    Response response = await http.get(uri, headers: headers);
+    print(response.body);
+    InternationalChristianMovies result = internationalChristianMoviesFromJson(response.body);
 
     return result;
   }
@@ -127,7 +211,7 @@ class ProgramService {
 
     return feastofEsther;
   }
-
+  //pastor%20mrs%20folu%20adeboye%20sermons&
 
   static Future<RccgProgramModel> getRccgProgramModelVideos( {String? playlistId, String? pageToken}) async {
     Map<String, String> parameters = {

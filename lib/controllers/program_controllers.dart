@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:rccg_app/models/adeboye_sermon_model.dart';
+import 'package:rccg_app/models/convetion_video_model.dart';
+import 'package:rccg_app/models/fa_sermons_model.dart';
 import 'package:rccg_app/models/holy_ghost_service.dart';
+import 'package:rccg_app/models/international_christian_movies.dart';
 import 'package:rccg_app/models/kids_christian_movies.dart';
 import 'package:rccg_app/models/mmp_channel_info_model.dart';
 import 'package:rccg_app/models/mmp_video_model.dart';
@@ -10,11 +13,14 @@ import 'package:rccg_app/models/rccg_program_model.dart';
 import 'package:rccg_app/models/youth_convention_model.dart';
 import 'package:rccg_app/services/video_service.dart';
 
+import '../models/congress_video_model.dart';
+import '../models/feastOfEsther.dart';
 import '../models/mount_zion_movies.dart';
 import '../models/psfVideoModel.dart';
 import '../models/rccg_channel_info.dart';
 
 class ProgramController extends ChangeNotifier{
+  TextEditingController programSearchController=TextEditingController();
   RccgProgramChannelInfo? rccgProgramChannelInfo;
   RccgProgramModel? rccgProgramModel;
   ChristianMovieModel?christianMovieModel;
@@ -28,7 +34,11 @@ class ProgramController extends ChangeNotifier{
   PsfChannelInfo?psfChannelInfo;
   PsfVideosList?psfVideosList;
   MmpVideosList?mmpVideosList;
+  FeastofEsther? feastofEsther;
+  CongressVideoModel? congressVideoModel;
+  ConventionVideoModel?conventionVideoModel;
   KidsChristianMovies? kidsChristianMovies;
+  InternationalChristianMovies? internationalChristianMovies;
  MountZionMovies? mountZionMovies;
   bool load =false;
 
@@ -36,17 +46,18 @@ class ProgramController extends ChangeNotifier{
   bool loadMmp =false;
   bool loadAdeboyeSermon = false;
   YouthConventionModel?youthConventionModel;
+  FaSermonsModel?faSermonsModel;
 
   init(){
 
   }
 
   Future loadAdeboyeSermons()async{
-    loadAdeboyeSermon = true;
+    load = true;
     notifyListeners();
    pAdeboyeSermonModel = await ProgramService.getPaAdeboyeVideos();
     notifyListeners();
-    loadAdeboyeSermon= false;
+    load= false;
     notifyListeners();
   }
 
@@ -84,6 +95,14 @@ class ProgramController extends ChangeNotifier{
     notifyListeners();
   }
 
+  Future loadInternationalMovies()async{
+    loadMovies=true;
+    notifyListeners();
+    internationalChristianMovies = await ProgramService.getInternationalChristianMovies();
+    loadMovies= false;
+    notifyListeners();
+  }
+
   Future getRccgProgramChannelInfo()async{
     load=true;
     notifyListeners();
@@ -110,7 +129,7 @@ class ProgramController extends ChangeNotifier{
   Future loadMmpVideos()async{
     load= true;
     notifyListeners();
-    mmpVideosList= await ProgramService.getMmpVideosList(playlistId: mmpChannelInfo!.items![0].contentDetails!.relatedPlaylists!.uploads,pageToken: mmpNextPageToken);
+    mmpVideosList= await ProgramService.getMmpVideosList(playlistId: mmpChannelInfo!.videoDetails![0].contentDetails!.relatedPlaylists!.uploads,pageToken: mmpNextPageToken);
     //mmpNextPageToken= result.nextPageToken;
     load= false;
     notifyListeners();
@@ -125,6 +144,31 @@ class ProgramController extends ChangeNotifier{
     notifyListeners();
 
   }
+  Future loadFaSermons()async{
+    load =true;
+    notifyListeners();
+   faSermonsModel =  await ProgramService.getFaSermons();
+    load =false;
+    notifyListeners();
+  }
+
+  Future loadCongressVideos()async{
+    load =true;
+    notifyListeners();
+    congressVideoModel=await ProgramService.getCongressVideos();
+    load =false;
+    notifyListeners();
+
+  }
+
+  Future loadConventionVideos()async{
+    load =true;
+    notifyListeners();
+   conventionVideoModel=await ProgramService.getConvetionVideos();
+    load =false;
+    notifyListeners();
+
+  }
 
   Future loadPsfVideos()async{
     load= true;
@@ -132,6 +176,60 @@ class ProgramController extends ChangeNotifier{
     psfVideosList= await ProgramService.getPsfVideosList(playlistId: psfChannelInfo!.items![0].contentDetails!.relatedPlaylists!.uploads);
     //mmpNextPageToken= resul.nextPageToken;
     load= false;
+    notifyListeners();
+  }
+
+  getSearchedMountZionMovies(details){
+    mountZionMovies!.videoDetails=details;
+    notifyListeners();
+  }
+
+  getSearchedChristianMovies(details){
+    christianMovieModel!.videoDetails=details;
+    notifyListeners();
+  }
+  getSearchedKidsMovies(details){
+    kidsChristianMovies!.videoDetails=details;
+    notifyListeners();
+  }
+  getSearchedInternationalMovies(details){
+    internationalChristianMovies!.videoDetails=details;
+    notifyListeners();
+  }
+  getSearchedProgramDetails(details){
+    rccgProgramModel!.videoDetails=details;
+    notifyListeners();
+  }
+  getSearchedPASermons(details){
+    pAdeboyeSermonModel!.videoDetails=details;
+    notifyListeners();
+  }
+  getSearchedMFaSermons(details){
+    faSermonsModel!.videoDetails=details;
+    notifyListeners();
+  }
+  getSearchedHHolyGhostDetails(details){
+    holyGhostServiceModel!.videoDetails=details;
+    notifyListeners();
+  }
+  getSearchedConventionDetails(details){
+    conventionVideoModel!.videoDetails=details;
+    notifyListeners();
+  }
+  getSearchedCongressDetails(details){
+   congressVideoModel!.videoDetails=details;
+    notifyListeners();
+  }
+  getSearchedPsfDetails(details){
+    psfVideosList!.videoDetails=details;
+    notifyListeners();
+  }
+  getSearchedYouthDetails(details){
+    youthConventionModel!.videoDetails=details;
+    notifyListeners();
+  }
+  getSearchedMmpDetails(details){
+    mmpVideosList!.videoDetails=details;
     notifyListeners();
   }
 
@@ -146,9 +244,9 @@ class ProgramController extends ChangeNotifier{
     notifyListeners();
     programsnextPageToken= result.nextPageToken;
     //rccgProgramModel?.videos=[];
-    print('${result!.videos?.length}kkiii');
+    print('${result!.videoDetails?.length}kkiii');
 
-     print('${rccgProgramModel?.videos?.length}kpoooo');
+     print('${rccgProgramModel?.videoDetails?.length}kpoooo');
     notifyListeners();
     load=false;
     notifyListeners();
@@ -161,10 +259,18 @@ class ProgramController extends ChangeNotifier{
     notifyListeners();
     programsnextPageToken= result.nextPageToken;
     //rccgProgramModel?.videos=[];
-    print('${result!.videos?.length}kkiii');
+    print('${result!.videoDetails?.length}kkiii');
 
-    print('${rccgProgramModel?.videos?.length}kpoooo');
+    print('${rccgProgramModel?.videoDetails?.length}kpoooo');
     notifyListeners();
+    loadMovies=false;
+    notifyListeners();
+  }
+  loadFeastOfEsther()async{
+
+    loadMovies=true;
+    notifyListeners();
+    feastofEsther=await ProgramService.getFeastOfEsther();
     loadMovies=false;
     notifyListeners();
   }

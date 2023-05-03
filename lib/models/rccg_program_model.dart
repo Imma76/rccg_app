@@ -13,21 +13,21 @@ class RccgProgramModel {
     this.kind,
     this.etag,
     this.nextPageToken,
-    this.videos,
+    this.videoDetails,
     this.pageInfo,
   });
 
   String? kind;
   String? etag;
   String? nextPageToken;
-  List<RccgProgramVideoItem>? videos;
+  List<RccgProgramVideoItem>? videoDetails;
   PageInfo? pageInfo;
 
   factory RccgProgramModel.fromJson(Map<String, dynamic> json) => RccgProgramModel(
     kind: json["kind"],
     etag: json["etag"],
     nextPageToken: json["nextPageToken"],
-    videos: json["items"] == null ? [] : List<RccgProgramVideoItem>.from(json["items"]!.map((x) => RccgProgramVideoItem.fromJson(x))),
+    videoDetails: json["items"] == null ? [] : List<RccgProgramVideoItem>.from(json["items"]!.map((x) => RccgProgramVideoItem.fromJson(x))),
     pageInfo: json["pageInfo"] == null ? null : PageInfo.fromJson(json["pageInfo"]),
   );
 
@@ -35,7 +35,7 @@ class RccgProgramModel {
     "kind": kind,
     "etag": etag,
     "nextPageToken": nextPageToken,
-    "items": videos == null ? [] : List<dynamic>.from(videos!.map((x) => x.toJson())),
+    "items": videoDetails == null ? [] : List<dynamic>.from(videoDetails!.map((x) => x.toJson())),
     "pageInfo": pageInfo?.toJson(),
   };
 }
@@ -45,26 +45,26 @@ class RccgProgramVideoItem {
     this.kind,
     this.etag,
     this.id,
-    this.videoDetails,
+    this.snippet,
   });
 
   String? kind;
   String? etag;
   String? id;
-  RccgProgramVideoDetails? videoDetails;
+  RccgProgramVideoDetails? snippet;
 
   factory RccgProgramVideoItem.fromJson(Map<String, dynamic> json) => RccgProgramVideoItem(
     kind: json["kind"],
     etag: json["etag"],
     id: json["id"],
-    videoDetails: json["snippet"] == null ? null : RccgProgramVideoDetails.fromJson(json["snippet"]),
+    snippet: json["snippet"] == null ? null : RccgProgramVideoDetails.fromJson(json["snippet"]),
   );
 
   Map<String, dynamic> toJson() => {
     "kind": kind,
     "etag": etag,
     "id": id,
-    "snippet": videoDetails?.toJson(),
+    "snippet": snippet?.toJson(),
   };
 }
 

@@ -3,24 +3,28 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:video_player/video_player.dart';
 
+import '../../providers/all_providers.dart';
 import '../../themes/app_theme.dart';
+import '../../widgets/loader.dart';
 import '../base/home.dart';
+import '../programs/rccg_program.dart';
 
-class DoveTv extends StatefulWidget {
+class DoveTv extends ConsumerStatefulWidget {
   DoveTv({this.videoItem, this.title, this.viewAll, this.videoList});
 
   final videoItem, title, videoList;
   final Widget? viewAll;
   @override
-  _DoveTvState createState() => _DoveTvState();
+  ConsumerState createState() => _DoveTvState();
 }
 
-class _DoveTvState extends State<DoveTv> {
+class _DoveTvState extends ConsumerState<DoveTv> {
   final videoPlayerController = VideoPlayerController.network(
     'https://streaming.viewmedia.tv/viewsatstream03/viewsatstream03.smil/playlist.m3u8',
   );
@@ -70,6 +74,9 @@ class _DoveTvState extends State<DoveTv> {
   }
 
   Widget build(BuildContext context) {
+
+    final homeController = ref.watch(homeProvider);
+    final programController = ref.watch(programProvider);
     return Container(
       child: LayoutBuilder(
 
@@ -149,14 +156,18 @@ class _DoveTvState extends State<DoveTv> {
                                 children: [
                                   Text('Rccg Programs',style: GoogleFonts.inter(fontWeight: FontWeight.w600,fontSize: 14.sp,color: LightAppTheme.primaryColor)),
                                   Spacer(),
-                                  Text('View all',style: GoogleFonts.inter(fontWeight: FontWeight.w500,fontSize: 12.sp,color: LightAppTheme.primaryColor)),
+                                  GestureDetector(
+                                      onTap: (){
+                                        Navigator.pushNamed(context, RccgProgram.route);
+                                      },
+                                      child: Text('View all',style: GoogleFonts.inter(fontWeight: FontWeight.w500,fontSize: 12.sp,color: LightAppTheme.primaryColor))),
 
                                 ],
                               ),
                             ),
                             Gap(27.h),
                             Padding(
-                              padding:  EdgeInsets.only(left:27.w,right: 27.w),
+                              padding:  EdgeInsets.only(left:2.w,right: 2.w),
                               child: SizedBox(
                                 height: 35.h,
                                 child: ListView(
@@ -174,21 +185,284 @@ class _DoveTvState extends State<DoveTv> {
                               ),
                             ),
                             Gap(34.h),
+                            if(programController.load)
+                              Indicator(),
 
-                            SizedBox(
-                              height: 220.h,
-                              child: ListView.builder(
-                                  itemCount: 3,
-                                  scrollDirection: Axis.horizontal,
-                                  shrinkWrap: true,
-                                  itemBuilder: (context,index) {
-                                    return ProgramCard();
-                                  }
+                            if (programController.conventionVideoModel!=null)
+                              Visibility(
+                                visible:
+                                homeController.currentProgramChoice == 5 ? true : false,
+                                child: SizedBox(
+                                  height: 220.h,
+                                  child:ListView.builder(
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: programController.conventionVideoModel!.videoDetails!.length,
+                                      padding: EdgeInsets.zero,
+                                      //itemExtent: 0,
+
+                                      shrinkWrap: true,
+                                      itemBuilder: (context, index) {
+                                        return // Figma Flutter Generator ItemcardproductWidget - FRAME - VERTICAL
+
+
+                                          ProgramCard(
+                                            videoUrlList: programController.conventionVideoModel!.videoDetails!,
+                                            title:programController.conventionVideoModel!.videoDetails![index].snippet!.title,
+                                            videoUrl:programController.conventionVideoModel!.videoDetails![index].id!
+                                                .videoId,
+                                            imageUrl:
+                                            programController.conventionVideoModel!.videoDetails![index].snippet!.thumbnails!.medium!.url,
+                                          );
+
+                                      }),
+                                ),
                               ),
-                            ),
+
+
+
+                            if (programController.congressVideoModel!=null)
+                              Visibility(
+                                visible:
+                                homeController.currentProgramChoice == 6 ? true : false,
+                                child: SizedBox(
+                                  height: 220.h,
+                                  child:ListView.builder(
+                                      itemCount: programController.congressVideoModel!.videoDetails!.length,
+                                      padding: EdgeInsets.zero,
+                                      //itemExtent: 0,
+                                      scrollDirection: Axis.horizontal,
+                                      shrinkWrap: true,
+                                      itemBuilder: (context, index) {
+                                        return // Figma Flutter Generator ItemcardproductWidget - FRAME - VERTICAL
+
+                                          ProgramCard(
+                                            videoUrlList: programController.congressVideoModel!.videoDetails!,
+                                            title:programController.congressVideoModel!.videoDetails![index].snippet!.title,
+                                            videoUrl:programController.congressVideoModel!.videoDetails![index].id!
+                                                .videoId,
+                                            imageUrl:
+                                            programController.congressVideoModel!.videoDetails![index].snippet!.thumbnails!.medium!.url,
+                                          );
+
+                                      }),
+                                ),
+                              ),
+
+
+
+                            if (programController.rccgProgramModel!=null)
+                              Visibility(
+                                visible:
+                                homeController.currentProgramChoice == 0 ? true : false,
+                                child: SizedBox(
+                                  height: 220.h,
+                                  child:ListView.builder(
+                                      itemCount: programController
+                                          .rccgProgramModel!.videoDetails!.length,
+                                      padding: EdgeInsets.zero,
+                                      //itemExtent: 0,
+                                      scrollDirection: Axis.horizontal,
+                                      shrinkWrap: true,
+                                      itemBuilder: (context, index) {
+                                        return // Figma Flutter Generator ItemcardproductWidget - FRAME - VERTICAL
+                                          ProgramCard(
+                                            videoUrlList:programController
+                                                .rccgProgramModel!.videoDetails ,
+                                            title:programController
+                                                .rccgProgramModel!.videoDetails![index].snippet!.title,
+                                            videoUrl:programController
+                                                .rccgProgramModel!.videoDetails![index].snippet!.resourceId!.videoId,
+                                            imageUrl:
+                                            programController
+                                                .rccgProgramModel!.videoDetails![index].snippet!.thumbnails!.medium!.url,
+                                          );
+
+                                      }),
+                                ),
+                              ),
+
+
+                            if (programController.psfVideosList!=null)
+                              Visibility(
+                                visible:
+                                homeController.currentProgramChoice == 7 ? true : false,
+                                child: SizedBox(
+                                  height: 220.h,
+                                  child: ListView.builder(
+
+                                      itemCount: programController.psfVideosList!.videoDetails!.length,
+                                      padding: EdgeInsets.zero,
+                                      //itemExtent: 0,
+                                      scrollDirection: Axis.horizontal,
+                                      shrinkWrap: true,
+                                      itemBuilder: (context, index) {
+                                        return // Figma Flutter Generator ItemcardproductWidget - FRAME - VERTICAL
+                                          ProgramCard(
+                                            videoUrlList:  programController.psfVideosList!.videoDetails,
+                                            title:programController.psfVideosList!.videoDetails![index].snippet!.title,
+                                            videoUrl:programController.psfVideosList!.videoDetails![index].snippet!.resourceId!.videoId,
+                                            imageUrl:
+                                            programController.psfVideosList!.videoDetails![index].snippet!.thumbnails!.medium!.url,
+                                          );
+
+                                      }),
+                                ),
+                              ),
+                            if (programController.mmpVideosList!=null)
+                              Visibility(
+                                visible:
+                                homeController.currentProgramChoice == 9 ? true : false,
+                                child: SizedBox(
+                                  height: 220.h,
+                                  child: ListView.builder(
+                                      itemCount: programController.mmpVideosList!.videoDetails!.length,
+                                      padding: EdgeInsets.zero,
+                                      //itemExtent: 0,
+                                      scrollDirection: Axis.horizontal,
+                                      shrinkWrap: true,
+                                      itemBuilder: (context, index) {
+                                        return // Figma Flutter Generator ItemcardproductWidget - FRAME - VERTICAL
+
+
+                                          ProgramCard(
+                                            videoUrlList: programController.mmpVideosList!.videoDetails ,
+                                            title:programController.mmpVideosList!.videoDetails![index].mmpsnippet!.title,
+                                            videoUrl: programController.mmpVideosList!.videoDetails![index].mmpsnippet!.resourceId!.videoId,
+                                            imageUrl:
+                                            programController.mmpVideosList!.videoDetails![index].mmpsnippet!.thumbnails!.medium!.url,
+                                          );
+
+                                      }),
+                                ),
+                              ),
+                            if (programController.pAdeboyeSermonModel != null)
+                              Visibility(
+                                visible:
+                                homeController.currentProgramChoice == 2 ? true : false,
+                                child:  SizedBox(
+                                  height: 220.h,
+                                  child:ListView.builder(
+                                      itemCount: programController
+                                          .pAdeboyeSermonModel!.videoDetails!.length,
+                                      padding: EdgeInsets.zero,
+                                      //itemExtent: 0,
+                                      scrollDirection: Axis.horizontal,
+                                      shrinkWrap: true,
+                                      itemBuilder: (context, index) {
+                                        return // Figma Flutter Generator ItemcardproductWidget - FRAME - VERTICAL
+                                          ProgramCard(
+                                            videoUrlList:programController
+                                                .pAdeboyeSermonModel!.videoDetails ,
+                                            title:programController
+                                                .pAdeboyeSermonModel!.videoDetails![index].snippet!.title,
+                                            videoUrl: programController
+                                                .pAdeboyeSermonModel!.videoDetails![index].snippet!.resourceId!.videoId,
+                                            imageUrl:
+                                            programController
+                                                .pAdeboyeSermonModel!.videoDetails![index].snippet!.thumbnails!.medium!.url,
+                                          );
+
+                                      }),
+                                ),
+                              ),
+                            if (programController.holyGhostServiceModel != null)
+                              Visibility(
+                                visible:
+                                homeController.currentProgramChoice == 4 ? true : false,
+                                child: SizedBox(
+                                  height: 220.h,
+                                  child:ListView.builder(
+                                      itemCount: programController
+                                          .holyGhostServiceModel!.videoDetails!.length,
+                                      padding: EdgeInsets.zero,
+                                      //itemExtent: 0,
+                                      scrollDirection: Axis.horizontal,
+                                      shrinkWrap: true,
+                                      itemBuilder: (context, index) {
+                                        return // Figma Flutter Generator ItemcardproductWidget - FRAME - VERTICAL
+                                          ProgramCard(
+                                            videoUrlList: programController
+                                                .holyGhostServiceModel!.videoDetails ,
+                                            title:programController
+                                                .holyGhostServiceModel!.videoDetails![index].snippet!.title,
+                                            videoUrl: programController
+                                                .holyGhostServiceModel!.videoDetails![index].snippet!.resourceId!.videoId,
+                                            imageUrl:
+                                            programController
+                                                .holyGhostServiceModel!.videoDetails![index].snippet!.thumbnails!.medium!.url,
+                                          );
+
+                                      }),
+                                ),
+                              ),
+
+
+                            if (programController.faSermonsModel != null)
+                              Visibility(
+                                visible:
+                                homeController.currentProgramChoice == 3 ? true : false,
+                                child: SizedBox(
+                                  height: 220.h,
+                                  child:ListView.builder(
+                                      itemCount: programController.faSermonsModel!.videoDetails!.length,
+                                      padding: EdgeInsets.zero,
+                                      //itemExtent: 0,
+                                      scrollDirection: Axis.horizontal,
+                                      shrinkWrap: true,
+                                      itemBuilder: (context, index) {
+                                        return // Figma Flutter Generator ItemcardproductWidget - FRAME - VERTICAL
+                                          ProgramCard(
+                                            videoUrlList: programController.faSermonsModel!.videoDetails,
+                                            title:programController.faSermonsModel!.videoDetails![index].snippet!.title,
+                                            videoUrl: programController.faSermonsModel!.videoDetails![index].id!.videoId,
+                                            imageUrl:
+                                            programController.faSermonsModel!.videoDetails![index].snippet!.thumbnails!.medium!.url,
+                                          );
+
+                                      }),
+                                ),
+                              ),
+
+
+                            if (programController.youthConventionModel != null)
+                              Visibility(
+                                visible:
+                                homeController.currentProgramChoice == 8 ? true : false,
+                                child: SizedBox(
+                                  height: 220.h,
+                                  child: ListView.builder(
+                                      itemCount: programController
+                                          .youthConventionModel!.videoDetails!.length,
+                                      padding: EdgeInsets.zero,
+                                      //itemExtent: 0,
+                                      scrollDirection: Axis.horizontal,
+                                      shrinkWrap: true,
+                                      itemBuilder: (context, index) {
+                                        return // Figma Flutter Generator ItemcardproductWidget - FRAME - VERTICAL
+                                          ProgramCard(
+                                            videoUrlList:programController
+                                                .youthConventionModel!.videoDetails,
+                                            title: programController
+                                                .youthConventionModel!.videoDetails![index].snippet!.title,
+                                            videoUrl: programController
+                                                .youthConventionModel!.videoDetails![index].snippet!.resourceId!.videoId,
+                                            imageUrl:
+                                            programController
+                                                .youthConventionModel!.videoDetails![index].snippet!.thumbnails!.medium!.url,
+                                          );
+                                        // YouthConventionProgramCard(
+                                        //   youthConventionVideoItem: programController
+                                        //       .youthConventionModel!.items![index],
+                                        // );
+                                      }),
+                                ),
+                              ),
+                            Gap(27.h),
+                            Gap(50.h),
                           ],
                         ),
                       )),
+
                 ],
               ),
             ],

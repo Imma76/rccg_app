@@ -29,7 +29,7 @@ class _AllVideoPlayerState extends State<AllVideoPlayer> {
     super.initState();
     _isPlayerReady = true;
     _controller = YoutubePlayerController(
-        initialVideoId: widget.rccgProgramModel!.videoDetails!.resourceId!.videoId.toString(),
+        initialVideoId: widget.rccgProgramModel!.snippet!.resourceId!.videoId.toString(),
         flags: YoutubePlayerFlags(
           mute: false,
           autoPlay: true,
@@ -66,7 +66,7 @@ class _AllVideoPlayerState extends State<AllVideoPlayer> {
           return Scaffold(
             appBar: AppBar(
               title: Text(
-                widget.rccgProgramModel!.videoDetails!.title.toString(),
+                widget.rccgProgramModel!.snippet!.title.toString(),
                 style: TextStyle(
                   color: Colors.white,
                 ),
@@ -116,7 +116,7 @@ class _AllVideoPlayerState extends State<AllVideoPlayer> {
                                   children: [
                                     Container(
                                       child: Image.asset(
-                                        'assets/${widget.rccgProgramModel!.videoDetails!.thumbnails!.medium!.url}',
+                                        'assets/${widget.rccgProgramModel!.snippet!.thumbnails!.medium!.url}',
                                         height: 70,
                                         width: 70,
                                         fit: BoxFit.contain,
@@ -127,7 +127,7 @@ class _AllVideoPlayerState extends State<AllVideoPlayer> {
                                     ),
                                     Flexible(
                                       child: Text(
-                                        '${widget.rccgProgramModel!.videoDetails!.title}',
+                                        '${widget.rccgProgramModel!.snippet!.title}',
                                         style: GoogleFonts.inter(
                                           fontWeight: FontWeight.bold,
                                           //   fontSize: AdaptiveTextSize()
@@ -140,7 +140,7 @@ class _AllVideoPlayerState extends State<AllVideoPlayer> {
                                 SizedBox(
                                   height: 10,
                                 ),
-                                Text('${widget.rccgProgramModel!.videoDetails!.description}'),
+                                Text('${widget.rccgProgramModel!.snippet!.description}'),
                                 Padding(
                                   padding: const EdgeInsets.all(10.0),
                                   child: Row(

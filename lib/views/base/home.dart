@@ -6,6 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rccg_app/models/adeboye_sermon_model.dart';
+import 'package:rccg_app/models/congress_video_model.dart';
+import 'package:rccg_app/models/fa_sermons_model.dart';
 import 'package:rccg_app/models/kids_christian_movies.dart';
 import 'package:rccg_app/models/mmp_video_model.dart';
 import 'package:rccg_app/models/mount_zion_movies.dart';
@@ -18,7 +20,10 @@ import 'package:rccg_app/widgets/loader.dart';
 import 'package:rccg_app/widgets/text_fields.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../../models/convetion_video_model.dart';
+import '../../models/feastOfEsther.dart';
 import '../../models/holy_ghost_service.dart';
+import '../../models/international_christian_movies.dart';
 import '../../models/psfVideoModel.dart';
 import '../../models/rccg_program_model.dart';
 import '../../providers/all_providers.dart';
@@ -784,6 +789,7 @@ class _HomeState extends ConsumerState<Home> {
                   const Spacer(),
                   GestureDetector(
                       onTap: () {
+                        homeController.changeCurrentProgramChoice(0);
                         Navigator.pushNamed(context, RccgProgram.route);
                       },
                       child: Text('View all',
@@ -857,10 +863,10 @@ class _HomeState extends ConsumerState<Home> {
                       index: 9,
                     ),
                     const Gap(10),
-                    const ProgramsChoiceButton(
-                      title: 'Feast of Esther',
-                      index: 10,
-                    ),
+                    // const ProgramsChoiceButton(
+                    //   title: 'Feast of Esther',
+                    //   index: 10,
+                    // ),
                     Gap(
                       20.w,
                     ),
@@ -872,26 +878,97 @@ class _HomeState extends ConsumerState<Home> {
             Gap(34.h),
             if(programController.load)
               Indicator(),
+
+            if (programController.conventionVideoModel!=null)
+              Visibility(
+                visible:
+                homeController.currentProgramChoice == 5 ? true : false,
+                child: SizedBox(
+                  height: 220.h,
+                  child:ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: programController.conventionVideoModel!.videoDetails!.length,
+                      padding: EdgeInsets.zero,
+                      //itemExtent: 0,
+
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return // Figma Flutter Generator ItemcardproductWidget - FRAME - VERTICAL
+
+
+                          ProgramCard(
+                            videoUrlList: programController.conventionVideoModel!.videoDetails!,
+                            title:programController.conventionVideoModel!.videoDetails![index].snippet!.title,
+                            videoUrl:programController.conventionVideoModel!.videoDetails![index].id!
+                                .videoId,
+                            imageUrl:
+                            programController.conventionVideoModel!.videoDetails![index].snippet!.thumbnails!.medium!.url,
+                          );
+
+                      }),
+                ),
+              ),
+
+
+
+            if (programController.congressVideoModel!=null)
+              Visibility(
+                visible:
+                homeController.currentProgramChoice == 6 ? true : false,
+                child: SizedBox(
+                  height: 220.h,
+                  child:ListView.builder(
+                      itemCount: programController.congressVideoModel!.videoDetails!.length,
+                      padding: EdgeInsets.zero,
+                      //itemExtent: 0,
+                        scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return // Figma Flutter Generator ItemcardproductWidget - FRAME - VERTICAL
+
+                          ProgramCard(
+                            videoUrlList: programController.congressVideoModel!.videoDetails!,
+                            title:programController.congressVideoModel!.videoDetails![index].snippet!.title,
+                            videoUrl:programController.congressVideoModel!.videoDetails![index].id!
+                                .videoId,
+                            imageUrl:
+                            programController.congressVideoModel!.videoDetails![index].snippet!.thumbnails!.medium!.url,
+                          );
+
+                      }),
+                ),
+              ),
+
+
+
             if (programController.rccgProgramModel!=null)
               Visibility(
                 visible:
-                    homeController.currentProgramChoice == 0 ? true : false,
+                homeController.currentProgramChoice == 0 ? true : false,
                 child: SizedBox(
-                  height: 235.h,
+                  height: 220.h,
                   child:ListView.builder(
-                          itemCount: programController
-                              .rccgProgramModel!.videos!.length,
-                          padding: EdgeInsets.zero,
-                          //itemExtent: 0,
-                          scrollDirection: Axis.horizontal,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            return // Figma Flutter Generator ItemcardproductWidget - FRAME - VERTICAL
-                                ProgramCard(
-                              programDetails: programController
-                                  .rccgProgramModel!.videos![index],
-                            );
-                          }),
+                      itemCount: programController
+                          .rccgProgramModel!.videoDetails!.length,
+                      padding: EdgeInsets.zero,
+                      //itemExtent: 0,
+                         scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return // Figma Flutter Generator ItemcardproductWidget - FRAME - VERTICAL
+                          ProgramCard(
+                            videoUrlList:programController
+                                .rccgProgramModel!.videoDetails ,
+                            title:programController
+                                .rccgProgramModel!.videoDetails![index].snippet!.title,
+                            videoUrl:programController
+                                .rccgProgramModel!.videoDetails![index].snippet!.resourceId!.videoId,
+                            imageUrl:
+                            programController
+                                .rccgProgramModel!.videoDetails![index].snippet!.thumbnails!.medium!.url,
+                          );
+
+                      }),
                 ),
               ),
 
@@ -901,17 +978,24 @@ class _HomeState extends ConsumerState<Home> {
                 visible:
                 homeController.currentProgramChoice == 7 ? true : false,
                 child: SizedBox(
-                  height: 235.h,
-                  child:  ListView.builder(
-                      itemCount: programController.psfVideosList!.psfvideos!.length,
+                  height: 220.h,
+                  child: ListView.builder(
+
+                      itemCount: programController.psfVideosList!.videoDetails!.length,
                       padding: EdgeInsets.zero,
                       //itemExtent: 0,
                       scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
                         return // Figma Flutter Generator ItemcardproductWidget - FRAME - VERTICAL
+                          ProgramCard(
+                            videoUrlList:  programController.psfVideosList!.videoDetails,
+                            title:programController.psfVideosList!.videoDetails![index].snippet!.title,
+                            videoUrl:programController.psfVideosList!.videoDetails![index].snippet!.resourceId!.videoId,
+                            imageUrl:
+                            programController.psfVideosList!.videoDetails![index].snippet!.thumbnails!.medium!.url,
+                          );
 
-                        PSfProgramCard(psfVideoItem: programController.psfVideosList!.psfvideos![index],);
                       }),
                 ),
               ),
@@ -920,9 +1004,9 @@ class _HomeState extends ConsumerState<Home> {
                 visible:
                 homeController.currentProgramChoice == 9 ? true : false,
                 child: SizedBox(
-                  height: 235.h,
+                  height: 220.h,
                   child: ListView.builder(
-                      itemCount: programController.mmpVideosList!.mmpvideos!.length,
+                      itemCount: programController.mmpVideosList!.videoDetails!.length,
                       padding: EdgeInsets.zero,
                       //itemExtent: 0,
                       scrollDirection: Axis.horizontal,
@@ -930,77 +1014,138 @@ class _HomeState extends ConsumerState<Home> {
                       itemBuilder: (context, index) {
                         return // Figma Flutter Generator ItemcardproductWidget - FRAME - VERTICAL
 
-                          MmpProgramCard(mmpVideosItem: programController.mmpVideosList!.mmpvideos![index],);
+
+                          ProgramCard(
+                            videoUrlList: programController.mmpVideosList!.videoDetails ,
+                            title:programController.mmpVideosList!.videoDetails![index].mmpsnippet!.title,
+                            videoUrl: programController.mmpVideosList!.videoDetails![index].mmpsnippet!.resourceId!.videoId,
+                            imageUrl:
+                            programController.mmpVideosList!.videoDetails![index].mmpsnippet!.thumbnails!.medium!.url,
+                          );
+
                       }),
                 ),
               ),
             if (programController.pAdeboyeSermonModel != null)
               Visibility(
                 visible:
-                    homeController.currentProgramChoice == 2 ? true : false,
-                child: SizedBox(
-                  height: 235.h,
+                homeController.currentProgramChoice == 2 ? true : false,
+                child:  SizedBox(
+                  height: 220.h,
                   child:ListView.builder(
-                          itemCount: programController
-                              .pAdeboyeSermonModel!.items!.length,
-                          padding: EdgeInsets.zero,
-                          //itemExtent: 0,
-                          scrollDirection: Axis.horizontal,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            return // Figma Flutter Generator ItemcardproductWidget - FRAME - VERTICAL
+                      itemCount: programController
+                          .pAdeboyeSermonModel!.videoDetails!.length,
+                      padding: EdgeInsets.zero,
+                      //itemExtent: 0,
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return // Figma Flutter Generator ItemcardproductWidget - FRAME - VERTICAL
+                          ProgramCard(
+                            videoUrlList:programController
+                                .pAdeboyeSermonModel!.videoDetails ,
+                            title:programController
+                                .pAdeboyeSermonModel!.videoDetails![index].snippet!.title,
+                            videoUrl: programController
+                                .pAdeboyeSermonModel!.videoDetails![index].snippet!.resourceId!.videoId,
+                            imageUrl:
+                            programController
+                                .pAdeboyeSermonModel!.videoDetails![index].snippet!.thumbnails!.medium!.url,
+                          );
 
-                                AdeboyeSermonCard(
-                              adeboyeSermonVideoModel: programController
-                                  .pAdeboyeSermonModel!.items![index],
-                            );
-                          }),
+                      }),
                 ),
               ),
             if (programController.holyGhostServiceModel != null)
               Visibility(
                 visible:
-                    homeController.currentProgramChoice == 4 ? true : false,
+                homeController.currentProgramChoice == 4 ? true : false,
                 child: SizedBox(
-                  height: 235.h,
+                  height: 220.h,
                   child:ListView.builder(
-                          itemCount: programController
-                              .holyGhostServiceModel!.items!.length,
-                          padding: EdgeInsets.zero,
-                          //itemExtent: 0,
-                          scrollDirection: Axis.horizontal,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            return // Figma Flutter Generator ItemcardproductWidget - FRAME - VERTICAL
+                      itemCount: programController
+                          .holyGhostServiceModel!.videoDetails!.length,
+                      padding: EdgeInsets.zero,
+                      //itemExtent: 0,
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return // Figma Flutter Generator ItemcardproductWidget - FRAME - VERTICAL
+                          ProgramCard(
+                            videoUrlList: programController
+                                .holyGhostServiceModel!.videoDetails ,
+                            title:programController
+                                .holyGhostServiceModel!.videoDetails![index].snippet!.title,
+                            videoUrl: programController
+                                .holyGhostServiceModel!.videoDetails![index].snippet!.resourceId!.videoId,
+                            imageUrl:
+                            programController
+                                .holyGhostServiceModel!.videoDetails![index].snippet!.thumbnails!.medium!.url,
+                          );
 
-                                HolyGhostProgramCard(
-                              holyGhostServiceVideoItem: programController
-                                  .holyGhostServiceModel!.items![index],
-                            );
-                          }),
+                      }),
                 ),
               ),
+
+
+            if (programController.faSermonsModel != null)
+              Visibility(
+                visible:
+                homeController.currentProgramChoice == 3 ? true : false,
+                child: SizedBox(
+                  height: 220.h,
+                  child:ListView.builder(
+                      itemCount: programController.faSermonsModel!.videoDetails!.length,
+                      padding: EdgeInsets.zero,
+                      //itemExtent: 0,
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return // Figma Flutter Generator ItemcardproductWidget - FRAME - VERTICAL
+                          ProgramCard(
+                            videoUrlList: programController.faSermonsModel!.videoDetails,
+                            title:programController.faSermonsModel!.videoDetails![index].snippet!.title,
+                            videoUrl: programController.faSermonsModel!.videoDetails![index].id!.videoId,
+                            imageUrl:
+                            programController.faSermonsModel!.videoDetails![index].snippet!.thumbnails!.medium!.url,
+                          );
+
+                      }),
+                ),
+              ),
+
+
             if (programController.youthConventionModel != null)
               Visibility(
                 visible:
-                    homeController.currentProgramChoice == 8 ? true : false,
+                homeController.currentProgramChoice == 8 ? true : false,
                 child: SizedBox(
-                  height: 235.h,
+                  height: 220.h,
                   child: ListView.builder(
-                          itemCount: programController
-                              .youthConventionModel!.items!.length,
-                          padding: EdgeInsets.zero,
-                          //itemExtent: 0,
-                          scrollDirection: Axis.horizontal,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            return // Figma Flutter Generator ItemcardproductWidget - FRAME - VERTICAL
-
-                                YouthConventionProgramCard(
-                              youthConventionVideoItem: programController
-                                  .youthConventionModel!.items![index],
-                            );
-                          }),
+                      itemCount: programController
+                          .youthConventionModel!.videoDetails!.length,
+                      padding: EdgeInsets.zero,
+                      //itemExtent: 0,
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return // Figma Flutter Generator ItemcardproductWidget - FRAME - VERTICAL
+                          ProgramCard(
+                            videoUrlList:programController
+                                .youthConventionModel!.videoDetails,
+                            title: programController
+                                .youthConventionModel!.videoDetails![index].snippet!.title,
+                            videoUrl: programController
+                                .youthConventionModel!.videoDetails![index].snippet!.resourceId!.videoId,
+                            imageUrl:
+                            programController
+                                .youthConventionModel!.videoDetails![index].snippet!.thumbnails!.medium!.url,
+                          );
+                        // YouthConventionProgramCard(
+                        //   youthConventionVideoItem: programController
+                        //       .youthConventionModel!.items![index],
+                        // );
+                      }),
                 ),
               ),
             Gap(27.h),
@@ -1182,18 +1327,33 @@ class _HomeState extends ConsumerState<Home> {
             Visibility(
               visible:homeController.currentMovieChoice==0,
               child: SizedBox(
-                height: 220.h,
-                child: ListView.builder(
-                    itemCount: programController.christianMovieModel!.videos!.length,
+                  height: 220.h,
+                  child: ListView.builder(
+                    itemCount: programController.christianMovieModel!.videoDetails!.length,
                     scrollDirection: Axis.horizontal,
                     shrinkWrap: true,
                     itemBuilder: (context,index) {
-                      return  MovieCard(searchVideoItem: programController.christianMovieModel!.videos![index]
+                      return  MovieCard(searchVideoItem: programController.christianMovieModel!.videoDetails![index]
                         ,);
                     }
                 ),
               ),
             ),
+            if(programController.internationalChristianMovies!=null)
+              Visibility(
+                visible:homeController.currentMovieChoice==3,
+                child: SizedBox(
+                  height: 220.h,
+                  child: ListView.builder(
+                      itemCount: programController.internationalChristianMovies!.videoDetails!.length,
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemBuilder: (context,index) {
+                        return  InternationalMovieCard(internationalMovieItem: programController.internationalChristianMovies!.videoDetails![index],);
+                      }
+                  ),
+                ),
+              ),
 
             if(programController.kidsChristianMovies!=null)
               Visibility(
@@ -1201,11 +1361,11 @@ class _HomeState extends ConsumerState<Home> {
                 child: SizedBox(
                   height: 220.h,
                   child: ListView.builder(
-                      itemCount: programController.kidsChristianMovies!.items!.length,
+                      itemCount: programController.kidsChristianMovies!.videoDetails!.length,
                       scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
                       itemBuilder: (context,index) {
-                        return  KidsMovieCard(kidsMoviesItem: programController.kidsChristianMovies!.items![index],);
+                        return  KidsMovieCard(kidsMoviesItem: programController.kidsChristianMovies!.videoDetails![index],);
                       }
                   ),
                 ),
@@ -1216,11 +1376,11 @@ class _HomeState extends ConsumerState<Home> {
                 child: SizedBox(
                   height: 220.h,
                   child:programController.loadMovies?Indicator():  ListView.builder(
-                      itemCount: programController.christianMovieModel!.videos!.length,
+                      itemCount: programController.christianMovieModel!.videoDetails!.length,
                       scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
                       itemBuilder: (context,index) {
-                        return MountZionMovieCard(mountZionVideoItem: programController.mountZionMovies!.items![index],);
+                        return MountZionMovieCard(mountZionVideoItem: programController.mountZionMovies!.videoDetails![index],);
                       }
                   ),
                 ),
@@ -1392,376 +1552,16 @@ class _HomeState extends ConsumerState<Home> {
   }
 }
 
-class MrsFaProgramCard extends StatelessWidget {
-  final RccgProgramVideoItem? programDetails;
-
-  const MrsFaProgramCard({Key? key, this.programDetails}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return WatchPrograms(
-            rccgProgramModel: programDetails,
-          );
-        }));
-      },
-      child: Padding(
-        padding: const EdgeInsets.only(left: 23.0, right: 5, bottom: 4),
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-          height: 100.h,
-          width: 288.w,
-          decoration: BoxDecoration(
-              color: const Color.fromRGBO(255, 255, 255, 1),
-              boxShadow: const [
-                BoxShadow(
-                    color: LightAppTheme.shadowColor,
-                    offset: Offset(0, 10),
-                    blurRadius: 15),
-              ],
-              borderRadius: BorderRadius.circular(20)),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Stack(
-                alignment: Alignment.topCenter,
-                children: [
-                  CachedNetworkImage(
-                    imageUrl: programDetails!
-                        .videoDetails!.thumbnails!.medium!.url
-                        .toString(),
-                    height: 144.h,
-                    width: 266.w,
-                    fit: BoxFit.cover,
-                  ),
-                  Positioned(
-                      top: 50,
-                      // left: 30,
-                      child: Image.asset(
-                        'assets/play.png',
-                        height: 40.h,
-                        width: 40.w,
-                      ))
-                ],
-              ),
-              Gap(20.h),
-              Center(
-                  child: Text(
-                programDetails!.videoDetails!.title.toString(),
-                style: GoogleFonts.inter(
-                    color: LightAppTheme.black2,
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w400),
-              )),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class HolyGhostProgramCard extends StatelessWidget {
-  final HolyGhostServiceVideoItem? holyGhostServiceVideoItem;
-
-  const HolyGhostProgramCard({Key? key, this.holyGhostServiceVideoItem})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        // Navigator.push(context,
-        //     MaterialPageRoute(builder: (context) {
-        //       return WatchPrograms(
-        //         rccgProgramModel:programDetails,
-        //       );
-        //     }));
-      },
-      child: Padding(
-        padding: const EdgeInsets.only(left: 23.0, right: 5, bottom: 4),
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-          height: 100.h,
-          width: 288.w,
-          decoration: BoxDecoration(
-              color: const Color.fromRGBO(255, 255, 255, 1),
-              boxShadow: const [
-                BoxShadow(
-                    color: LightAppTheme.shadowColor,
-                    offset: Offset(0, 10),
-                    blurRadius: 15),
-              ],
-              borderRadius: BorderRadius.circular(20)),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Stack(
-                alignment: Alignment.topCenter,
-                children: [
-                  CachedNetworkImage(
-                    imageUrl: holyGhostServiceVideoItem!
-                        .snippet!.thumbnails!.medium!.url
-                        .toString(),
-                    height: 144.h,
-                    width: 266.w,
-                    fit: BoxFit.cover,
-                  ),
-                  Positioned(
-                      top: 50,
-                      // left: 30,
-                      child: Image.asset(
-                        'assets/play.png',
-                        height: 40.h,
-                        width: 40.w,
-                      ))
-                ],
-              ),
-              Gap(20.h),
-              Center(
-                  child: Text(
-                holyGhostServiceVideoItem!.snippet!.title.toString(),
-                style: GoogleFonts.inter(
-                    color: LightAppTheme.black2,
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w400),
-              )),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 
 
-class MmpProgramCard extends StatelessWidget {
-  final MmpVideoItem?mmpVideosItem;
-
-  const MmpProgramCard({Key? key, this.mmpVideosItem
-  })
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        // Navigator.push(context,
-        //     MaterialPageRoute(builder: (context) {
-        //       return WatchPrograms(
-        //         rccgProgramModel:programDetails,
-        //       );
-        //     }));
-      },
-      child: Padding(
-        padding: const EdgeInsets.only(left: 23.0, right: 5, bottom: 4),
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-          height: 100.h,
-          width: 288.w,
-          decoration: BoxDecoration(
-              color: const Color.fromRGBO(255, 255, 255, 1),
-              boxShadow: const [
-                BoxShadow(
-                    color: LightAppTheme.shadowColor,
-                    offset: Offset(0, 10),
-                    blurRadius: 15),
-              ],
-              borderRadius: BorderRadius.circular(20)),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Stack(
-                alignment: Alignment.topCenter,
-                children: [
-                  CachedNetworkImage(
-                    imageUrl: mmpVideosItem!.mmpsnippet!.thumbnails!.medium!.url
-                        .toString(),
-                    height: 144.h,
-                    width: 266.w,
-                    fit: BoxFit.cover,
-                  ),
-                  Positioned(
-                      top: 50,
-                      // left: 30,
-                      child: Image.asset(
-                        'assets/play.png',
-                        height: 40.h,
-                        width: 40.w,
-                      ))
-                ],
-              ),
-              Gap(20.h),
-              Center(
-                  child: Text(
-                    mmpVideosItem!.mmpsnippet!.title.toString(),
-                    style: GoogleFonts.inter(
-                        color: LightAppTheme.black2,
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w400),
-                  )),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-
-class PSfProgramCard extends StatelessWidget {
-  final PsfVideoItem? psfVideoItem;
-
-  const PSfProgramCard({Key? key, this.psfVideoItem})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        // Navigator.push(context,
-        //     MaterialPageRoute(builder: (context) {
-        //       return WatchPrograms(
-        //         rccgProgramModel:programDetails,
-        //       );
-        //     }));
-      },
-      child: Padding(
-        padding: const EdgeInsets.only(left: 23.0, right: 5, bottom: 4),
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-          height: 100.h,
-          width: 288.w,
-          decoration: BoxDecoration(
-              color: const Color.fromRGBO(255, 255, 255, 1),
-              boxShadow: const [
-                BoxShadow(
-                    color: LightAppTheme.shadowColor,
-                    offset: Offset(0, 10),
-                    blurRadius: 15),
-              ],
-              borderRadius: BorderRadius.circular(20)),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Stack(
-                alignment: Alignment.topCenter,
-                children: [
-                  CachedNetworkImage(
-                    imageUrl:  psfVideoItem!
-                        .psfsnippet!.thumbnails!.medium!.url
-                        .toString(),
-                    height: 144.h,
-                    width: 266.w,
-                    fit: BoxFit.cover,
-                  ),
-                  Positioned(
-                      top: 50,
-                      // left: 30,
-                      child: Image.asset(
-                        'assets/play.png',
-                        height: 40.h,
-                        width: 40.w,
-                      ))
-                ],
-              ),
-              Gap(20.h),
-              Center(
-                  child: Text(
-                    psfVideoItem!.psfsnippet!.title.toString(),
-                    style: GoogleFonts.inter(
-                        color: LightAppTheme.black2,
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w400),
-                  )),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class YouthConventionProgramCard extends StatelessWidget {
-  final YouthConventionVideoItem? youthConventionVideoItem;
-
-  const YouthConventionProgramCard({Key? key, this.youthConventionVideoItem})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        // Navigator.push(context,
-        //     MaterialPageRoute(builder: (context) {
-        //       return WatchPrograms(
-        //         rccgProgramModel:programDetails,
-        //       );
-        //     }));
-      },
-      child: Padding(
-        padding: const EdgeInsets.only(left: 23.0, right: 5, bottom: 4),
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-          height: 100.h,
-          width: 288.w,
-          decoration: BoxDecoration(
-              color: const Color.fromRGBO(255, 255, 255, 1),
-              boxShadow: const [
-                BoxShadow(
-                    color: LightAppTheme.shadowColor,
-                    offset: Offset(0, 10),
-                    blurRadius: 15),
-              ],
-              borderRadius: BorderRadius.circular(20)),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Stack(
-                alignment: Alignment.topCenter,
-                children: [
-                  CachedNetworkImage(
-                    imageUrl: youthConventionVideoItem!
-                        .snippet!.thumbnails!.medium!.url
-                        .toString(),
-                    height: 144.h,
-                    width: 266.w,
-                    fit: BoxFit.cover,
-                  ),
-                  Positioned(
-                      top: 50,
-                      // left: 30,
-                      child: Image.asset(
-                        'assets/play.png',
-                        height: 40.h,
-                        width: 40.w,
-                      ))
-                ],
-              ),
-              Gap(20.h),
-              Center(
-                  child: Text(
-                youthConventionVideoItem!.snippet!.title.toString(),
-                style: GoogleFonts.inter(
-                    color: LightAppTheme.black2,
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w400),
-              )),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 class ProgramCard extends StatelessWidget {
-  final RccgProgramVideoItem? programDetails;
-
-  const ProgramCard({Key? key, this.programDetails}) : super(key: key);
+  final String? imageUrl;
+  final String?title;
+  final String? videoUrl;
+  final List? videoUrlList;
+  const ProgramCard({Key? key, this.title,this.videoUrl,this.imageUrl,this.videoUrlList}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -1769,7 +1569,8 @@ class ProgramCard extends StatelessWidget {
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
           return WatchPrograms(
-            rccgProgramModel: programDetails,
+            videoUrl: videoUrl,
+            videoList: videoUrlList,
           );
         }));
       },
@@ -1777,7 +1578,7 @@ class ProgramCard extends StatelessWidget {
         padding: const EdgeInsets.only(left: 23.0, right: 5, bottom: 4),
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-          height: 100.h,
+          height: 218.h,
           width: 288.w,
           decoration: BoxDecoration(
               color: const Color.fromRGBO(255, 255, 255, 1),
@@ -1795,9 +1596,7 @@ class ProgramCard extends StatelessWidget {
                 alignment: Alignment.topCenter,
                 children: [
                   CachedNetworkImage(
-                    imageUrl: programDetails!
-                        .videoDetails!.thumbnails!.medium!.url
-                        .toString(),
+                    imageUrl:imageUrl.toString(),
                     height: 144.h,
                     width: 266.w,
                     fit: BoxFit.cover,
@@ -1815,12 +1614,13 @@ class ProgramCard extends StatelessWidget {
               Gap(20.h),
               Center(
                   child: Text(
-                programDetails!.videoDetails!.title.toString(),
-                style: GoogleFonts.inter(
-                    color: LightAppTheme.black2,
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w400),
-              )),
+                    title.toString(),
+                    overflow: TextOverflow.ellipsis,
+                    style: GoogleFonts.inter(
+                        color: LightAppTheme.black2,
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w400),
+                  )),
             ],
           ),
         ),
@@ -1829,78 +1629,739 @@ class ProgramCard extends StatelessWidget {
   }
 }
 
-class AdeboyeSermonCard extends StatelessWidget {
-  final PAdeboyeSermonModelVideoItem? adeboyeSermonVideoModel;
-
-  const AdeboyeSermonCard({Key? key, this.adeboyeSermonVideoModel})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        // Navigator.push(context,
-        //     MaterialPageRoute(builder: (context) {
-        //       return WatchPrograms(
-        //         rccgProgramModel:programDetails,
-        //       );
-        //     }));
-      },
-      child: Padding(
-        padding: const EdgeInsets.only(left: 23.0, right: 5, bottom: 4),
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-          height: 100.h,
-          width: 288.w,
-          decoration: BoxDecoration(
-              color: const Color.fromRGBO(255, 255, 255, 1),
-              boxShadow: const [
-                BoxShadow(
-                    color: LightAppTheme.shadowColor,
-                    offset: Offset(0, 10),
-                    blurRadius: 15),
-              ],
-              borderRadius: BorderRadius.circular(20)),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Stack(
-                alignment: Alignment.topCenter,
-                children: [
-                  CachedNetworkImage(
-                    imageUrl: adeboyeSermonVideoModel!
-                        .snippet!.thumbnails!.medium!.url
-                        .toString(),
-                    height: 144.h,
-                    width: 266.w,
-                    fit: BoxFit.cover,
-                  ),
-                  Positioned(
-                      top: 50,
-                      // left: 30,
-                      child: Image.asset(
-                        'assets/play.png',
-                        height: 40.h,
-                        width: 40.w,
-                      ))
-                ],
-              ),
-              Gap(20.h),
-              Center(
-                  child: Text(
-                adeboyeSermonVideoModel!.snippet!.title.toString(),
-                style: GoogleFonts.inter(
-                    color: LightAppTheme.black2,
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w400),
-              )),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
+//
+// class MrsFaProgramCard extends StatelessWidget {
+//   final FaVideoItem?faVideoItem;
+//
+//   const MrsFaProgramCard({Key? key, this.faVideoItem}) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return GestureDetector(
+//       onTap: () {
+//         // Navigator.push(context, MaterialPageRoute(builder: (context) {
+//         //   return WatchPrograms(
+//         //     rccgProgramModel: programDetails,
+//         //   );
+//         // }));
+//       },
+//       child: Padding(
+//         padding: const EdgeInsets.only(left: 23.0, right: 5, bottom: 4),
+//         child: Container(
+//           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+//           height: 100.h,
+//           width: 288.w,
+//           decoration: BoxDecoration(
+//               color: const Color.fromRGBO(255, 255, 255, 1),
+//               boxShadow: const [
+//                 BoxShadow(
+//                     color: LightAppTheme.shadowColor,
+//                     offset: Offset(0, 10),
+//                     blurRadius: 15),
+//               ],
+//               borderRadius: BorderRadius.circular(20)),
+//           child: Column(
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             children: [
+//               Stack(
+//                 alignment: Alignment.topCenter,
+//                 children: [
+//                   CachedNetworkImage(
+//                     imageUrl: faVideoItem!.snippet!
+//
+//                         .thumbnails!.medium!.url
+//                         .toString(),
+//                     height: 144.h,
+//                     width: 266.w,
+//                     fit: BoxFit.cover,
+//                   ),
+//                   Positioned(
+//                       top: 50,
+//                       // left: 30,
+//                       child: Image.asset(
+//                         'assets/play.png',
+//                         height: 40.h,
+//                         width: 40.w,
+//                       ))
+//                 ],
+//               ),
+//               Gap(20.h),
+//               Center(
+//                   child: Text(
+//                    faVideoItem!.snippet!
+//
+//                       .title.toString(),
+//                 style: GoogleFonts.inter(
+//                     color: LightAppTheme.black2,
+//                     fontSize: 12.sp,
+//                     fontWeight: FontWeight.w400),
+//               )),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+//
+// class HolyGhostProgramCard extends StatelessWidget {
+//   final HolyGhostServiceVideoItem? holyGhostServiceVideoItem;
+//
+//   const HolyGhostProgramCard({Key? key, this.holyGhostServiceVideoItem})
+//       : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return GestureDetector(
+//       onTap: () {
+//         // Navigator.push(context,
+//         //     MaterialPageRoute(builder: (context) {
+//         //       return WatchPrograms(
+//         //         rccgProgramModel:programDetails,
+//         //       );
+//         //     }));
+//       },
+//       child: Padding(
+//         padding: const EdgeInsets.only(left: 23.0, right: 5, bottom: 4),
+//         child: Container(
+//           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+//           height: 100.h,
+//           width: 288.w,
+//           decoration: BoxDecoration(
+//               color: const Color.fromRGBO(255, 255, 255, 1),
+//               boxShadow: const [
+//                 BoxShadow(
+//                     color: LightAppTheme.shadowColor,
+//                     offset: Offset(0, 10),
+//                     blurRadius: 15),
+//               ],
+//               borderRadius: BorderRadius.circular(20)),
+//           child: Column(
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             children: [
+//               Stack(
+//                 alignment: Alignment.topCenter,
+//                 children: [
+//                   CachedNetworkImage(
+//                     imageUrl: holyGhostServiceVideoItem!
+//                         .snippet!.thumbnails!.medium!.url
+//                         .toString(),
+//                     height: 144.h,
+//                     width: 266.w,
+//                     fit: BoxFit.cover,
+//                   ),
+//                   Positioned(
+//                       top: 50,
+//                       // left: 30,
+//                       child: Image.asset(
+//                         'assets/play.png',
+//                         height: 40.h,
+//                         width: 40.w,
+//                       ))
+//                 ],
+//               ),
+//               Gap(20.h),
+//               Center(
+//                   child: Text(
+//                 holyGhostServiceVideoItem!.snippet!.title.toString(),
+//                 style: GoogleFonts.inter(
+//                     color: LightAppTheme.black2,
+//                     fontSize: 12.sp,
+//                     fontWeight: FontWeight.w400),
+//               )),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+//
+//
+//
+// class MmpProgramCard extends StatelessWidget {
+//   final MmpVideoItem?mmpVideosItem;
+//
+//   const MmpProgramCard({Key? key, this.mmpVideosItem
+//   })
+//       : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return GestureDetector(
+//       onTap: () {
+//         // Navigator.push(context,
+//         //     MaterialPageRoute(builder: (context) {
+//         //       return WatchPrograms(
+//         //         rccgProgramModel:programDetails,
+//         //       );
+//         //     }));
+//       },
+//       child: Padding(
+//         padding: const EdgeInsets.only(left: 23.0, right: 5, bottom: 4),
+//         child: Container(
+//           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+//           height: 100.h,
+//           width: 288.w,
+//           decoration: BoxDecoration(
+//               color: const Color.fromRGBO(255, 255, 255, 1),
+//               boxShadow: const [
+//                 BoxShadow(
+//                     color: LightAppTheme.shadowColor,
+//                     offset: Offset(0, 10),
+//                     blurRadius: 15),
+//               ],
+//               borderRadius: BorderRadius.circular(20)),
+//           child: Column(
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             children: [
+//               Stack(
+//                 alignment: Alignment.topCenter,
+//                 children: [
+//                   CachedNetworkImage(
+//                     imageUrl: mmpVideosItem!.mmpsnippet!.thumbnails!.medium!.url
+//                         .toString(),
+//                     height: 144.h,
+//                     width: 266.w,
+//                     fit: BoxFit.cover,
+//                   ),
+//                   Positioned(
+//                       top: 50,
+//                       // left: 30,
+//                       child: Image.asset(
+//                         'assets/play.png',
+//                         height: 40.h,
+//                         width: 40.w,
+//                       ))
+//                 ],
+//               ),
+//               Gap(20.h),
+//               Expanded(
+//                   child: Text(
+//                     mmpVideosItem!.mmpsnippet!.title.toString(),
+//                     overflow: TextOverflow.ellipsis,
+//                     style: GoogleFonts.inter(
+//                         color: LightAppTheme.black2,
+//                         fontSize: 12.sp,
+//                         fontWeight: FontWeight.w400),
+//                   )),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+//
+//
+// class PSfProgramCard extends StatelessWidget {
+//   final PsfVideoItem? psfVideoItem;
+//
+//   const PSfProgramCard({Key? key, this.psfVideoItem})
+//       : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return GestureDetector(
+//       onTap: () {
+//         // Navigator.push(context,
+//         //     MaterialPageRoute(builder: (context) {
+//         //       return WatchPrograms(
+//         //         rccgProgramModel:programDetails,
+//         //       );
+//         //     }));
+//       },
+//       child: Padding(
+//         padding: const EdgeInsets.only(left: 23.0, right: 5, bottom: 4),
+//         child: Container(
+//           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+//           height: 100.h,
+//           width: 288.w,
+//           decoration: BoxDecoration(
+//               color: const Color.fromRGBO(255, 255, 255, 1),
+//               boxShadow: const [
+//                 BoxShadow(
+//                     color: LightAppTheme.shadowColor,
+//                     offset: Offset(0, 10),
+//                     blurRadius: 15),
+//               ],
+//               borderRadius: BorderRadius.circular(20)),
+//           child: Column(
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             children: [
+//               Stack(
+//                 alignment: Alignment.topCenter,
+//                 children: [
+//                   CachedNetworkImage(
+//                     imageUrl:  psfVideoItem!
+//                         .snippet!.thumbnails!.medium!.url
+//                         .toString(),
+//                     height: 144.h,
+//                     width: 266.w,
+//                     fit: BoxFit.cover,
+//                   ),
+//                   Positioned(
+//                       top: 50,
+//                       // left: 30,
+//                       child: Image.asset(
+//                         'assets/play.png',
+//                         height: 40.h,
+//                         width: 40.w,
+//                       ))
+//                 ],
+//               ),
+//               Gap(20.h),
+//               Center(
+//                   child: Text(
+//                     psfVideoItem!.snippet!.title.toString(),
+//                     style: GoogleFonts.inter(
+//                         color: LightAppTheme.black2,
+//                         fontSize: 12.sp,
+//                         fontWeight: FontWeight.w400),
+//                   )),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+//
+// class YouthConventionProgramCard extends StatelessWidget {
+//   final YouthConventionVideoItem? youthConventionVideoItem;
+//
+//   const YouthConventionProgramCard({Key? key, this.youthConventionVideoItem})
+//       : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return GestureDetector(
+//       onTap: () {
+//         // Navigator.push(context,
+//         //     MaterialPageRoute(builder: (context) {
+//         //       return WatchPrograms(
+//         //         rccgProgramModel:programDetails,
+//         //       );
+//         //     }));
+//       },
+//       child: Padding(
+//         padding: const EdgeInsets.only(left: 23.0, right: 5, bottom: 4),
+//         child: Container(
+//           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+//           height: 100.h,
+//           width: 288.w,
+//           decoration: BoxDecoration(
+//               color: const Color.fromRGBO(255, 255, 255, 1),
+//               boxShadow: const [
+//                 BoxShadow(
+//                     color: LightAppTheme.shadowColor,
+//                     offset: Offset(0, 10),
+//                     blurRadius: 15),
+//               ],
+//               borderRadius: BorderRadius.circular(20)),
+//           child: Column(
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             children: [
+//               Stack(
+//                 alignment: Alignment.topCenter,
+//                 children: [
+//                   CachedNetworkImage(
+//                     imageUrl: youthConventionVideoItem!
+//                         .snippet!.thumbnails!.medium!.url
+//                         .toString(),
+//                     height: 144.h,
+//                     width: 266.w,
+//                     fit: BoxFit.cover,
+//                   ),
+//                   Positioned(
+//                       top: 50,
+//                       // left: 30,
+//                       child: Image.asset(
+//                         'assets/play.png',
+//                         height: 40.h,
+//                         width: 40.w,
+//                       ))
+//                 ],
+//               ),
+//               Gap(20.h),
+//               Center(
+//                   child: Text(
+//                 youthConventionVideoItem!.snippet!.title.toString(),
+//                 style: GoogleFonts.inter(
+//                     color: LightAppTheme.black2,
+//                     fontSize: 12.sp,
+//                     fontWeight: FontWeight.w400),
+//               )),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+//
+// class ProgramCard extends StatelessWidget {
+//   final RccgProgramVideoItem? programDetails;
+//
+//   const ProgramCard({Key? key, this.programDetails}) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return GestureDetector(
+//       onTap: () {
+//         // Navigator.push(context, MaterialPageRoute(builder: (context) {
+//         //   return WatchPrograms(
+//         //     rccgProgramModel: programDetails,
+//         //   );
+//         // }));
+//       },
+//       child: Padding(
+//         padding: const EdgeInsets.only(left: 23.0, right: 5, bottom: 4),
+//         child: Container(
+//           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+//           height: 100.h,
+//           width: 288.w,
+//           decoration: BoxDecoration(
+//               color: const Color.fromRGBO(255, 255, 255, 1),
+//               boxShadow: const [
+//                 BoxShadow(
+//                     color: LightAppTheme.shadowColor,
+//                     offset: Offset(0, 10),
+//                     blurRadius: 15),
+//               ],
+//               borderRadius: BorderRadius.circular(20)),
+//           child: Column(
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             children: [
+//               Stack(
+//                 alignment: Alignment.topCenter,
+//                 children: [
+//                   CachedNetworkImage(
+//                     imageUrl: programDetails!
+//                         .videoDetails!.thumbnails!.medium!.url
+//                         .toString(),
+//                     height: 144.h,
+//                     width: 266.w,
+//                     fit: BoxFit.cover,
+//                   ),
+//                   Positioned(
+//                       top: 50,
+//                       // left: 30,
+//                       child: Image.asset(
+//                         'assets/play.png',
+//                         height: 40.h,
+//                         width: 40.w,
+//                       ))
+//                 ],
+//               ),
+//               Gap(20.h),
+//               Center(
+//                   child: Text(
+//                 programDetails!.videoDetails!.title.toString(),
+//                 style: GoogleFonts.inter(
+//                     color: LightAppTheme.black2,
+//                     fontSize: 12.sp,
+//                     fontWeight: FontWeight.w400),
+//               )),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+//
+//
+//
+//
+// class CongressProgramCard extends StatelessWidget {
+//   final CongressVideoItem?congressVideoItem;
+//
+//   const CongressProgramCard({Key? key, this.congressVideoItem}) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return GestureDetector(
+//       onTap: () {
+//         // Navigator.push(context, MaterialPageRoute(builder: (context) {
+//         //   return WatchPrograms(
+//         //     rccgProgramModel: congressVideoItem,
+//         //   );
+//         // }));
+//       },
+//       child: Padding(
+//         padding: const EdgeInsets.only(left: 23.0, right: 5, bottom: 4),
+//         child: Container(
+//           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+//           height: 100.h,
+//           width: 288.w,
+//           decoration: BoxDecoration(
+//               color: const Color.fromRGBO(255, 255, 255, 1),
+//               boxShadow: const [
+//                 BoxShadow(
+//                     color: LightAppTheme.shadowColor,
+//                     offset: Offset(0, 10),
+//                     blurRadius: 15),
+//               ],
+//               borderRadius: BorderRadius.circular(20)),
+//           child: Column(
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             children: [
+//               Stack(
+//                 alignment: Alignment.topCenter,
+//                 children: [
+//                   CachedNetworkImage(
+//                     imageUrl: congressVideoItem!.snippet!.thumbnails!.medium!.url
+//                         .toString(),
+//                     height: 144.h,
+//                     width: 266.w,
+//                     fit: BoxFit.cover,
+//                   ),
+//                   Positioned(
+//                       top: 50,
+//                       // left: 30,
+//                       child: Image.asset(
+//                         'assets/play.png',
+//                         height: 40.h,
+//                         width: 40.w,
+//                       ))
+//                 ],
+//               ),
+//               Gap(20.h),
+//               Center(
+//                   child: Text(
+//                     congressVideoItem!.snippet!.title.toString(),
+//                     style: GoogleFonts.inter(
+//                         color: LightAppTheme.black2,
+//                         fontSize: 12.sp,
+//                         fontWeight: FontWeight.w400),
+//                   )),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+//
+//
+// class ConventionProgramCard extends StatelessWidget {
+//   final ConventionVideoItem? conventionVideoItem;
+//
+//   const ConventionProgramCard({Key? key, this.conventionVideoItem}) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return GestureDetector(
+//       onTap: () {
+//         // Navigator.push(context, MaterialPageRoute(builder: (context) {
+//         //   return WatchPrograms(
+//         //     rccgProgramModel: programDetails,
+//         //   );
+//         // }));
+//       },
+//       child: Padding(
+//         padding: const EdgeInsets.only(left: 23.0, right: 5, bottom: 4),
+//         child: Container(
+//           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+//           height: 100.h,
+//           width: 288.w,
+//           decoration: BoxDecoration(
+//               color: const Color.fromRGBO(255, 255, 255, 1),
+//               boxShadow: const [
+//                 BoxShadow(
+//                     color: LightAppTheme.shadowColor,
+//                     offset: Offset(0, 10),
+//                     blurRadius: 15),
+//               ],
+//               borderRadius: BorderRadius.circular(20)),
+//           child: Column(
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             children: [
+//               Stack(
+//                 alignment: Alignment.topCenter,
+//                 children: [
+//                   CachedNetworkImage(
+//                     imageUrl: conventionVideoItem!.snippet!.thumbnails!.medium!.url
+//                         .toString(),
+//                     height: 144.h,
+//                     width: 266.w,
+//                     fit: BoxFit.cover,
+//                   ),
+//                   Positioned(
+//                       top: 50,
+//                       // left: 30,
+//                       child: Image.asset(
+//                         'assets/play.png',
+//                         height: 40.h,
+//                         width: 40.w,
+//                       ))
+//                 ],
+//               ),
+//               Gap(20.h),
+//               Center(
+//                   child: Text(
+//                     conventionVideoItem!.snippet!.title.toString(),
+//                     style: GoogleFonts.inter(
+//                         color: LightAppTheme.black2,
+//                         fontSize: 12.sp,
+//                         fontWeight: FontWeight.w400),
+//                   )),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+//
+//
+//
+// class FeastOfEstherProgramCard extends StatelessWidget {
+//   final FeastOfEstherVideoItem?feastOfEstherVideoItem;
+//
+//   const FeastOfEstherProgramCard({Key? key, this.feastOfEstherVideoItem}) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return GestureDetector(
+//       onTap: () {
+//         // Navigator.push(context, MaterialPageRoute(builder: (context) {
+//         //   return WatchPrograms(
+//         //     rccgProgramModel: programDetails,
+//         //   );
+//         // }));
+//       },
+//       child: Padding(
+//         padding: const EdgeInsets.only(left: 23.0, right: 5, bottom: 4),
+//         child: Container(
+//           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+//           height: 100.h,
+//           width: 288.w,
+//           decoration: BoxDecoration(
+//               color: const Color.fromRGBO(255, 255, 255, 1),
+//               boxShadow: const [
+//                 BoxShadow(
+//                     color: LightAppTheme.shadowColor,
+//                     offset: Offset(0, 10),
+//                     blurRadius: 15),
+//               ],
+//               borderRadius: BorderRadius.circular(20)),
+//           child: Column(
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             children: [
+//               Stack(
+//                 alignment: Alignment.topCenter,
+//                 children: [
+//                   CachedNetworkImage(
+//                     imageUrl: feastOfEstherVideoItem!
+//                         .snippet
+//                     !.thumbnails!.medium!.url
+//                         .toString(),
+//                     height: 144.h,
+//                     width: 266.w,
+//                     fit: BoxFit.cover,
+//                   ),
+//                   Positioned(
+//                       top: 50,
+//                       // left: 30,
+//                       child: Image.asset(
+//                         'assets/play.png',
+//                         height: 40.h,
+//                         width: 40.w,
+//                       ))
+//                 ],
+//               ),
+//               Gap(20.h),
+//               Center(
+//                   child: Text(
+//                     feastOfEstherVideoItem!.snippet
+//                     !.title.toString(),
+//                     style: GoogleFonts.inter(
+//                         color: LightAppTheme.black2,
+//                         fontSize: 12.sp,
+//                         fontWeight: FontWeight.w400),
+//                   )),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+//
+// class AdeboyeSermonCard extends StatelessWidget {
+//   final PAdeboyeSermonModelVideoItem? adeboyeSermonVideoModel;
+//
+//   const AdeboyeSermonCard({Key? key, this.adeboyeSermonVideoModel})
+//       : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return GestureDetector(
+//       onTap: () {
+//         // Navigator.push(context,
+//         //     MaterialPageRoute(builder: (context) {
+//         //       return WatchPrograms(
+//         //         rccgProgramModel:programDetails,
+//         //       );
+//         //     }));
+//       },
+//       child: Padding(
+//         padding: const EdgeInsets.only(left: 23.0, right: 5, bottom: 4),
+//         child: Container(
+//           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+//           height: 100.h,
+//           width: 288.w,
+//           decoration: BoxDecoration(
+//               color: const Color.fromRGBO(255, 255, 255, 1),
+//               boxShadow: const [
+//                 BoxShadow(
+//                     color: LightAppTheme.shadowColor,
+//                     offset: Offset(0, 10),
+//                     blurRadius: 15),
+//               ],
+//               borderRadius: BorderRadius.circular(20)),
+//           child: Column(
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             children: [
+//               Stack(
+//                 alignment: Alignment.topCenter,
+//                 children: [
+//                   CachedNetworkImage(
+//                     imageUrl: adeboyeSermonVideoModel!
+//                         .snippet!.thumbnails!.medium!.url
+//                         .toString(),
+//                     height: 144.h,
+//                     width: 266.w,
+//                     fit: BoxFit.cover,
+//                   ),
+//                   Positioned(
+//                       top: 50,
+//                       // left: 30,
+//                       child: Image.asset(
+//                         'assets/play.png',
+//                         height: 40.h,
+//                         width: 40.w,
+//                       ))
+//                 ],
+//               ),
+//               Gap(20.h),
+//               Center(
+//                   child: Text(
+//                 adeboyeSermonVideoModel!.snippet!.title.toString(),
+//                 style: GoogleFonts.inter(
+//                     color: LightAppTheme.black2,
+//                     fontSize: 12.sp,
+//                     fontWeight: FontWeight.w400),
+//               )),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 class MovieCard extends StatelessWidget {
   final SearchVideoItem? searchVideoItem;
@@ -1910,12 +2371,12 @@ class MovieCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return WatchMovies(
-            videoId: searchVideoItem!.id,
-            searchVideoDetails: searchVideoItem!.videoDetails,
-          );
-        }));
+        // Navigator.push(context, MaterialPageRoute(builder: (context) {
+        //   return WatchMovies(
+        //     videoId: searchVideoItem!.id,
+        //     searchVideoDetails: searchVideoItem!.snippet,
+        //   );
+        // }));
       },
       child: Padding(
         padding: const EdgeInsets.only(left: 23.0, right: 5, bottom: 4),
@@ -1944,7 +2405,7 @@ class MovieCard extends StatelessWidget {
                 children: [
                   CachedNetworkImage(
                     imageUrl: searchVideoItem!
-                        .videoDetails!.thumbnails!.medium!.url
+                        .snippet!.thumbnails!.medium!.url
                         .toString(),
                     height: 144.h,
                     width: 266.w,
@@ -1961,12 +2422,15 @@ class MovieCard extends StatelessWidget {
                 ],
               ),
               Gap(10.h),
-              Text(
-                searchVideoItem!.videoDetails!.title.toString(),
-                style: GoogleFonts.inter(
-                    color: LightAppTheme.black2,
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w400),
+              Expanded(
+                child: Text(
+                  searchVideoItem!.snippet!.title.toString(),
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.inter(
+                      color: LightAppTheme.black2,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w400),
+                ),
               ),
             ],
           ),
@@ -2038,12 +2502,15 @@ class MountZionMovieCard extends StatelessWidget {
                 ],
               ),
               Gap(10.h),
-              Text(
-                mountZionVideoItem!.snippet!.title.toString(),
-                style: GoogleFonts.inter(
-                    color: LightAppTheme.black2,
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w400),
+              Expanded(
+                child: Text(
+                  mountZionVideoItem!.snippet!.title.toString(),
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.inter(
+                      color: LightAppTheme.black2,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w400),
+                ),
               ),
             ],
           ),
@@ -2084,8 +2551,24 @@ class ProgramsChoiceButton extends ConsumerWidget {
           if (index == 2 && programController.pAdeboyeSermonModel == null) {
             print('kkk$index');
             await programController.loadAdeboyeSermons();
-          } else {
-            //homeController.changeCurrentProgramChoice(index!);
+          }
+          if(index == 3 && programController.faSermonsModel == null){
+            await programController.loadFaSermons();
+          }
+          if(index ==10 && programController.feastofEsther
+          ==null){
+
+            await programController
+                .loadFeastOfEsther();
+          }
+
+          if(index== 5 && programController
+          .conventionVideoModel==null){
+            await programController.loadConventionVideos();
+          }
+          if(index== 6 && programController
+              .congressVideoModel==null){
+            await programController.loadCongressVideos();
           }
         },
         child: Container(
@@ -2110,7 +2593,82 @@ class ProgramsChoiceButton extends ConsumerWidget {
   }
 }
 
+class InternationalMovieCard extends StatelessWidget {
+  final InternationalMovieItem? internationalMovieItem;
+  const InternationalMovieCard ({Key? key, this.internationalMovieItem}) : super(key: key);
 
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        // Navigator.push(context, MaterialPageRoute(builder: (context) {
+        //   return WatchMovies(
+        //     videoId: searchVideoItem!.id,
+        //     searchVideoDetails: searchVideoItem!.videoDetails,
+        //   );
+        // }));
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(left: 23.0, right: 5, bottom: 4),
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 12,
+            vertical: 12,
+          ),
+          height: 218.h,
+          width: 288.w,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: LightAppTheme.white,
+            boxShadow: [
+              const BoxShadow(
+                  color: LightAppTheme.shadowColor,
+                  offset: Offset(0, 10),
+                  blurRadius: 15),
+            ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Stack(
+                alignment: Alignment.topCenter,
+                children: [
+                  CachedNetworkImage(
+                    imageUrl:  internationalMovieItem!.snippet!
+                        .thumbnails!.medium!.url
+                        .toString(),
+                    height: 144.h,
+                    width: 266.w,
+                    fit: BoxFit.cover,
+                  ),
+                  Positioned(
+                      top: 50,
+                      // left: 30,
+                      child: Image.asset(
+                        'assets/play.png',
+                        height: 40.h,
+                        width: 40.w,
+                      ))
+                ],
+              ),
+              Gap(10.h),
+              Expanded(
+                child: Text(
+                  internationalMovieItem!.snippet!.title.toString(),
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.inter(
+                      color: LightAppTheme.black2,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w400),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
 class KidsMovieCard extends StatelessWidget {
   final KidsMoviesItem?kidsMoviesItem;
   const KidsMovieCard({Key? key, this.kidsMoviesItem}) : super(key: key);
@@ -2170,12 +2728,15 @@ class KidsMovieCard extends StatelessWidget {
                 ],
               ),
               Gap(10.h),
-              Text(
-                kidsMoviesItem!.snippet!.title.toString(),
-                style: GoogleFonts.inter(
-                    color: LightAppTheme.black2,
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w400),
+              Expanded(
+                child: Text(
+                  kidsMoviesItem!.snippet!.title.toString(),
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.inter(
+                      color: LightAppTheme.black2,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w400),
+                ),
               ),
             ],
           ),
@@ -2205,6 +2766,9 @@ class MovieChoiceButton extends ConsumerWidget {
           }
           if(index == 2&& programController.kidsChristianMovies==null){
             await programController.getKidsMovies();
+          }
+          if(index ==3 && programController.internationalChristianMovies==null){
+            await programController.loadInternationalMovies();
           }
         },
         child: Container(

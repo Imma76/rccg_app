@@ -15,21 +15,21 @@ class PsfVideosList {
     this.kind,
     this.etag,
     this.nextPageToken,
-    this.psfvideos,
+    this.videoDetails,
     this.pageInfo,
   });
 
   String? kind;
   String? etag;
   String? nextPageToken;
-  List<PsfVideoItem>? psfvideos;
+  List<PsfVideoItem>? videoDetails;
   PageInfo? pageInfo;
 
   factory PsfVideosList.fromJson(Map<String, dynamic> json) => PsfVideosList(
     kind: json["kind"],
     etag: json["etag"],
     nextPageToken: json["nextPageToken"],
-    psfvideos: List<PsfVideoItem>.from(
+    videoDetails: List<PsfVideoItem>.from(
         json["items"].map((x) => PsfVideoItem.fromJson(x))),
     pageInfo: PageInfo.fromJson(json["pageInfo"]),
   );
@@ -38,7 +38,7 @@ class PsfVideosList {
     "kind": kind,
     "etag": etag,
     "nextPageToken": nextPageToken,
-    "items": List<dynamic>.from(psfvideos!.map((x) => x.toJson())),
+    "items": List<dynamic>.from(videoDetails!.map((x) => x.toJson())),
     "pageInfo": pageInfo!.toJson(),
   };
 }
@@ -48,26 +48,26 @@ class PsfVideoItem {
     this.kind,
     this.etag,
     this.id,
-    this.psfsnippet,
+    this.snippet,
   });
 
   String? kind;
   String? etag;
   String? id;
-  PsfVideo? psfsnippet;
+  PsfVideo? snippet;
 
   factory PsfVideoItem.fromJson(Map<String, dynamic> json) => PsfVideoItem(
     kind: json["kind"],
     etag: json["etag"],
     id: json["id"],
-    psfsnippet: PsfVideo.fromJson(json["snippet"]),
+    snippet: PsfVideo.fromJson(json["snippet"]),
   );
 
   Map<String, dynamic> toJson() => {
     "kind": kind,
     "etag": etag,
     "id": id,
-    "snippet": psfsnippet!.toJson(),
+    "snippet": snippet!.toJson(),
   };
 }
 

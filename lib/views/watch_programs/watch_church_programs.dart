@@ -12,10 +12,12 @@ import '../../providers/all_providers.dart';
 import '../../themes/app_theme.dart';
 
 class WatchPrograms extends ConsumerStatefulWidget {
+  final videoList;
+  final videoUrl;
   static const route ='watch programs';
-  final RccgProgramVideoItem?rccgProgramModel;
+
   const WatchPrograms({
-    Key? key,this.rccgProgramModel
+    Key? key,this.videoUrl,this.videoList
   }) : super(key: key);
 
   @override
@@ -30,7 +32,7 @@ class _WatchProgramsState extends ConsumerState<WatchPrograms> {
     super.initState();
     _isPlayerReady = true;
     _controller = YoutubePlayerController(
-        initialVideoId: widget.rccgProgramModel!.videoDetails!.resourceId!.videoId.toString(),
+        initialVideoId: widget.videoUrl.toString(),
         flags: YoutubePlayerFlags(
           mute: false,
           autoPlay: true,
@@ -76,7 +78,7 @@ class _WatchProgramsState extends ConsumerState<WatchPrograms> {
                 Navigator.pop(context);
               },
             ),
-            title: Text('Christian Movies',
+            title: Text('RCCG PROGRAMS',
                 style: GoogleFonts.inter(
                     fontSize: 18.sp,
                     fontWeight: FontWeight.w600,
@@ -92,41 +94,7 @@ class _WatchProgramsState extends ConsumerState<WatchPrograms> {
                 _isPlayerReady = true;
               },
             ),
-            // Container(
-            //   height: 281.h,
-            //  // width: 376.w,
-            //   decoration: const BoxDecoration(
-            //       color: AppTheme.white,
-            //       borderRadius: BorderRadius.only(
-            //           bottomRight: Radius.circular(20),
-            //           bottomLeft: Radius.circular(20))),
-            //   child: Column(
-            //     children: [
-            //       Image.asset('assets/program_pic.png',
-            //           width: 376.w, height: 206.h,fit: BoxFit.fill,),
-            //       Gap(15.h),
-            //       Row(
-            //         children: [
-            //           Padding(
-            //             padding:  EdgeInsets.only(left:27.w,),
-            //             child: Image.asset('assets/movie_pic.png', height: 35.h, width: 35.w),
-            //           ),
-            //           Gap(5.h),
-            //           Expanded(
-            //             child: Text('Enoch | A Biopic of Pastor E.A. Adeboye',  style: GoogleFonts.inter(
-            //                 fontWeight: FontWeight.w500, fontSize: 14.sp,color: AppTheme.black2),),
-            //           ),
-            //           Gap(10.w),
-            //           Text('Share',  style: GoogleFonts.inter(
-            //               fontWeight: FontWeight.w400, fontSize: 14.sp,color: AppTheme.black2),), Gap(10.w),
-            //           Image.asset('assets/share.png',width: 19.w,height: 16.h,),
-            //           Gap(10.w),
-            //         ],
-            //       ),
-            //
-            //     ],
-            //   ),
-            // ),
+
             Gap(27.h),
             Padding(
               padding:  EdgeInsets.only(left:27.w,right: 27.w),
@@ -136,7 +104,7 @@ class _WatchProgramsState extends ConsumerState<WatchPrograms> {
                   Spacer(),
                   GestureDetector(
                       onTap: (){
-
+                        Navigator.pop(context);
                       },
                       child: Text('View all',style: GoogleFonts.inter(fontWeight: FontWeight.w500,fontSize: 12.sp,color:  LightAppTheme.black2))),
 
@@ -147,22 +115,22 @@ class _WatchProgramsState extends ConsumerState<WatchPrograms> {
             Expanded(
               child: ListView.builder(
                 shrinkWrap:true,
-                itemCount: programController.rccgProgramModel!.videos!.length,
+                itemCount: widget.videoList!.length,
                 itemBuilder: (context,index) {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
-                      height: 108.h,
+                      height: 112.h,
                       padding: EdgeInsets.only(top: 10,bottom: 15,right: 15,left: 15),
-                      width: 375.w,
+                     // width: 375.w,
                       decoration: BoxDecoration(
-                        color: LightAppTheme.white
+                          color: LightAppTheme.white
                       ),
                       child: Row(
                         children: [
                           Column(
                             children: [
-                              CachedNetworkImage(imageUrl: programController.rccgProgramModel!.videos![index].videoDetails!.thumbnails!.medium!.url.toString()
+                              CachedNetworkImage(imageUrl:widget.videoList![index].snippet!.thumbnails!.medium!.url.toString()
                                 ,
                                 width: 136.w, height: 80.h,fit: BoxFit.cover,),
                             ],
@@ -171,17 +139,28 @@ class _WatchProgramsState extends ConsumerState<WatchPrograms> {
                           Column(
                             children: [
                               SizedBox(
-                              width:199.w,
-                              child: Text('${programController.rccgProgramModel!.videos![index].videoDetails!.title}',maxLines:2,softWrap: true, overflow: TextOverflow.clip,style: GoogleFonts.inter(fontSize: 10),)),
-                          Gap(16.h),
+                                  width:180.w,
+                                  child: Text('${widget.videoList![index].snippet!.title}',maxLines:2,softWrap: true, overflow: TextOverflow.ellipsis,style: GoogleFonts.inter(fontSize: 10),)),
+                              Gap(16.h),
                               GestureDetector(
                                 onTap:
                                     (){
                                   print('ll');
+                                  if(widget.videoList![index].id != null && widget.videoList![index].id.runtimeType != String){
+                                    _controller!.load(widget.videoList![index].id.videoId.toString());
+                                    _controller?.play();
+                                  }else{
+                                    _controller!.load(widget.videoList![index].snippet!.resourceId!.videoId.toString());
+                                    _controller?.play();
+                                  }
 
-                                  _controller!.load(programController.rccgProgramModel!.videos![index].videoDetails!.resourceId!.videoId.toString());
-                                  _controller?.play();
-                                  print(_controller!.initialVideoId);
+                  //                 if(widget.videoList![index].snippet! != null && widget.videoList![index].snippet?.resourceId != null){
+                  //
+                  //                 }else{
+                  // }
+
+
+
                                   //_controller?.reset();
 
 
@@ -193,7 +172,7 @@ class _WatchProgramsState extends ConsumerState<WatchPrograms> {
                                   height: 36.h,
                                   width: 126.w,
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(28),
+                                      borderRadius: BorderRadius.circular(28),
                                       border: Border.all(color: LightAppTheme.grey4)
                                   ),
                                   child: Center(child: Text('Watch Program',style: GoogleFonts.inter(fontWeight: FontWeight.w400,fontSize: 12.sp,color: LightAppTheme.black2))),
@@ -214,3 +193,69 @@ class _WatchProgramsState extends ConsumerState<WatchPrograms> {
     );
   }
 }
+
+
+//
+// class WatchProgramCard extends StatelessWidget {
+//   const WatchProgramCard({Key? key}) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Padding(
+//       padding: const EdgeInsets.all(8.0),
+//       child: Container(
+//         height: 108.h,
+//         padding: EdgeInsets.only(top: 10,bottom: 15,right: 15,left: 15),
+//         width: 375.w,
+//         decoration: BoxDecoration(
+//             color: LightAppTheme.white
+//         ),
+//         child: Row(
+//           children: [
+//             Column(
+//               children: [
+//                 CachedNetworkImage(imageUrl: programController.rccgProgramModel!.videos![index].videoDetails!.thumbnails!.medium!.url.toString()
+//                   ,
+//                   width: 136.w, height: 80.h,fit: BoxFit.cover,),
+//               ],
+//             ),
+//             Gap(19.w),
+//             Column(
+//               children: [
+//                 SizedBox(
+//                     width:199.w,
+//                     child: Text('${programController.rccgProgramModel!.videos![index].videoDetails!.title}',maxLines:2,softWrap: true, overflow: TextOverflow.clip,style: GoogleFonts.inter(fontSize: 10),)),
+//                 Gap(16.h),
+//                 GestureDetector(
+//                   onTap:
+//                       (){
+//                     print('ll');
+//
+//                     _controller!.load(programController.rccgProgramModel!.videos![index].videoDetails!.resourceId!.videoId.toString());
+//                     _controller?.play();
+//                     print(_controller!.initialVideoId);
+//                     //_controller?.reset();
+//
+//
+//                     setState(() {
+//
+//                     });
+//                   },
+//                   child: Container(
+//                     height: 36.h,
+//                     width: 126.w,
+//                     decoration: BoxDecoration(
+//                         borderRadius: BorderRadius.circular(28),
+//                         border: Border.all(color: LightAppTheme.grey4)
+//                     ),
+//                     child: Center(child: Text('Watch Program',style: GoogleFonts.inter(fontWeight: FontWeight.w400,fontSize: 12.sp,color: LightAppTheme.black2))),
+//                   ),
+//                 )
+//               ],
+//             )
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }

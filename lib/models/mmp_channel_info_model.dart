@@ -16,26 +16,26 @@ class MmpChannelInfo {
     this.kind,
     this.etag,
     this.pageInfo,
-    this.items,
+    this.videoDetails,
   });
 
   String? kind;
   String? etag;
   PageInfo? pageInfo;
-  List<MmpItem>? items;
+  List<MmpItem>? videoDetails;
 
   factory MmpChannelInfo.fromJson(Map<String, dynamic> json) => MmpChannelInfo(
     kind: json["kind"],
     etag: json["etag"],
     pageInfo: PageInfo.fromJson(json["pageInfo"]),
-    items: List<MmpItem>.from(json["items"].map((x) => MmpItem.fromJson(x))),
+    videoDetails: List<MmpItem>.from(json["items"].map((x) => MmpItem.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
     "kind": kind,
     "etag": etag,
     "pageInfo": pageInfo?.toJson(),
-    "items": List<dynamic>.from(items!.map((x) => x.toJson())),
+    "items": List<dynamic>.from(videoDetails!.map((x) => x.toJson())),
   };
 }
 

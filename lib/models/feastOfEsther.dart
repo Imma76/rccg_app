@@ -50,25 +50,47 @@ class FeastOfEstherVideoItem {
 
   String? kind;
   String? etag;
-  String? id;
+  Id? id;
   Snippet? snippet;
 
   factory FeastOfEstherVideoItem.fromJson(Map<String, dynamic> json) => FeastOfEstherVideoItem(
     kind: json["kind"],
     etag: json["etag"],
-    id: json["id"],
+    id: json["id"] == null ? null : Id.fromJson(json["id"]),
     snippet: json["snippet"] == null ? null : Snippet.fromJson(json["snippet"]),
   );
 
   Map<String, dynamic> toJson() => {
     "kind": kind,
     "etag": etag,
-    "id": id,
+    "id":  id?.toJson(),
     "snippet": snippet?.toJson(),
   };
 }
 
-class Snippet {
+
+
+class Id {
+  Id({
+    this.kind,
+    this.videoId,
+  });
+
+  String? kind;
+  String? videoId;
+
+  factory Id.fromJson(Map<String, dynamic> json) => Id(
+    kind: json["kind"],
+    videoId: json["videoId"],
+  );
+  Map<String, dynamic> toJson() => {
+    "kind": kind,
+    "videoId": videoId,
+  };
+}
+
+
+  class Snippet {
   Snippet({
     this.publishedAt,
     this.channelId,
