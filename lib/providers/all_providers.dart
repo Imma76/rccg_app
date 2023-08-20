@@ -5,6 +5,7 @@ import 'package:rccg_app/controllers/manual_controller.dart';
 import 'package:rccg_app/themes/app_theme.dart';
 
 import '../controllers/central_controller.dart';
+import '../controllers/event_controller.dart';
 import '../controllers/hymn_controlller.dart';
 import '../controllers/program_controllers.dart';
 
@@ -18,4 +19,5 @@ final manualProvider = ChangeNotifierProvider<ManualController
 >((ref) => ManualController());
 final appThemeProvider = ChangeNotifierProvider<AppThemeChange>((ref) => AppThemeChange());
 final hymnProvider =  ChangeNotifierProvider<HymnController>((ref) => HymnController());
+final eventProvider =  ChangeNotifierProvider<EventController>((ref) => EventController());
 
