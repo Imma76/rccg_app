@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../themes/app_theme.dart';
+import '../../widgets/dialog.dart';
 
 class LeaseApartment extends ConsumerWidget {
   static const route = 'lease';
@@ -77,9 +78,14 @@ class LeaseApartment extends ConsumerWidget {
                   ),
                   Gap(20),
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Gap(60),
-                      Text('Features to expect'),
+                      Gap(20),
+                      Text('Features to expect' ,style: GoogleFonts.inter(
+                      fontWeight: FontWeight.w600,
+                          fontSize: 16.sp,
+                          color: LightAppTheme.black)),
                     ],
                   ),
                   Gap(20),
@@ -143,6 +149,7 @@ class LeaseApartment extends ConsumerWidget {
                       onPressed: ()async {
                         // Navigator.pushNamed(context, VerifyEmail.route);
                         //   await authController.signUp();
+                        showSuccessDialogWidget(context,title: 'Congratulations',body: 'You have successfully joined our waitlist.');
                       },
                       child: Text('Join our waitlist'),
                       style: ElevatedButton.styleFrom(

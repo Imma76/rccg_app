@@ -68,70 +68,9 @@ class EventCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        // Navigator.pushNamed(
-        //     context, ViewEvents.route);
-        showDialog(context: context, builder: (context)=>Dialog(child:Container(
-          height:352.h,
-          width: 324.w,
-          child: Column(
-            children: [
-              Gap(20.h),
-              Image.asset('assets/announcement.png', height:32.h, width: 32.w,),
-          Gap(10.h),
-          Text('Notice',
-            style: GoogleFonts.inter(
-              fontWeight: FontWeight.w700,
-              color: LightAppTheme.neutralDark,
-              fontSize: 24.sp,)),
-              Gap(10.h),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  width: 276.w,
-                  child: Text('Please be informed that the automatic booking feature is under development and coming soon.',textAlign: TextAlign.center,
-                      style: GoogleFonts.inter(
-                        fontWeight: FontWeight.w400,
-                        color: LightAppTheme.grey11,
-                        fontSize: 14.sp,)),
-                ),
-              ),  Gap(10.h),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  width: 276.w,
-                  child: Text('For now, kindly call the provided contact number or visit the venue to book an apartment.',textAlign: TextAlign.center,
-                      style: GoogleFonts.inter(
-                        fontWeight: FontWeight.w400,
-                        color: LightAppTheme.grey11,
-                        fontSize: 14.sp,)),
-                ),
-              ),
-              Gap(20.h),
-              Center(
-                child: ElevatedButton(
-                  onPressed: ()async {
-                    // Navigator.pushNamed(context, VerifyEmail.route);
-                   // await authController.signUp();
-                    Navigator.pop(context);
-
-                  },
-                  child:  Text('I Understand', style: GoogleFonts.inter(
-                    fontWeight: FontWeight.w600,
-                    color: LightAppTheme.primaryColor,
-                    fontSize: 16.sp,)),
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: LightAppTheme.white,
-                      side: BorderSide(color: LightAppTheme.primaryColor),
-                      shape: RoundedRectangleBorder(
-
-                          borderRadius: BorderRadius.circular(40)),
-                      maximumSize: Size(324.w, 352.h)),
-                ),
-              ),
-            ],
-          ),
-        ),));
-      },
+        Navigator.pushNamed(
+            context, ViewEvents.route);
+       },
       child: Padding(
         padding: const EdgeInsets.only(left: 23.0, right: 23),
         child: Container(
