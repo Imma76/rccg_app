@@ -38,7 +38,11 @@ class AuthService{
 
   static Future<bool> createUser(UserModel userModel)async{
     try{
-      await Collections.users.doc(userModel.userId).set(userModel.toJson());
+      final result = await Collections.users.where("userId",isEqualTo: userModel.userId).get();
+      if(result.docs.isEmpty){
+        await Collections.users.doc(userModel.userId).set(userModel.toJson());
+      }
+
       return true;
     }catch(e){
     showToast(
@@ -49,13 +53,15 @@ class AuthService{
 
   static Future<UserModel?> getUser()async{
     try{
-      final result = await Collections.users.where("userId",isEqualTo: centralState.user!.uid).get();
+      final result = await Collections.users.where("userId",isEqualTo: FirebaseAuth.instance.currentUser!.uid).get();
+   ;
       if(result.docs.isNotEmpty){
         return UserModel.fromJson(result.docs[0].data()as Map<String,dynamic>);
       }
       return null;
 
     }catch(e){
+      print(e.toString());
       return null;
     }
   }

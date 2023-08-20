@@ -61,165 +61,277 @@ class _RccgProgramState extends ConsumerState<RccgProgram> {
                   fontWeight: FontWeight.w600,
                   color: LightAppTheme.black2))),
       body: Column(children: [
-        Padding(
-          padding: EdgeInsets.only(left: 23.w, right: 23.w),
-          child: SizedBox(
-              height: 45,
-              child: AppTextField(
-                controller: programController.programSearchController,
-                onTap: (String query) {
-                  // searchVideo(String query) {
-                  if (homeController.currentProgramChoice == 0) {
-                    final videos = programController
-                        .rccgProgramModel!.videoDetails!
-                        .where((video) {
-                      final titleLower = video.snippet!.title!.toLowerCase();
-                      final searchLower = query.toLowerCase();
-                      return titleLower!.contains(searchLower);
-                    }).toList();
-                    setState(() {
-                      if (query.isEmpty) {
-                        programController.loadProgramVideos();
-                      } else {
-                        programController.getSearchedProgramDetails(videos);
+        Row(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(left: 23.w, right: 23.w),
+              child: SizedBox(
+                  height: 45,
+                  width: 287.w,
+                  child: AppTextField(
+                    controller: programController.programSearchController,
+                    onTap: (String query) {
+                      // searchVideo(String query) {
+                      if (homeController.currentProgramChoice == 0) {
+                        final videos = programController
+                            .rccgProgramModel!.videoDetails!
+                            .where((video) {
+                          final titleLower = video.snippet!.title!.toLowerCase();
+                          final searchLower = query.toLowerCase();
+                          return titleLower!.contains(searchLower);
+                        }).toList();
+                        setState(() {
+                          if (query.isEmpty) {
+                            programController.loadProgramVideos();
+                          } else {
+                            programController.getSearchedProgramDetails(videos);
+                          }
+                        });
                       }
-                    });
-                  }
-                  if (homeController.currentProgramChoice == 2) {
-                    final videos = programController
-                        .pAdeboyeSermonModel!.videoDetails!
-                        .where((video) {
-                      final titleLower = video.snippet!.title!.toLowerCase();
-                      final searchLower = query.toLowerCase();
-                      return titleLower!.contains(searchLower);
-                    }).toList();
-                    setState(() {
-                      if (query.isEmpty) {
-                        programController.loadAdeboyeSermons();
-                      } else {
-                        programController.getSearchedPASermons(videos);
+                      if (homeController.currentProgramChoice == 2) {
+                        final videos = programController
+                            .pAdeboyeSermonModel!.videoDetails!
+                            .where((video) {
+                          final titleLower = video.snippet!.title!.toLowerCase();
+                          final searchLower = query.toLowerCase();
+                          return titleLower!.contains(searchLower);
+                        }).toList();
+                        setState(() {
+                          if (query.isEmpty) {
+                            programController.loadAdeboyeSermons();
+                          } else {
+                            programController.getSearchedPASermons(videos);
+                          }
+                        });
                       }
-                    });
-                  }
-                  if (homeController.currentProgramChoice == 3) {
-                    final videos = programController
-                        .faSermonsModel!.videoDetails!
-                        .where((video) {
-                      final titleLower = video.snippet!.title!.toLowerCase();
-                      final searchLower = query.toLowerCase();
-                      return titleLower!.contains(searchLower);
-                    }).toList();
-                    setState(() {
-                      if (query.isEmpty) {
-                        programController.loadFaSermons();
-                      } else {
-                        programController.getSearchedMFaSermons(videos);
+                      if (homeController.currentProgramChoice == 3) {
+                        final videos = programController
+                            .faSermonsModel!.videoDetails!
+                            .where((video) {
+                          final titleLower = video.snippet!.title!.toLowerCase();
+                          final searchLower = query.toLowerCase();
+                          return titleLower!.contains(searchLower);
+                        }).toList();
+                        setState(() {
+                          if (query.isEmpty) {
+                            programController.loadFaSermons();
+                          } else {
+                            programController.getSearchedMFaSermons(videos);
+                          }
+                        });
                       }
-                    });
-                  }
-                  if (homeController.currentProgramChoice == 4) {
-                    final videos = programController
-                        .holyGhostServiceModel!.videoDetails!
-                        .where((video) {
-                      final titleLower = video.snippet!.title!.toLowerCase();
-                      final searchLower = query.toLowerCase();
-                      return titleLower!.contains(searchLower);
-                    }).toList();
-                    setState(() {
-                      if (query.isEmpty) {
-                        programController.loadHolyGhostService();
-                      } else {
-                        programController.getSearchedHHolyGhostDetails(videos);
+                      if (homeController.currentProgramChoice == 4) {
+                        final videos = programController
+                            .holyGhostServiceModel!.videoDetails!
+                            .where((video) {
+                          final titleLower = video.snippet!.title!.toLowerCase();
+                          final searchLower = query.toLowerCase();
+                          return titleLower!.contains(searchLower);
+                        }).toList();
+                        setState(() {
+                          if (query.isEmpty) {
+                            programController.loadHolyGhostService();
+                          } else {
+                            programController.getSearchedHHolyGhostDetails(videos);
+                          }
+                        });
                       }
-                    });
-                  }
 
-                  if (homeController.currentProgramChoice == 5) {
-                    final videos = programController
-                        .conventionVideoModel!.videoDetails!
-                        .where((video) {
-                      final titleLower = video.snippet!.title!.toLowerCase();
-                      final searchLower = query.toLowerCase();
-                      return titleLower!.contains(searchLower);
-                    }).toList();
-                    setState(() {
-                      if (query.isEmpty) {
-                        programController.loadConventionVideos();
-                      } else {
-                        programController.getSearchedConventionDetails(videos);
+                      if (homeController.currentProgramChoice == 5) {
+                        final videos = programController
+                            .conventionVideoModel!.videoDetails!
+                            .where((video) {
+                          final titleLower = video.snippet!.title!.toLowerCase();
+                          final searchLower = query.toLowerCase();
+                          return titleLower!.contains(searchLower);
+                        }).toList();
+                        setState(() {
+                          if (query.isEmpty) {
+                            programController.loadConventionVideos();
+                          } else {
+                            programController.getSearchedConventionDetails(videos);
+                          }
+                        });
                       }
-                    });
-                  }
-                  if (homeController.currentProgramChoice == 6) {
-                    final videos = programController
-                        .congressVideoModel!.videoDetails!
-                        .where((video) {
-                      final titleLower = video.snippet!.title!.toLowerCase();
-                      final searchLower = query.toLowerCase();
-                      return titleLower!.contains(searchLower);
-                    }).toList();
-                    setState(() {
-                      if (query.isEmpty) {
-                        programController.loadCongressVideos();
-                      } else {
-                        programController.getSearchedCongressDetails(videos);
+                      if (homeController.currentProgramChoice == 6) {
+                        final videos = programController
+                            .congressVideoModel!.videoDetails!
+                            .where((video) {
+                          final titleLower = video.snippet!.title!.toLowerCase();
+                          final searchLower = query.toLowerCase();
+                          return titleLower!.contains(searchLower);
+                        }).toList();
+                        setState(() {
+                          if (query.isEmpty) {
+                            programController.loadCongressVideos();
+                          } else {
+                            programController.getSearchedCongressDetails(videos);
+                          }
+                        });
                       }
-                    });
-                  }
-                  if (homeController.currentProgramChoice == 7) {
-                    final videos = programController
-                        .psfVideosList!.videoDetails!
-                        .where((video) {
-                      final titleLower = video.snippet!.title!.toLowerCase();
-                      final searchLower = query.toLowerCase();
-                      return titleLower!.contains(searchLower);
-                    }).toList();
-                    setState(() {
-                      if (query.isEmpty) {
-                        programController.loadPsfVideos();
-                      } else {
-                        programController.getSearchedPsfDetails(videos);
+                      if (homeController.currentProgramChoice == 7) {
+                        final videos = programController
+                            .psfVideosList!.videoDetails!
+                            .where((video) {
+                          final titleLower = video.snippet!.title!.toLowerCase();
+                          final searchLower = query.toLowerCase();
+                          return titleLower!.contains(searchLower);
+                        }).toList();
+                        setState(() {
+                          if (query.isEmpty) {
+                            programController.loadPsfVideos();
+                          } else {
+                            programController.getSearchedPsfDetails(videos);
+                          }
+                        });
                       }
-                    });
-                  }
-                  if (homeController.currentProgramChoice == 8) {
-                    final videos = programController
-                        .youthConventionModel!.videoDetails!
-                        .where((video) {
-                      final titleLower = video.snippet!.title!.toLowerCase();
-                      final searchLower = query.toLowerCase();
-                      return titleLower!.contains(searchLower);
-                    }).toList();
-                    setState(() {
-                      if (query.isEmpty) {
-                        programController.loadYouthConvention();
-                      } else {
-                        programController.getSearchedYouthDetails(videos);
+                      if (homeController.currentProgramChoice == 8) {
+                        final videos = programController
+                            .youthConventionModel!.videoDetails!
+                            .where((video) {
+                          final titleLower = video.snippet!.title!.toLowerCase();
+                          final searchLower = query.toLowerCase();
+                          return titleLower!.contains(searchLower);
+                        }).toList();
+                        setState(() {
+                          if (query.isEmpty) {
+                            programController.loadYouthConvention();
+                          } else {
+                            programController.getSearchedYouthDetails(videos);
+                          }
+                        });
                       }
-                    });
-                  }
-                  if (homeController.currentProgramChoice == 9) {
-                    final videos = programController
-                        .psfVideosList!.videoDetails!
-                        .where((video) {
-                      final titleLower = video.snippet!.title!.toLowerCase();
-                      final searchLower = query.toLowerCase();
-                      return titleLower!.contains(searchLower);
-                    }).toList();
-                    setState(() {
-                      if (query.isEmpty) {
-                        programController.loadPsfVideos();
-                      } else {
-                        programController.getSearchedPsfDetails(videos);
+                      if (homeController.currentProgramChoice == 9) {
+                        final videos = programController
+                            .psfVideosList!.videoDetails!
+                            .where((video) {
+                          final titleLower = video.snippet!.title!.toLowerCase();
+                          final searchLower = query.toLowerCase();
+                          return titleLower!.contains(searchLower);
+                        }).toList();
+                        setState(() {
+                          if (query.isEmpty) {
+                            programController.loadPsfVideos();
+                          } else {
+                            programController.getSearchedPsfDetails(videos);
+                          }
+                        });
                       }
-                    });
-                  }
+                    },
+                    hintText: 'Search for a RCCG Program',
+                    prefixIcon: Icon(Icons.search, color: LightAppTheme.black),
+                    backGroundColor: LightAppTheme.white,
+                    borderColor: LightAppTheme.white6,
+                  )),
+            ),
+            GestureDetector(
+                onTap: (){
+                  showDialog(context: context, builder: (context)=>Dialog(
+                    child: Container(
+                      height: 374,width:324,
+
+                      decoration: BoxDecoration(
+                          color: LightAppTheme.white,borderRadius: BorderRadius.circular(13)
+                      ),
+                      child: Column(children: [
+                        Gap(18.h),
+                        Center(child: Text('Search Filter', style: GoogleFonts.inter(
+                            color: LightAppTheme.black2,
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.w600),)),
+                        Gap(14.h),
+                        Container(height: 1,width: double.infinity,color: LightAppTheme.lightPurple3,),
+                        Gap(21.h),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text('Sort by'),
+                                Gap(42.h),
+                                Text('Type'),
+                                Gap(42.h),
+                                Text('Upload Date'),
+                                Gap(42.h),
+                                Text('Duration'),
+                                Gap(42.h),
+                              ],
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Relevance'),
+                                Gap(42.h),
+                                Text('All'),
+                                Gap(42.h),
+                                Text('Anytime'),
+                                Gap(42.h),
+                                Text('Anytime'),
+                              ],
+                            ),
+
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Gap(3),
+                                RotatedBox(
+                                    quarterTurns: 5,
+                                    child: Icon(Icons.arrow_forward_ios_rounded, size: 13,)),    Gap(42.h),Gap(5),
+                                RotatedBox(
+                                    quarterTurns: 5,
+                                    child: Icon(Icons.arrow_forward_ios_rounded, size: 13,)), Gap(42.h),
+                                Gap(3),
+                                RotatedBox(
+                                    quarterTurns: 5,
+                                    child: Icon(Icons.arrow_forward_ios_rounded, size: 13,)), Gap(42.h),
+                                Gap(3),
+                                RotatedBox(
+                                    quarterTurns: 5,
+                                    child: Icon(Icons.arrow_forward_ios_rounded, size: 13,)),
+                              ],
+                            ),
+                          ],),
+                        Container(height: 1,width: double.infinity,color: LightAppTheme.lightPurple3,),
+                        Gap(16)
+                        ,                              Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            GestureDetector(
+                              onTap:(){
+                                Navigator.pop(context)
+                                ;                          },
+                              child: Text('CANCEL',style: GoogleFonts.inter(
+                                  color: LightAppTheme.black2,
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w400)),
+                            ),
+                            Gap(50),
+                            GestureDetector(
+                              onTap:(){
+                                Navigator.pop(context);
+                              },
+                              child: Text('APPLY',style: GoogleFonts.inter(
+                                  color: LightAppTheme.primaryColor,
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w400)),
+                            ),
+                            Gap(20),
+                          ],)
+
+
+
+                      ],),
+                    ),
+
+                  ));
                 },
-                hintText: 'Search for a RCCG Program',
-                prefixIcon: Icon(Icons.search, color: LightAppTheme.black),
-                backGroundColor: LightAppTheme.white,
-                borderColor: LightAppTheme.white6,
-              )),
+                child: Image.asset('assets/filter.png', height:32.h, width: 32.w,)),
+          ],
         ),
         Gap(27.h),
         Padding(

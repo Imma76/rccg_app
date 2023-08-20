@@ -14,7 +14,7 @@ class UserController extends ChangeNotifier{
 
     centralState.startLoading();
     user= await AuthService.getUser();
-
+    print('userrr $user');
     centralState.stopLoading();
 
     notifyListeners();

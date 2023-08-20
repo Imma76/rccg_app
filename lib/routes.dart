@@ -8,6 +8,15 @@ import 'package:rccg_app/views/authentication/password_changed_done.dart';
 import 'package:rccg_app/views/authentication/verify_done.dart';
 import 'package:rccg_app/views/authentication/verify_email.dart';
 import 'package:rccg_app/views/base/base.dart';
+import 'package:rccg_app/views/base/home.dart';
+import 'package:rccg_app/views/charlet/charlets.dart';
+import 'package:rccg_app/views/charlet/lease_apartment.dart';
+import 'package:rccg_app/views/charlet/suite_details.dart';
+import 'package:rccg_app/views/events/events.dart';
+import 'package:rccg_app/views/events/view_events.dart';
+import 'package:rccg_app/views/hymns/hymns.dart';
+import 'package:rccg_app/views/hymns/hymns_section.dart';
+import 'package:rccg_app/views/hymns/read_hymns.dart';
 import 'package:rccg_app/views/manuals/rccg_manuals.dart';
 import 'package:rccg_app/views/manuals/read_manuals.dart';
 import 'package:rccg_app/views/onboarding/onboarding1.dart';
@@ -31,5 +40,14 @@ final Map<String, WidgetBuilder> routes = {
   WatchPrograms.route:(context)=>const WatchPrograms(),
   WatchMovies.route:(context)=>const WatchMovies(),
   RccgManual.route:(context)=>RccgManual(),
-  ReadManuals.route:(context)=>ReadManuals()
+  ReadManuals.route:(context)=>ReadManuals(),
+  RccgCharlets.route:(context)=>RccgCharlets(),
+  LeaseApartment.route:(context)=>LeaseApartment(),
+  RccgEvents.route:(context)=>RccgEvents(),
+  RccgHymns.route:(context)=>RccgHymns(),
+  HymnsSection.route:(context)=>HymnsSection(),
+  ReadHymns.route:(context)=>ReadHymns(),
+  ViewEvents.route:(context)=>ViewEvents(),
+  Home.route:(context)=>Home(),
+  SuiteDetails.route:(context)=> SuiteDetails()
 };

@@ -30,7 +30,7 @@ class _ReadManualsState extends ConsumerState<ReadManuals> {
   Widget build(BuildContext context) {
     final manualController= ref.watch(manualProvider);
     return Scaffold(
-      backgroundColor: LightAppTheme.primaryColor,
+      backgroundColor:manualController.isDarkMode?LightAppTheme.dark3: LightAppTheme.lightBlue,
 
        appBar: PreferredSize(
            preferredSize: Size.fromHeight(161.0), // here the desired height
@@ -39,11 +39,10 @@ class _ReadManualsState extends ConsumerState<ReadManuals> {
 
                AppBar(
                  elevation: 0.0,
-                 backgroundColor: LightAppTheme.primaryColor,
+                 backgroundColor:manualController.isDarkMode?LightAppTheme.dark3: LightAppTheme.lightBlue,
                    leading: IconButton(
-                     icon: const Icon(
-                       Icons.arrow_back_ios_rounded,
-                       color: LightAppTheme.white
+                     icon: Icon(
+                       Icons.arrow_back_ios_rounded,color:manualController.isDarkMode?LightAppTheme.white:LightAppTheme.black
                        ,
                      ),
                      onPressed: () {
@@ -54,7 +53,7 @@ class _ReadManualsState extends ConsumerState<ReadManuals> {
                        style: GoogleFonts.inter(
                            fontSize: 18.sp,
                            fontWeight: FontWeight.w600,
-                           color: LightAppTheme.white))
+                           color: manualController.isDarkMode?LightAppTheme.white:LightAppTheme.black))
                ),
                Gap(10.h),
                Center(
@@ -62,8 +61,8 @@ class _ReadManualsState extends ConsumerState<ReadManuals> {
                    width: 320.w,
                    height: 44.9.h,
                    decoration: BoxDecoration(
-                     border: Border.all(color: LightAppTheme.white.withOpacity(0.2)),
-                       color: LightAppTheme.primaryColor,
+
+                       color: manualController.isDarkMode?LightAppTheme.dark:LightAppTheme.white6,
                        borderRadius: BorderRadius.circular(22)),
                    child: Center(
                      child: Row(
@@ -75,16 +74,17 @@ class _ReadManualsState extends ConsumerState<ReadManuals> {
                              height: 40.34.h,
                              width: 150.w,
                              child: Card(
+                                 color: manualController.isDarkMode?LightAppTheme.dark2:LightAppTheme.white,
                                shape: RoundedRectangleBorder(
                                    borderRadius:
                                    BorderRadius.circular(17)),
                                child: Center(
                                    child: Text(
-                                     'Today\'s Message',
+                                     'Message',
                                      style: GoogleFonts.inter(
-                                         fontSize: 13.sp,
-                                         fontWeight: FontWeight.w600,
-                                         color: LightAppTheme.primary2),
+                                         fontSize: 16.sp,
+                                         fontWeight: FontWeight.w500,
+                                         color: manualController.isDarkMode?LightAppTheme.white:LightAppTheme.black3),
                                    )),
                              ))
                              : GestureDetector(
@@ -98,27 +98,28 @@ class _ReadManualsState extends ConsumerState<ReadManuals> {
                                  width: 150.w,
                                  child: Center(
                                      child: Text(
-                                       'Today\'s Message',
+                                       'Message',
                                        style: GoogleFonts.inter(
-                                           fontSize: 13.sp,
-                                           fontWeight: FontWeight.w400,
-                                           color: LightAppTheme.grey7),
+                                           fontSize: 16.sp,
+                                           fontWeight: FontWeight.w500,
+                                           color: manualController.isDarkMode?LightAppTheme.white:LightAppTheme.grey10),
                                      )))),
                          manualController.currentIndex == 1
                              ? SizedBox(
                              height: 40.34.h,
                              width: 150.w,
                              child: Card(
+                               color: manualController.isDarkMode?LightAppTheme.dark2:LightAppTheme.white,
                                shape: RoundedRectangleBorder(
                                    borderRadius:
                                    BorderRadius.circular(17)),
                                child: Center(
                                    child: Text(
-                                     'Today\'s Hymn',
+                                     'Hymn',
                                      style: GoogleFonts.inter(
-                                         fontSize: 13.sp,
+                                         fontSize: 16.sp,
                                          fontWeight: FontWeight.w600,
-                                         color: LightAppTheme.primary2),
+                                         color: manualController.isDarkMode?LightAppTheme.white:LightAppTheme.black3),
                                    )),
                              ))
                              : GestureDetector(
@@ -130,11 +131,11 @@ class _ReadManualsState extends ConsumerState<ReadManuals> {
                                  width: 150.w,
                                  child: Center(
                                      child: Text(
-                                       'Today\'s Hymn',
+                                       'Hymn',
                                        style: GoogleFonts.inter(
-                                           fontSize: 13.sp,
-                                           fontWeight: FontWeight.w400,
-                                           color: LightAppTheme.grey7),
+                                           fontSize: 16.sp,
+                                           fontWeight: FontWeight.w500,
+                                           color: manualController.isDarkMode?LightAppTheme.white:LightAppTheme.grey10),
                                      ))))
                        ],
                      ),
@@ -163,7 +164,7 @@ class _ReadManualsState extends ConsumerState<ReadManuals> {
                         width: 375.w,
 
                         decoration: BoxDecoration(
-                            color: LightAppTheme.white,
+                            color: manualController.isDarkMode?LightAppTheme.dark2:LightAppTheme.white,
                             borderRadius: BorderRadius
                         .only(topRight: Radius.circular(24),topLeft: Radius.circular(24))),
                         child: Column(
@@ -177,12 +178,21 @@ class _ReadManualsState extends ConsumerState<ReadManuals> {
                                 crossAxisAlignment:
                                 CrossAxisAlignment.center,
                                 children: [
-                                  Image.asset('assets/light_mode.png',width:28.w,height:24.h),
-                                  Gap(10.w),
-                                  Text('Light Mode', style: GoogleFonts.inter(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w600,
-                                      color: LightAppTheme.grey8),),
+                                  GestureDetector(
+                                    onTap: (){
+                                      manualController.changeTheme(false);
+                                      state((){});
+                                    },
+                                    child: Row(
+                                      children: [
+                                        Image.asset('assets/light_mode2.png',width:28.w,height:24.h, color: !manualController.isDarkMode?LightAppTheme.grey8:LightAppTheme.white,),  Gap(10.w),
+                                        Text('Light Mode', style: GoogleFonts.inter(
+                                            fontSize: 14.sp,
+                                            fontWeight: FontWeight.w600,
+                                            color: LightAppTheme.grey8),),
+                                      ],
+                                    ),
+                                  ),
                                   Gap(35.w),
                                   Container(
                                     height: 66.0,
@@ -190,12 +200,21 @@ class _ReadManualsState extends ConsumerState<ReadManuals> {
                                     color: LightAppTheme.grey4,
                                   ),
                                   Gap(35.w),
-                                  Image.asset('assets/dark_mode.png',width:28.w,height:24.h),
-                                  Gap(10.w),
-                                  Text('Dark Mode', style: GoogleFonts.inter(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w600,
-                                      color: LightAppTheme.grey8),),
+                              GestureDetector(
+                                onTap: (){
+                                  manualController.changeTheme(true);
+                                  state((){});
+                                },
+                                child: Row(
+                                  children: [
+                                    Image.asset('assets/dark_mode.png',width:28.w,height:24.h,color: manualController.isDarkMode?LightAppTheme.white:null,),  Gap(10.w),
+                                    Text('Dark Mode', style: GoogleFonts.inter(
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.w600,
+                                        color: LightAppTheme.grey8),)
+                                  ],
+                                ),
+                              )
                                   // Gap(61.w),
                                 ],
                               ),
@@ -211,7 +230,7 @@ class _ReadManualsState extends ConsumerState<ReadManuals> {
                               child: Text('Increase Font Size', style: GoogleFonts.inter(
                                   fontSize: 16.sp,
                                   fontWeight: FontWeight.w400,
-                                  color: LightAppTheme.black2),),
+                                  color:  manualController.isDarkMode?LightAppTheme.white:LightAppTheme.black2),),
                             ),
                             Gap(13.h),
                             Row(
@@ -219,16 +238,16 @@ class _ReadManualsState extends ConsumerState<ReadManuals> {
                               CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Gap(25.w), Image.asset('assets/text_decrease.png',width:28.w,height:24.h),
+                                Gap(25.w), Image.asset('assets/text_decrease.png',width:28.w,height:24.h, color: manualController.isDarkMode?LightAppTheme.white:null),
                                 Gap(25.w),
                                 Expanded(
                                   child: SliderTheme(
-                                    data:const SliderThemeData(
+                                    data: SliderThemeData(
 
-                                      thumbColor: LightAppTheme.primaryColor,
+                                      thumbColor:  manualController.isDarkMode?LightAppTheme.white:LightAppTheme.primaryColor,
                                       trackHeight: 2,
-                                      activeTrackColor: LightAppTheme.primaryColor,
-                                      inactiveTrackColor:LightAppTheme.primaryColor,
+                                      activeTrackColor:  manualController.isDarkMode?LightAppTheme.white:LightAppTheme.primaryColor,
+                                      inactiveTrackColor: manualController.isDarkMode?LightAppTheme.white:LightAppTheme.primaryColor,
                                     ),
                                     child: Slider(
                                         min: 10,max: 100,
@@ -239,7 +258,7 @@ class _ReadManualsState extends ConsumerState<ReadManuals> {
                                          state((){});
                                     }),
                                   ),
-                                ),   Gap(25.w),Image.asset('assets/text_increase.png',width:28.w,height:24.h),
+                                ),   Gap(25.w),Image.asset('assets/text_increase.png',width:28.w,height:24.h, color:manualController.isDarkMode?LightAppTheme.white:null),
                                 Gap(25.w),
                               ],
                             ),
@@ -260,14 +279,14 @@ class _ReadManualsState extends ConsumerState<ReadManuals> {
                                   CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Image.asset('assets/cancel.png',width:28.w,height:24.h),
+                                    Image.asset('assets/cancel.png',width:24.w,height:20.h,color: manualController.isDarkMode?LightAppTheme.white:null),
 
                                     Gap(10.w),
 
                                     Text('Close', style: GoogleFonts.inter(
                                         fontSize: 16.sp,
                                         fontWeight: FontWeight.w400,
-                                        color: LightAppTheme.primaryColor),),
+                                        color:  manualController.isDarkMode?LightAppTheme.white:LightAppTheme.primaryColor),),
                                   ],
                                 ),
                               ),
@@ -300,52 +319,61 @@ class _ReadManualsState extends ConsumerState<ReadManuals> {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: BoxDecoration(color: LightAppTheme.white,borderRadius: BorderRadius.only(topRight:Radius.circular(30),topLeft:Radius.circular(30))),
+        decoration: BoxDecoration(color: manualController.isDarkMode?LightAppTheme.dark:LightAppTheme.white,borderRadius: BorderRadius.only(topRight:Radius.circular(30),topLeft:Radius.circular(30))),
         child: Padding(
           padding: EdgeInsets.only(left:25.0.w,right: 25.w),
           child: SingleChildScrollView(
             child:manualController.currentIndex==1?ReadHymns(): Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+
+
+                Gap(33.h),
+                Center(
+                  child: ManualTextHeading(
+                    heading: 'Topic',
+                    body: 'Who Do You Listen To?',
+                  ),
+                ),
+
+                Gap(13.h),
+                Container(
+                  height: 0.5,
+                  width: double.infinity,
+                  color: LightAppTheme.grey4,
+                ),
                 Gap(33.h),
                 ManualTextHeading(
-                  heading: 'DATE',
+                  heading: 'Date',
                   body: '29th March 2023',
                 ),
                 Gap(33.h),
                 ManualTextHeading(
-                  heading: 'MEMORY VERSE',
+                  heading: 'Memory Verse',
                   body: '“My son, if sinners entice thee, consent thou not.” – Proverbs 1:10 (KJV)',
                 ),
-                Gap(33.h),
-                ManualTextHeading(
-                  heading: 'READ',
-                  body: '2 Samuel 13:1-15, 23-28 (KJV)',
-                ),
+                // Gap(33.h),
+                // ManualTextHeading(
+                //   heading: 'Read',
+                //   body: '2 Samuel 13:1-15, 23-28 (KJV)',
+                // ),
                 Gap(33.h),
 
 
                 ManualTextHeading(
-                  heading: 'BIBLE IN ONE YEAR',
+                  heading: 'Bible Verse',
                   body: '1 Samuel 22-24',
                 ),
-                Gap(33.h),
-                Container(
-                  height: 1,
-                  width: double.infinity,
-                  color: LightAppTheme.grey4,
-                ),
+
                 Gap(20.h),
-                Center(
-                  child: Text(' Today’s  Message:',   style: GoogleFonts.inter(
-                      color: LightAppTheme.black2,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w600),),
-                ),
+                Text('Message:',   style: GoogleFonts.inter(
+                    color: manualController.isDarkMode?LightAppTheme.white: LightAppTheme.black2,
+                    fontSize:manualController.slideValue,
+                    fontWeight: FontWeight.w600),),
                 Gap(20.h),
                 Text('There is tremendous power in what you allow through your ears into your life. Believe me honestly, what you listen to has the power to shape your beliefs and actions. That is why Romans 10:17 says that faith comes by hearing. Interestingly, fear also comes by hearing. What you hear can determine what you become. This is why you must choose who you listen to carefully. When you notice that there is someone whose words leave your heart worse than it was before you listened to him or her, please stay away from that fellow immediately.',style: GoogleFonts.inter(
-                    color: LightAppTheme.black2,
-                    fontSize: 16.sp,
+                    color:manualController.isDarkMode?LightAppTheme.white: LightAppTheme.black2,
+                    fontSize: manualController.slideValue,
                     fontWeight: FontWeight.w400),)
               ],
             ),
@@ -357,7 +385,7 @@ class _ReadManualsState extends ConsumerState<ReadManuals> {
   }
 }
 
-class ManualTextHeading extends StatelessWidget {
+class ManualTextHeading extends ConsumerWidget {
   final String? heading;
   final String? body;
   const ManualTextHeading({
@@ -365,14 +393,15 @@ class ManualTextHeading extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
+    final manualController= ref.watch(manualProvider);
     return RichText(
         textAlign: TextAlign.left,
         text: TextSpan(
             text: '$heading: ',
             style: GoogleFonts.inter(
-                color: LightAppTheme.black2,
-                fontSize: 16.sp,
+                color: manualController.isDarkMode?LightAppTheme.white: LightAppTheme.black2,
+                fontSize:manualController.slideValue,
                 fontWeight: FontWeight.w600),
             children: [
 
@@ -380,8 +409,8 @@ class ManualTextHeading extends StatelessWidget {
                   text:
                   '$body',
                   style: GoogleFonts.inter(
-                      color: LightAppTheme.black2,
-                      fontSize: 16.sp,
+                      color: manualController.isDarkMode?LightAppTheme.white: LightAppTheme.black2,
+                      fontSize: manualController.slideValue,
                       fontWeight: FontWeight.w400)),
             ]));
   }

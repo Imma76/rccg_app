@@ -9,6 +9,7 @@ import 'package:rccg_app/providers/all_providers.dart';
 import 'package:rccg_app/routes.dart';
 import 'package:rccg_app/themes/app_theme.dart';
 import 'package:rccg_app/views/base/base.dart';
+import 'package:rccg_app/views/base/home.dart';
 import 'package:rccg_app/views/onboarding/welcome_page.dart';
 import 'package:rccg_app/widgets/loader.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -82,8 +83,6 @@ class _LoadAppState extends ConsumerState<LoadApp> {
     super.initState();
     ref.read(centralProvider).initializeApp();
     ref.read(authProvider);
-
-
   }
   @override
   Widget build(BuildContext context) {
@@ -91,20 +90,15 @@ class _LoadAppState extends ConsumerState<LoadApp> {
     final authController =ref.watch(authProvider);
     if(!centralController
         .isConnectionStable){
-      return NoInternetConnection();
+      return const NoInternetConnection();
     }
     if(centralController.isAppLoading){
-
-      return Scaffold(body:Indicator());
+      return const Scaffold(body:Indicator());
     }
     if(centralController.isUserPresent && centralController.user!.emailVerified){
-
-      return Base();
+      return const Home();
     }
-
-
-    return Welcome();
-
+    return const Welcome();
   }
 }
 
@@ -117,37 +111,35 @@ class NoInternetConnection extends ConsumerWidget {
       final centralController = ref.watch(centralProvider);
     return Scaffold(
       body: Center(
-        child: Container(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset('assets/no_internet.png'),
-                Text(
-                 'No internet connection',
-                  textAlign: TextAlign.center,
-                ),
-               Gap(20.h),
-            Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  centralController.checkInternetConnection();
-                },
-                child: Text(
-                  'Retry',
-                  style: GoogleFonts.inter(
-                      fontWeight: FontWeight.w600, fontSize: 16.sp),
-                ),
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: LightAppTheme.primaryColor,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40)),
-                    minimumSize: Size(329.w, 52.h)),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset('assets/no_internet.png'),
+              const Text(
+               'No internet connection',
+                textAlign: TextAlign.center,
               ),
-            )
-              ],
+             Gap(20.h),
+          Center(
+            child: ElevatedButton(
+              onPressed: () {
+                centralController.checkInternetConnection();
+              },
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: LightAppTheme.primaryColor,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40)),
+                  minimumSize: Size(329.w, 52.h)),
+              child: Text(
+                'Retry',
+                style: GoogleFonts.inter(
+                    fontWeight: FontWeight.w600, fontSize: 16.sp),
+              ),
             ),
+          )
+            ],
           ),
         ),
       ),

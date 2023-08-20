@@ -33,150 +33,148 @@ int index = 0;
   Widget build(BuildContext context) {
     final authController = ref.watch(authProvider);
 
-    return SafeArea(
-      child: Scaffold(
-          backgroundColor: LightAppTheme.white,
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Gap(75.h),
-              Center(
-                  child: Image.asset('assets/app_logo.png',
-                      height: 56.h, width: 56.w)),
-              Gap(20.h),
-              Center(
-                  child: Text(
-                'Create your account',
-                style: GoogleFonts.inter(
-                    fontSize: 20.sp, fontWeight: FontWeight.w600),
-              )),
-              Gap(16.h),
-              Center(
-                child: Container(
-                  width: 330.w,
-                  height: 44.9.h,
-                  decoration: BoxDecoration(
-                      color: LightAppTheme.lightBlue,
-                      borderRadius: BorderRadius.circular(22)),
-                  child: Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                   index == 0
-                            ? SizedBox(
-                                height: 35.34.h,
-                                width: 150.w,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      boxShadow: const [
-                                        BoxShadow(
-                                          offset: Offset(0, 13),
-                                          blurRadius: 25,
-                                          color: Color.fromARGB(14, 14, 14, 0),
-                                        ),
-                                      ],
-                                    color: LightAppTheme.white,
-                                      borderRadius:
-                                            BorderRadius.circular(17)
-                                  ),
-                                  // shape: RoundedRectangleBorder(
-                                  //     borderRadius:
-                                  //         BorderRadius.circular(17)),
+    return Scaffold(
+        backgroundColor: LightAppTheme.white,
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Gap(75.h),
+            Center(
+                child: Image.asset('assets/app_logo.png',
+                    height: 56.h, width: 56.w)),
+            Gap(20.h),
+            Center(
+                child: Text(
+              'Create your account',
+              style: GoogleFonts.inter(
+                  fontSize: 20.sp, fontWeight: FontWeight.w600),
+            )),
+            Gap(16.h),
+            Center(
+              child: Container(
+                width: 330.w,
+                height: 44.9.h,
+                decoration: BoxDecoration(
+                    color: LightAppTheme.lightBlue,
+                    borderRadius: BorderRadius.circular(22)),
+                child: Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                 index == 0
+                          ? SizedBox(
+                              height: 35.34.h,
+                              width: 150.w,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    boxShadow: const [
+                                      BoxShadow(
+                                        offset: Offset(0, 13),
+                                        blurRadius: 25,
+                                        color: Color.fromARGB(14, 14, 14, 0),
+                                      ),
+                                    ],
+                                  color: LightAppTheme.white,
+                                    borderRadius:
+                                          BorderRadius.circular(17)
+                                ),
+                                // shape: RoundedRectangleBorder(
+                                //     borderRadius:
+                                //         BorderRadius.circular(17)),
+                                child: Center(
+                                    child: Text(
+                                  'Register',
+                                  style: GoogleFonts.inter(
+                                      fontSize: 13.sp,
+                                      fontWeight: FontWeight.w600,
+                                      color: LightAppTheme.primary2),
+                                )),
+                              ))
+                          : GestureDetector(
+                              onTap: () {
+
+                                controller.animateToPage(0, duration: Duration(milliseconds: 300), curve: Curves.linear);
+
+                              },
+                              child: SizedBox(
+                                  height: 40.34.h,
+                                  width: 150.w,
                                   child: Center(
                                       child: Text(
                                     'Register',
                                     style: GoogleFonts.inter(
                                         fontSize: 13.sp,
-                                        fontWeight: FontWeight.w600,
-                                        color: LightAppTheme.primary2),
-                                  )),
-                                ))
-                            : GestureDetector(
-                                onTap: () {
-
-                                  controller.animateToPage(0, duration: Duration(milliseconds: 300), curve: Curves.linear);
-
-                                },
-                                child: SizedBox(
-                                    height: 40.34.h,
-                                    width: 150.w,
-                                    child: Center(
-                                        child: Text(
-                                      'Register',
-                                      style: GoogleFonts.inter(
-                                          fontSize: 13.sp,
-                                          fontWeight: FontWeight.w400,
-                                          color: LightAppTheme.grey),
-                                    )))),
-                        index == 1
-                            ? SizedBox(
-                                height: 35.34.h,
-                                width: 150.w,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      boxShadow: const [
-                                        BoxShadow(
-                                          offset: Offset(0, 13),
-                                          blurRadius: 25,
-                                          color: Color.fromARGB(14, 14, 14, 0),
-                                        ),
-                                      ],
-                                      color: LightAppTheme.white,
-                                      borderRadius:
-                                      BorderRadius.circular(17)
-                                  ),
+                                        fontWeight: FontWeight.w400,
+                                        color: LightAppTheme.grey),
+                                  )))),
+                      index == 1
+                          ? SizedBox(
+                              height: 35.34.h,
+                              width: 150.w,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    boxShadow: const [
+                                      BoxShadow(
+                                        offset: Offset(0, 13),
+                                        blurRadius: 25,
+                                        color: Color.fromARGB(14, 14, 14, 0),
+                                      ),
+                                    ],
+                                    color: LightAppTheme.white,
+                                    borderRadius:
+                                    BorderRadius.circular(17)
+                                ),
+                                child: Center(
+                                    child: Text(
+                                  'Login',
+                                  style: GoogleFonts.inter(
+                                      fontSize: 13.sp,
+                                      fontWeight: FontWeight.w600,
+                                      color: LightAppTheme.primary2),
+                                )),
+                              ))
+                          : GestureDetector(
+                              onTap: () {
+                                print('hherr');
+                                controller.animateToPage(1, duration: Duration(milliseconds: 300), curve: Curves.linear);
+                              },
+                              child: SizedBox(
+                                  height: 44.34.h,
+                                  width: 150.w,
                                   child: Center(
                                       child: Text(
                                     'Login',
                                     style: GoogleFonts.inter(
                                         fontSize: 13.sp,
-                                        fontWeight: FontWeight.w600,
-                                        color: LightAppTheme.primary2),
-                                  )),
-                                ))
-                            : GestureDetector(
-                                onTap: () {
-                                  print('hherr');
-                                  controller.animateToPage(1, duration: Duration(milliseconds: 300), curve: Curves.linear);
-                                },
-                                child: SizedBox(
-                                    height: 44.34.h,
-                                    width: 150.w,
-                                    child: Center(
-                                        child: Text(
-                                      'Login',
-                                      style: GoogleFonts.inter(
-                                          fontSize: 13.sp,
-                                          fontWeight: FontWeight.w400,
-                                          color: LightAppTheme.grey),
-                                    ))))
-                      ],
-                    ),
+                                        fontWeight: FontWeight.w400,
+                                        color: LightAppTheme.grey),
+                                  ))))
+                    ],
                   ),
                 ),
               ),
-              Expanded(
-                child: PageView(
-                  controller: controller,
-                  onPageChanged: (value){
-                    print(value);
-                    setState(() {
-                      index = value;
-                    });
-                    if(value == 2){
-                      print('here');
-                    }
-                  },
-                  children: [
-                    RegisterFields() , LoginFields()
-                  ],
-                ),
+            ),
+            Expanded(
+              child: PageView(
+                controller: controller,
+                onPageChanged: (value){
+                  print(value);
+                  setState(() {
+                    index = value;
+                  });
+                  if(value == 2){
+                    print('here');
+                  }
+                },
+                children: [
+                  RegisterFields() , LoginFields()
+                ],
               ),
-              //authController.currentIndex == 0 ?
-            ],
-          )),
-    );
+            ),
+            //authController.currentIndex == 0 ?
+          ],
+        ));
   }
 }
 

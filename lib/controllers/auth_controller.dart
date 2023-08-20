@@ -12,6 +12,7 @@ import 'package:rccg_app/views/authentication/forgot_password.dart';
 import 'package:http/http.dart' as http;
 import '../views/authentication/verify_email.dart';
 import '../views/base/base.dart';
+import '../views/base/home.dart';
 import 'central_controller.dart';
 
 class AuthController extends ChangeNotifier {
@@ -71,20 +72,31 @@ class AuthController extends ChangeNotifier {
       final googleAuth = await googleUser!.authentication;
       final credential = GoogleAuthProvider.credential(
           accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
-      await FirebaseAuth.instance.signInWithCredential(credential);
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+      UserModel userModel =UserModel(
+          email: signInUser.email.trim(),
+          firstName: signInUser.displayName!.trim(),
+          //lastName: signInUser.displayName![1]!.trim(),
+          userId:userCredential.user?.uid ,
+
+          createdAt: DateTime.now()
+      );
+      bool addUserToDb =await AuthService.createUser(userModel);
       notifyListeners();
       googleLoad = false;
       notifyListeners();
+      await userController.init();
+      Navigator.pushNamedAndRemoveUntil(
+          centralState!.navigatorKey.currentContext!,
+          Home.route,
+              (route) => false);
     } catch (e) {
       googleLoad = false;
       notifyListeners();
       print(e.toString());
     }
 
-    Navigator.pushNamedAndRemoveUntil(
-        centralState!.navigatorKey.currentContext!,
-        Base.route,
-        (route) => false);
+
   }
 
   Future sendEmailVerificationLink() async {
