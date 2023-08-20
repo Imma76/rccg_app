@@ -70,6 +70,9 @@ class LightAppTheme {
   static const Color darkBrown = Color(0xffDBAD7A);
   static const Color grey10  = Color(0xff858585);
   static const grey11 = Color(0xff555555);
+  static const bg1 = Color(0xff352A5D);
+  static const bg2 = Color(0xff390c2c);
+  static const bg3 = Color(0xff2e2f67);
   static const Color transparent = Colors.transparent;
 
 

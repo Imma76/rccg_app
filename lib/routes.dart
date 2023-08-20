@@ -23,6 +23,7 @@ import 'package:rccg_app/views/onboarding/onboarding1.dart';
 import 'package:rccg_app/views/onboarding/welcome_page.dart';
 import 'package:rccg_app/views/programs/movies.dart';
 import 'package:rccg_app/views/programs/rccg_program.dart';
+import 'package:rccg_app/views/refresh/daily_refresh.dart';
 import 'package:rccg_app/views/watch_programs/watch_church_programs.dart';
 import 'package:rccg_app/views/watch_programs/watch_movies.dart';
 
@@ -49,5 +50,6 @@ final Map<String, WidgetBuilder> routes = {
   ReadHymns.route:(context)=>ReadHymns(),
   ViewEvents.route:(context)=>ViewEvents(),
   Home.route:(context)=>Home(),
-  SuiteDetails.route:(context)=> SuiteDetails()
+  SuiteDetails.route:(context)=> SuiteDetails(),
+  DailyRefresh.route:(context)=>DailyRefresh()
 };

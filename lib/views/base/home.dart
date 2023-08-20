@@ -34,6 +34,7 @@ import '../charlet/charlets.dart';
 import '../events/events.dart';
 import '../hymns/hymns.dart';
 import '../programs/rccg_program.dart';
+import '../refresh/daily_refresh.dart';
 import '../watch_programs/watch_church_programs.dart';
 import '../watch_programs/watch_movies.dart';
 
@@ -448,15 +449,21 @@ class _HomeState extends ConsumerState<Home> {
                         Gap(6.h),
                         Row(
                           children: [
-                            Container(
-                              height:32.h, width: 103.w,
-                              decoration: BoxDecoration(color:LightAppTheme.lightPurple2, borderRadius:BorderRadius.circular(31)),
-                              child: Center(
-                                child: Text('View More',
-                                    style: GoogleFonts.inter(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 14.sp,
-                                        color: LightAppTheme.primaryColor)),
+                            GestureDetector(
+                              onTap:(){
+              Navigator.pushNamed(
+              context, DailyRefresh.route);
+              },
+                              child: Container(
+                                height:32.h, width: 103.w,
+                                decoration: BoxDecoration(color:LightAppTheme.lightPurple2, borderRadius:BorderRadius.circular(31)),
+                                child: Center(
+                                  child: Text('View More',
+                                      style: GoogleFonts.inter(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 14.sp,
+                                          color: LightAppTheme.primaryColor)),
+                                ),
                               ),
                             ),
                             Gap(57.w),
@@ -1165,7 +1172,7 @@ class _HomeState extends ConsumerState<Home> {
                                 style: GoogleFonts.inter(
                                     fontWeight: FontWeight.w500,
                                     fontSize: 16.sp,
-                                    color: LightAppTheme.neutralDark))),
+                                    color: LightAppTheme.primaryColor))),
                         Gap(6.h),
                         Row(
                           children: [
@@ -1182,7 +1189,9 @@ class _HomeState extends ConsumerState<Home> {
                         Gap(10.h),
                       ],
                     ),
-                    Icon(Icons.arrow_forward_ios_rounded, size: 14,color:LightAppTheme.grey9)
+                    Spacer(),
+
+                    Icon(Icons.arrow_forward_ios_rounded, size: 19,color:LightAppTheme.grey9),  Gap(10.h),
                   ],
                 ),
               ),

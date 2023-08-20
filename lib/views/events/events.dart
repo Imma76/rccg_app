@@ -70,12 +70,12 @@ class RccgEvents extends ConsumerWidget {
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                     child: Container(
                     decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                    height: 367.h,
+                    height: 405.h,
                     width: double.infinity,
                     child:     Padding(
                             padding: EdgeInsets.only(left: 20.w, right: 20.h),
                             child: SizedBox(
-                              height: 400.h,
+                              //height: 400.h,
                               width: double.infinity,
                               //   color: AppTheme.lightGreen,
                               child: Column(
