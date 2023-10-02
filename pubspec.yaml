@@ -81,6 +81,7 @@ dependencies:
   email_auth:
 
   firebase_auth:
+
   firebase_core:
   flutter_launcher_icons:
   flutter_native_splash:
@@ -98,6 +99,12 @@ dependencies:
   cupertino_icons: ^1.0.2
   table_calendar: ^3.0.9
 
+
+flutter_icons:
+
+  android: true
+  ios: true
+  image_path: "assets/app_logo.png"
 dev_dependencies:
 
   flutter_test:

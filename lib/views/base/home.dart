@@ -55,12 +55,12 @@ class _HomeState extends ConsumerState<Home> {
     super.initState();
     ref.read(homeProvider);
     final programController = ref.read(programProvider);
-    // Future(() {
-    //    programController.getRccgProgramChannelInfo();
-    // });
-    // Future(() {
-    //    programController.loadMovieVideos();
-    // });
+    Future(() {
+       programController.getRccgProgramChannelInfo();
+    });
+    Future(() {
+       programController.loadMovieVideos();
+    });
   }
 
   PageController controller = PageController();
